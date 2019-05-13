@@ -1,0 +1,99 @@
+Location_type
+Bus access
+Train access
+Overpass presence
+Pedestrian bridge presence
+School presence
+Intersection type
+Number of driverways
+Distance to adjacent intersection (within 500 meter)
+Longest Width of intersection
+Shortest Width of intersection
+Radius of arm (1) and arm (2)
+Radius of arm (2) and arm (3)
+Radius of arm (3) and arm (4)
+Radius of arm (4) and arm (5)
+Radius of arm (5) and arm (6)
+Radius of arm (6) and arm (7)
+Number of arms
+Road type for each arm
+Number of lanes for each arm
+No. of lanes changed at the approach
+Left turn_only lane for each arm
+Right turn_only lane for each arm
+Width of Pysical Median of each arm if exist
+Width of central strip of each arm if exist
+Pedestrian and bicycle crossing roadway type
+Skewness level of target arm to the next arm
+Sidewalk
+type_First Side Sidewalk
+type_Second_Side
+Traffic signal contral type
+Presence of pedestrian traffic signal
+Road type for each arm
+Number of lanes for each arm
+No. of lanes changed at the approach
+Left turn_only lane for each arm
+Right turn_only lane for each arm
+Width of Pysical Median of each arm if exist
+Width of central strip of each arm if exist
+Pedestrian and bicycle crossing roadway type
+Skewness level of target arm to the next arm
+Sidewalk
+type_First Side Sidewalk
+type_Second_Side
+Traffic signal contral type
+Presence of pedestrian traffic signal
+Road type for each arm
+Number of lanes for each arm
+No. of lanes changed at the approach
+Left turn_only lane for each arm
+Right turn_only lane for each arm
+Width of Pysical Median of each arm if exist
+Width of central strip of each arm if exist
+Pedestrian and bicycle crossing roadway type
+Skewness level of target arm to the next arm
+Sidewalk
+type_First Side Sidewalk
+type_Second_Side
+Traffic signal contral type
+Presence of pedestrian traffic signal
+Road type for each arm
+Number of lanes for each arm
+No. of lanes changed at the approach
+Left turn_only lane for each arm
+Right turn_only lane for each arm
+Width of Pysical Median of each arm if exist
+Width of central strip of each arm if exist
+Pedestrian and bicycle crossing roadway type
+Skewness level of target arm to the next arm
+Sidewalk
+type_First Side Sidewalk
+type_Second_Side
+Traffic signal contral type
+Presence of pedestrian traffic signal
+Road type for each arm
+Number of lanes for each arm
+No. of lanes changed at the approach
+Left turn_only lane for each arm
+Right turn_only lane for each arm
+Width of Pysical Median of each arm if exist
+Width of central strip of each arm if exist
+Pedestrian and bicycle crossing
+roadway type
+Skewness level of target arm to the next arm
+Sidewalk
+type_First Side Sidewalk type_Second_Side
+Traffic signal contral type Presence of pedestrian traffic signal
+Road type for each arm  Number of lanes for each arm
+No. of lanes changed at the approach
+Left turn_only lane for each arm
+Right turn_only lane for each arm
+Width of Pysical Median of each arm if exist
+Width of central strip of each arm if exist
+Pedestrian and bicycle crossing roadway type
+Skewness level of target arm to the next arm
+Sidewalk
+type_First Side Sidewalk type_Second_Side
+Traffic signal contral type
+Presence of pedestrian traffic signal
