@@ -20,9 +20,8 @@ inner_joint_Int.to_excel(Current_Path + "/Toyota_Survey_Sheetfiles/3_Results_Cre
 # Step -2- Here we will add more variables
 Classify all the variable based on the characteristic of each arm.
 
-```v
-| First Header  | Second Header |
-| ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
-```
+| **Variable Name**  | **Status**   | **Information**
+| -------------      | -------------| -------------
+|  Intersection Type | Checked      | 12 variables here
+|                    |              |
+
