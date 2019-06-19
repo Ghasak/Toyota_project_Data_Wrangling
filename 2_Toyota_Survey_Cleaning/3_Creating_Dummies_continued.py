@@ -922,7 +922,7 @@ Final_DataSet.to_excel(Current_Path + "/Toyota_Survey_Sheetfiles/3_Results_Creat
 #       Functions that I used with my analysis
 # ===================================================
 
-def check_df(df,option):
+def check_df(df,option = None):
     if option == 1:
         for index,column in enumerate(df.columns):
             print(index,column)
