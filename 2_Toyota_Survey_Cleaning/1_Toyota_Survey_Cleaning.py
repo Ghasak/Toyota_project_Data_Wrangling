@@ -96,10 +96,12 @@ SurveySheet_IntID_7 = pd.read_excel(Current_Path
                                     sheet_name="Survey_Plan_431_482_Int")
 
 
-frames = [SurveySheet_IntID_1, SurveySheet_IntID_2, SurveySheet_IntID_3, SurveySheet_IntID_4, SurveySheet_IntID_5, SurveySheet_IntID_6, SurveySheet_IntID_7]
+frames = [SurveySheet_IntID_1, SurveySheet_IntID_2, SurveySheet_IntID_3,
+          SurveySheet_IntID_4, SurveySheet_IntID_5, SurveySheet_IntID_6, SurveySheet_IntID_7]
 
 Int_Survey_DataSet = pd.concat(frames)
-Int_Survey_DataSet['Pedestrian_and_bicycle_crossing_roadway_type'].value_counts(normalize=True)
+Int_Survey_DataSet['Pedestrian_and_bicycle_crossing_roadway_type'].value_counts(
+    normalize=True)
 
 """
 =========================================================
@@ -116,13 +118,15 @@ Int_Survey_DataSet['Pedestrian_and_bicycle_crossing_roadway_type'].value_counts(
 #num_cols = Int_Survey_DataSet._get_numeric_data().columns
 #num_cols = Int_Survey_DataSet.select_dtypes(include=['category'])
 # Int_Survey_DataSet.select_dtypes(exclude=['int', 'float']).columns
-cat_col = [c for i, c in enumerate(Int_Survey_DataSet.columns) if Int_Survey_DataSet.dtypes[i] in [np.object]]
+cat_col = [c for i, c in enumerate(
+    Int_Survey_DataSet.columns) if Int_Survey_DataSet.dtypes[i] in [np.object]]
 
 num_cols = [key for key in dict(Int_Survey_DataSet.dtypes)
             if dict(Int_Survey_DataSet.dtypes)[key] in ['object']]  # Categorical Varible
 
 for colum in range(len(num_cols)):
-  print(Int_Survey_DataSet[f"{num_cols[colum]}"].value_counts(normalize=True))
+    print(Int_Survey_DataSet[f"{num_cols[colum]}"].value_counts(
+        normalize=True))
 # print(colum)
 # ==================================================#
 #           Descriptive Statistic in Panda
@@ -189,7 +193,8 @@ Original_IntID = pd.read_excel(Current_Path
                                sheet_name="Pivot_table1")
 # key = FilterLess35
 #results = pd.merge(Original_IntID, Int_Survey_DataSet, how='left', left_on='FilterLess35', right_on='Intersection_ID ')
-left_joint_Int = Original_IntID.merge(Int_Survey_DataSet, how='left', left_on='FilterLess35', right_on='Intersection_ID ')
+left_joint_Int = Original_IntID.merge(
+    Int_Survey_DataSet, how='left', left_on='FilterLess35', right_on='Intersection_ID ')
 # Remove white spaces from both ending of the string.
 left_joint_Int.columns = left_joint_Int.columns.str.strip()
 
@@ -211,8 +216,13 @@ outer_joint_Int.columns = outer_joint_Int.columns.str.strip()
 # ==================================================#
 #                Printing left_joint_Ints
 # ==================================================#
-left_joint_Int.to_excel(Current_Path + "/Toyota_Survey_Sheetfiles/1_Cleaning_Data_set/Results/left_joint_Int.xlsx", sheet_name="left_joint_Int")
-inner_joint_Int.to_excel(Current_Path + "/Toyota_Survey_Sheetfiles/1_Cleaning_Data_set/Results/inner_joint_Int.xlsx", sheet_name="inner_joint_Int")
-outer_joint_Int.to_excel(Current_Path + "/Toyota_Survey_Sheetfiles/1_Cleaning_Data_set/Results/outer_joint_Int.xlsx", sheet_name="outer_joint_Int")
+left_joint_Int.to_excel(
+    Current_Path + "/Toyota_Survey_Sheetfiles/1_Cleaning_Data_set/Results/left_joint_Int.xlsx", sheet_name="left_joint_Int")
+inner_joint_Int.to_excel(
+    Current_Path + "/Toyota_Survey_Sheetfiles/1_Cleaning_Data_set/Results/inner_joint_Int.xlsx", sheet_name="inner_joint_Int")
+outer_joint_Int.to_excel(
+    Current_Path + "/Toyota_Survey_Sheetfiles/1_Cleaning_Data_set/Results/outer_joint_Int.xlsx", sheet_name="outer_joint_Int")
 
-Int_Survey_DataSet.to_excel(Current_Path + "/Toyota_Survey_Sheetfiles/1_Cleaning_Data_set/Data_Fusion/Int_Survey_dataSet_Combined.xlsx", sheet_name="Int_Survey_dataSet_Combined")
+
+Int_Survey_DataSet.to_excel(
+    Current_Path + "/Toyota_Survey_Sheetfiles/1_Cleaning_Data_set/Data_Fusion/Int_Survey_dataSet_Combined.xlsx", sheet_name="Int_Survey_dataSet_Combined")
