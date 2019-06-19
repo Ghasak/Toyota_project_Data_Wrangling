@@ -8,7 +8,7 @@
     - We will create dummies using the pandas package to
         make all categorical variables dummies.
     - We will remove the non-necessary columns/variables
-        from our Survey dataset as we dont need them
+        from our Survey dataset as we don't need them
     -
 """
 # ==================================================#
@@ -224,7 +224,7 @@ Number_of_arms_Table.columns = Number_of_arms_Table.columns.str.replace(' |-', '
 inner_joint_Int["Road_type_for_first_arm"].isnull().sum()
 inner_joint_Int["Road_type_for_first_arm"].isnull().values.any()
 # Replace the Missing values using: df[1].fillna(0, inplace=True)
-# Start with the intersection Type cateogrical variable
+# Start with the intersection Type categorical variable
 Road_type_for_first_arm_Table = pd.get_dummies(inner_joint_Int["Road_type_for_first_arm"], prefix="Arm1_RoadType")
 # We will clean the column names to not have spaces
 Road_type_for_first_arm_Table.columns = Road_type_for_first_arm_Table.columns.str.strip()
@@ -870,6 +870,66 @@ right_turn_only_lane_for_fourth_arm_Table.columns = right_turn_only_lane_for_fou
 
 
 # ==================================================#
-#                Export the Final Results
+#          Preparation to exprot the results
 # ==================================================#
-inner_joint_Int.to_excel(Current_Path + "/Toyota_Survey_Sheetfiles/3_Results_Creating_dummies_cont/inner_joint_Int_Create_D2.xlsx", sheet_name="inner_joint_Int_Create_D2")
+
+# Append all our finding so far in our final dataset
+# Crash total count and age based Data
+# ==============================================================================
+'''
+    df is the original dataset that we have from our firs survey with -U sensei,
+        which contian all information regrading the crash drivers,speed,..etc.
+        which started after the column number 42
+'''
+# ==============================================================================
+# That was my mistake which copy only a reference to the original dataframe df = inner_joint_Int
+df = inner_joint_Int.copy(deep = True)
+df.drop(df.columns[42:len(df.columns)],axis=1, inplace =True)
+# ==============================================================================
+'''
+    Step -1- Adding the Intersection Type Dummy variables. and remove the
+                categorical variable "Intersection_type"
+'''
+df = df.join(Inters_type_Table)
+#df.drop(["Intersection_type"], axis=1)
+# ==============================================================================
+'''
+    Step -2- Number of driveways
+'''
+df = df.join(inner_joint_Int["Number_of_driverways"])
+# ==============================================================================
+'''
+    Step -3- Distance to adjacent intersection within 500 meter.
+'''
+df = df.join(inner_joint_Int["Distance_to_adjacent_intersection_within_500_meter"])
+# ==============================================================================
+'''
+    Step -4- Longest width of intersection
+'''
+df = df.join(inner_joint_Int["Longest_Width_of_intersection"])
+# ==============================================================================
+
+
+
+# ==================================================#
+#           Export the Final Results
+# ==================================================#
+Final_DataSet = df
+Final_DataSet.to_excel(Current_Path + "/Toyota_Survey_Sheetfiles/3_Results_Creating_dummies_cont/Final_DataSet.xlsx", sheet_name="Final_Dataset")
+
+
+# ===================================================
+#       Functions that I used with my analysis
+# ===================================================
+
+def check_df(df,option):
+    if option == 1:
+        for index,column in enumerate(df.columns):
+            print(index,column)
+    elif option==2:
+        print(df.describe().T)
+    else:
+        for index,column in enumerate(df.columns):
+            print(index,column)
+        print(50*'-')
+        print(df.describe().T)
