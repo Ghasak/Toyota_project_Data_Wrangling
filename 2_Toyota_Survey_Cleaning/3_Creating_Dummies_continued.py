@@ -864,11 +864,9 @@ right_turn_only_lane_for_fourth_arm_Table.columns = right_turn_only_lane_for_fou
 
 # # ================ Template =================V0==========
 # # =======================================================
-# # Things to do: you need to drope the columns that you dont use.
+# # Things to do: you need to drop the columns that you don't use.
 # # inner_joint_Int.join(Sidewalk_type_First_Side_first_arm_Table)
 # # You need to add a prefix to each arm variable to clarify.
-
-
 # ==================================================#
 #          Preparation to exprot the results
 # ==================================================#
@@ -911,12 +909,21 @@ df = df.join(inner_joint_Int["Longest_Width_of_intersection"])
 
 
 
+
+
+
+
+
+
+
+
+
+
 # ==================================================#
 #           Export the Final Results
 # ==================================================#
 Final_DataSet = df
 Final_DataSet.to_excel(Current_Path + "/Toyota_Survey_Sheetfiles/3_Results_Creating_dummies_cont/Final_DataSet.xlsx", sheet_name="Final_Dataset")
-
 
 # ===================================================
 #       Functions that I used with my analysis
