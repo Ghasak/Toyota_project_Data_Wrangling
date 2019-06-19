@@ -25,3 +25,18 @@ Classify all the variable based on the characteristic of each arm.
 |  Intersection Type | Checked      | 12 variables here
 |                    |              |
 
+### NOTE
+In Pandas (pd), if you want to create a copy of a current database you can use
+
+```py
+df.copy(deep=TRUE)
+```
+this will insure to make a copy of your current dataframe, this is a solution to not use the following
+
+```py
+df = df_original
+```
+which is a reference to your original data frame.
+and if you use **inplace =TRUE** it will change both of them. Thus we will use a copy. See here details
+https://stackoverflow.com/questions/40661930/make-a-copy-of-dataframe-inside-function-without-changing-original/40661986
+
