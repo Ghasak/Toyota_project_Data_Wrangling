@@ -50,7 +50,7 @@ inner_joint_Int.columns.get_loc("Road_type_larger_than_four_arms")
 #     inner_joint_Int[list_Col_Names[Selected_Column + i]] = inner_joint_Int[list_Col_Names[Selected_Column + i]] + inner_joint_Int[list_Col_Names[Selected_Column + i + shift]]
 #     # print(column)
 
-# This above is working very good, but we will do it mannually in Excel for better control.
+# This above is working very good, but we will do it manually in Excel for better control.
 
 inner_joint_Int["Road_type_larger_than_four"] = inner_joint_Int["Road_type_for_fifth_arm"] + inner_joint_Int["Road_type_for_sixth_arm"]
 
@@ -112,10 +112,7 @@ inner_joint_Int.columns = inner_joint_Int.columns.str.replace('\.', '')
 # Remove the (degree-sign) after each value you have so you can use later in Google-Earth.
 inner_joint_Int["Altitude"] = inner_joint_Int["Altitude"].str.replace('°', '')
 inner_joint_Int["Longitute"] = inner_joint_Int["Longitute"].str.replace('°', '')
-# ==================================================#
-#                Export the Results
-# ==================================================#
-inner_joint_Int.to_excel(Current_Path + "/Toyota_Survey_Sheetfiles/2_Results_Creating_dummies/inner_joint_Int_Create_D.xlsx", sheet_name="inner_joint_Int_Create_D")
+
 """
 =========================================================
             Creating the Dummies Variables
@@ -162,7 +159,7 @@ Inters_type_Table.columns = Inters_type_Table.columns.str.strip()
 Inters_type_Table.columns = Inters_type_Table.columns.str.replace(' |-', '_')
 # Remove the (+) from Cross_intersection column name:
 Inters_type_Table.rename(columns={'Cross_intersection(十)': 'Cross_intersection'}, inplace=True)
-# Verfiy the Table output in two ways:
+# Verify the Table output in two ways:
 Inters_type_Table.describe().T
 Inters_type_Table["Cross_intersection"].value_counts(normalize=True)
 # ===================================================
@@ -254,7 +251,7 @@ inner_joint_Int["Number_of_lanes_for_first_arm"] = list1
 a1 = "23-K11790-000"  # ; inner_joint_Int.loc["23-K11790-000","Number_of_lanes_for_first_arm"]
 a2 = "23-K11893-000"  # ; inner_joint_Int.loc["23-K11893-000","Number_of_lanes_for_first_arm"]
 a3 = "23-K11928-000"  # ; inner_joint_Int.loc["23-K11928-000","Number_of_lanes_for_first_arm"]
-print(f"The affected intesections \n\t For the variable Number_of_lanes_for_first_arm are:  {a1}, {a2} and {a3}")
+print(f"The affected intersections \n\t For the variable Number_of_lanes_for_first_arm are:  {a1}, {a2} and {a3}")
 # =======================================================
 # ======== No._of_lanes_changed_at_the_approach ===V10===
 # =======================================================
@@ -870,3 +867,9 @@ right_turn_only_lane_for_fourth_arm_Table.columns = right_turn_only_lane_for_fou
 # # Things to do: you need to drope the columns that you dont use.
 # # inner_joint_Int.join(Sidewalk_type_First_Side_first_arm_Table)
 # # You need to add a prefix to each arm variable to clarify.
+
+
+# ==================================================#
+#                Export the Final Results
+# ==================================================#
+inner_joint_Int.to_excel(Current_Path + "/Toyota_Survey_Sheetfiles/3_Results_Creating_dummies_cont/inner_joint_Int_Create_D2.xlsx", sheet_name="inner_joint_Int_Create_D2")
