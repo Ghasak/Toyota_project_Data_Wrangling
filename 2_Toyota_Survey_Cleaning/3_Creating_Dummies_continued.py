@@ -420,7 +420,7 @@ for row in range(len(inner_joint_Int["Number_of_lanes_for_second_arm"])):
         listy.append(inner_joint_Int.index[row])
 ##############################################################################
 # This variable is should nominal (integer) but there is text in the colum that I will remove
-# The text is "6 or more" will be replaced by 6 arms to reflect high numers.
+# The text is "6 or more" will be replaced by 6 arms to reflect high numbers.
 list1 = []
 #inner_joint_Int["Number_of_lanes_for_second_arm"] = inner_joint_Int["Number_of_lanes_for_second_arm"].str.strip()
 for i in inner_joint_Int["Number_of_lanes_for_second_arm"]:
@@ -906,11 +906,32 @@ df = df.join(inner_joint_Int["Distance_to_adjacent_intersection_within_500_meter
 '''
 df = df.join(inner_joint_Int["Longest_Width_of_intersection"])
 # ==============================================================================
-
-
-
-
-
+'''
+    Step -5- Shortest width of intersection
+'''
+df = df.join(inner_joint_Int["Shortest_Width_of_intersection"])
+# ==============================================================================
+'''
+    Step -6- Radius of between arms
+'''
+# There are 6 radiuses available in the dataframe whichare:
+for column in range(len(List_Radius)):
+    print(List_Radius)
+    df = df.join(inner_joint_Int[List_Radius[column]])
+# ==============================================================================
+'''
+    Step -7- Number of arms of the selected intersection
+'''
+# There are 6 radiuses available in the dataframe whichare:
+df = df.join(Number_of_arms_Table)
+# ==============================================================================
+'''
+    Variables for each arm - first arm
+    Step -8- Road type for first arm - first arm.
+'''
+# There are 6 radiuses available in the dataframe whichare:
+df = df.join(Road_type_for_first_arm_Table)
+# ==============================================================================
 
 
 
