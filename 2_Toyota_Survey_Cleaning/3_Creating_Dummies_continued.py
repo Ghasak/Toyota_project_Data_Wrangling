@@ -859,7 +859,7 @@ right_turn_only_lane_for_fourth_arm_Table.columns = right_turn_only_lane_for_fou
 # # # =============== Presence_of_pedestrian_traffic_signal2 ====V44====
 # # # =======================================================
 # inner_joint_Int["Presence_of_pedestrian_traffic_signal2"].isnull().sum()
-# # Chaging the Categorical Variable to the following:
+# # Changing the Categorical Variable to the following:
 # inner_joint_Int['Presence_of_pedestrian_traffic_signal2'] = 1 * (inner_joint_Int["Presence_of_pedestrian_traffic_signal2"] == "Exist")
 
 # # ================ Template =================V0==========
@@ -925,6 +925,8 @@ for column in range(len(List_Radius)):
 # There are 6 radiuses available in the dataframe whichare:
 df = df.join(Number_of_arms_Table)
 # ==============================================================================
+# ###################################################
+# ###################################################
 '''
     Variables for each arm - first arm
     Step -8- Road type for first arm - first arm.
@@ -932,6 +934,50 @@ df = df.join(Number_of_arms_Table)
 # There are 6 radiuses available in the dataframe whichare:
 df = df.join(Road_type_for_first_arm_Table)
 # ==============================================================================
+'''
+    Step -9- Number of lanes for first arm
+'''
+# There are 6 radiuses available in the dataframe whichare:
+df = df.join(inner_joint_Int["Number_of_lanes_for_first_arm"])
+# ==============================================================================
+'''
+    Step -10- No. of lanes changed at the approach - dummy
+'''
+# There are 6 radiuses available in the dataframe whichare:
+df = df.join(inner_joint_Int["Arm1_No_of_lanes_changed_at_the_approach"])
+# ==============================================================================
+'''
+    Step -11- Left turn only lane for first arm
+'''
+# There are 6 radiuses available in the dataframe whichare:
+df = df.join(inner_joint_Int["Left_turn_only_lane_for_first_arm"])
+# ==============================================================================
+'''
+    Step -12- Right turn only lane for first arm
+'''
+# There are 6 radiuses available in the dataframe whichare:
+df = df.join(inner_joint_Int["Right_turn_only_lane_for_first_arm"])
+# ==============================================================================
+'''
+    Step -13- Width of physical median of first arm
+'''
+# There are 6 radiuses available in the dataframe whichare:
+# df = df.merge(Is_there_Physical_Median_first_arm.to_frame(), left_index=True, right_index=True)
+# df = df.join(Is_there_Physical_Median_first_arm) This one is not working to join panda series with pandas dataframe. The above solution works only with V0.24.0 onwards, check using print(pd.__version__)
+# Update it is working but not give a name for the column, so I need to coverate the series to a
+# DataFrame object in panda.
+df1 = pd.DataFrame(Is_there_Physical_Median_first_arm.rename("Is_there_Physical_Median_first_arm"))
+df = df.join(df1)
+# ==============================================================================
+'''
+    Step -14- Width of central strip of first arm dummy
+'''
+df2 = pd.DataFrame(Is_there_centeral_strip_first_arm.rename("Is_there_centeral_strip_first_arm"))
+df = df.join(df2)
+# ==============================================================================
+
+
+
 
 
 
@@ -944,8 +990,10 @@ df = df.join(Road_type_for_first_arm_Table)
 #           Export the Final Results
 # ==================================================#
 Final_DataSet = df
-Final_DataSet.to_excel(Current_Path + "/Toyota_Survey_Sheetfiles/3_Results_Creating_dummies_cont/Final_DataSet.xlsx", sheet_name="Final_Dataset")
-
+# ---- Export as a xlsx file --------
+# Final_DataSet.to_excel(Current_Path + "/Toyota_Survey_Sheetfiles/3_Results_Creating_dummies_cont/Final_DataSet.xlsx", sheet_name="Final_Dataset")
+# ---- Export as a csv file --------
+# Final_DataSet.to_csv(Current_Path + "/Toyota_Survey_Sheetfiles/3_Results_Creating_dummies_cont/Final_DataSet.csv", index = True)
 # ===================================================
 #       Functions that I used with my analysis
 # ===================================================
