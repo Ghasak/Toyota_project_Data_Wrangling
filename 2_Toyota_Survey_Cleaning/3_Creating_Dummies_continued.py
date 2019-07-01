@@ -134,10 +134,28 @@ inner_joint_Int["Longitute"] = inner_joint_Int["Longitute"].str.replace('°', ''
             This method will take the "column" converate it to dummies which are same as
             the categories of columns and store them in a mini pandas table "List_of_Dummies"
         [4] df = df.join(List_of_Dummies)
-            this has to accombine the get_dummies method in pandas to append the list of new
+            this has to combine the get_dummies method in pandas to append the list of new
             dummies (columns) to our existed dataframe (df)
         [5]
 """
+# ==================================================#
+#       Find Duplicates in the index of our
+#           DataFrame, this will affect the
+#           methods of (merge, join..etc)
+#           The functions here are located
+#           in the End of this script file
+# ==================================================#
+print(100 *"-")
+print(30*" ","Check if we have duplicates",10*" ")
+print(100 *"-")
+# These two methods are used to check for duplicates
+# Both are same functionality
+find_duplicates()
+find_duplicates_with_pandas()
+# Now we will add a counter to each intersection that
+# is duplicated.
+change_to_unique_Data_frame(inner_joint_Int)
+
 # ==================================================#
 #       Change Categorical Variables to Dummies
 # ==================================================#
@@ -151,7 +169,7 @@ inner_joint_Int["Longitute"] = inner_joint_Int["Longitute"].str.replace('°', ''
 inner_joint_Int["Intersection_type"].isnull().sum()
 inner_joint_Int["Intersection_type"].isnull().values.any()
 # Replace the Missing values using: df[1].fillna(0, inplace=True)
-# Start with the intersection Type cateogrical variable
+# Start with the intersection Type categorical variable
 Inters_type_Table = pd.get_dummies(inner_joint_Int["Intersection_type"])
 # We will clean the column names to not have spaces
 Inters_type_Table.columns = Inters_type_Table.columns.str.strip()
@@ -890,6 +908,7 @@ df.drop(df.columns[42:len(df.columns)],axis=1, inplace =True)
                 categorical variable "Intersection_type"
 '''
 #df.set_index('key_0',inplace=True)
+Inters_type_Table.index.name = 'Inter_section_ID'
 df = pd.merge(df,Inters_type_Table, how='inner',left_on= df.index.name,right_on= Inters_type_Table.index.name)
 #df = df.join(Inters_type_Table)
 #df.drop(["Intersection_type"], axis=1)
@@ -1016,13 +1035,60 @@ def check_df(df,option = None):
             print(index,column)
         print(50*'-')
         print(df.describe().T)
-
 # ===================================================
 #       Check if two columns fro two different
 #                   df are equal
 # ===================================================
-
 def compare_two_columns(column1,column2):
     if column1.any() == column2.any():
-        print("yes")
+        print(f"Yes {column1.name} and {column2.name} are equal")
+    else:
+        print(f"No {column1.name} and {column2.name} are not equal")
+
 # Such as: compare_two_columns(inner_joint_Int.index,Inters_type_Table.index)
+# ===================================================
+#       How to find Duplicate in a given column
+#         default case: inner_joint_Int.index
+# ===================================================
+def find_duplicates(df = inner_joint_Int.index):
+    list_non_duplicated = []
+    list_duplicated2 = []
+    location_of_duplicates = []
+    counter = 0
+    for i in range(len(df)):
+        if df[i] not in list_non_duplicated:
+            list_non_duplicated.append(df[i])
+        else:
+            list_duplicated2.append(df[i])
+            location_of_duplicates.append(i)
+            counter = counter + 1
+    for i in range(len(list_non_duplicated)):
+        print(list_non_duplicated[i])
+    print(list_duplicated2)
+    print(10*"-")
+    print(f"index of duplicates location \n {location_of_duplicates}")
+    print(10*"-")
+    print(f"No. of duplicated items = {counter}")
+    print(10*"-")
+
+
+def find_duplicates_with_pandas(col = inner_joint_Int.index):
+    # df.get_duplicates()   # is deprected
+    print(col[col.duplicated()])
+    # Or
+    print(col[col.duplicated()].unique())
+    # Or
+    #print(col.groupby(level=0).filter(lambda x: len(x) > 1)['type'])
+
+def change_to_unique_Data_frame(df):
+    '''
+        The solution here is used to ensure that all items in the
+        index should be unqiue and rename them if they are not
+        unique.
+        https://stackoverflow.com/questions/43095955/rename-duplicated-index-values-pandas-dataframe
+    '''
+    #df.index = df.index.where(~df.index.duplicated(), df.index + '_dp')
+    # If you want to remove of duplicated index to unique
+    # This method is better than the non-highlighted one as
+    # it return E1,E2,E3, as many as duplicates you have.
+    df.index = df.index + df.groupby(level=0).cumcount().astype(str).replace('0','')
