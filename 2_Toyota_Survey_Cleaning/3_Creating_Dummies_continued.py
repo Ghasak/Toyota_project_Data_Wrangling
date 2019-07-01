@@ -145,16 +145,19 @@ inner_joint_Int["Longitute"] = inner_joint_Int["Longitute"].str.replace('°', ''
 #           The functions here are located
 #           in the End of this script file
 # ==================================================#
+
+from Cleaning_tools_G import *
+
 print(100 *"-")
 print(30*" ","Check if we have duplicates",10*" ")
 print(100 *"-")
 # These two methods are used to check for duplicates
 # Both are same functionality
-find_duplicates()
-find_duplicates_with_pandas()
+find_duplicates(df = inner_joint_Int.index)
+find_duplicates_with_pandas(col = inner_joint_Int.index)
 # Now we will add a counter to each intersection that
 # is duplicated.
-change_to_unique_Data_frame(inner_joint_Int)
+change_to_unique_Data_frame(df = inner_joint_Int)
 
 # ==================================================#
 #       Change Categorical Variables to Dummies
@@ -330,7 +333,6 @@ list3 = []
 # any other objects: string or whatever (does not raise exceptions if encountered)
 # https://stackoverflow.com/questions/944700/how-can-i-check-for-nan-values
 
-
 def is_nan(x):
     return (x is np.nan or x != x)
 
@@ -400,7 +402,7 @@ Traffic_signal_contral_type_first_arm_Table.columns = Traffic_signal_contral_typ
 inner_joint_Int['Presence_of_pedestrian_traffic_signal'].isnull().sum()
 # Chaging the Categorical Variable to the following:
 inner_joint_Int['Presence_of_pedestrian_traffic_signal'] = 1 * (inner_joint_Int["Presence_of_pedestrian_traffic_signal"] == "Exist")
-
+inner_joint_Int.rename({'Presence_of_pedestrian_traffic_signal':'Arm1_Presence_of_pedestrian_traffic_signal'}, axis= 1,inplace =True)
 # =======================================================
 # ###################################################
 #        Second Arm
@@ -459,13 +461,15 @@ List_affected.append('23-K11900-000')
 List_affected.append('23-K11912-000')
 List_affected.append('23-K11913-000')
 print(f"The affected intesections \n\t For the variable Number_of_lanes_for_second_arm are:  {List_affected}")
-
+inner_joint_Int.rename({'Number_of_lanes_for_second_arm':'Arm2_Number_of_lanes_for_second_arm'}, axis= 1,inplace =True)
 # ================ No_of_lanes_changed_at_the_approach1 =================V23====
 
 # As we can see No. has already been replaced above to No_ using reqular expression
 inner_joint_Int["No_of_lanes_changed_at_the_approach1"].isnull().sum()
 # Converte a Dummy binary (text) -----> to (1/0)
 inner_joint_Int["No_of_lanes_changed_at_the_approach1"] = 1 * (inner_joint_Int["No_of_lanes_changed_at_the_approach1"] == "Yes (it has changed)")
+# Rename the variable by adding Arm2.
+inner_joint_Int.rename({'No_of_lanes_changed_at_the_approach1':'Arm2_No_of_lanes_changed_at_the_approach1'}, axis= 1,inplace =True)
 # =======================================================
 # ===== Left_turn_only_lane_for_second_arm ========V24====
 inner_joint_Int["Left_turn_only_lane_for_second_arm"].isnull().sum()
@@ -908,9 +912,9 @@ df.drop(df.columns[42:len(df.columns)],axis=1, inplace =True)
                 categorical variable "Intersection_type"
 '''
 #df.set_index('key_0',inplace=True)
-Inters_type_Table.index.name = 'Inter_section_ID'
-df = pd.merge(df,Inters_type_Table, how='inner',left_on= df.index.name,right_on= Inters_type_Table.index.name)
-#df = df.join(Inters_type_Table)
+# Inters_type_Table.index.name = 'Inter_section_ID'
+# df = pd.merge(df,Inters_type_Table, how='inner',left_on= df.index.name,right_on= Inters_type_Table.index.name)
+df = df.join(Inters_type_Table)
 #df.drop(["Intersection_type"], axis=1)
 # ==============================================================================
 '''
@@ -948,6 +952,7 @@ for column in range(len(List_Radius)):
 df = df.join(Number_of_arms_Table)
 # ==============================================================================
 # ###################################################
+#         First Arm - Variables (13 variables)
 # ###################################################
 '''
     Variables for each arm - first arm
@@ -997,8 +1002,61 @@ df = df.join(df1)
 df2 = pd.DataFrame(Is_there_centeral_strip_first_arm.rename("Is_there_centeral_strip_first_arm"))
 df = df.join(df2)
 # ==============================================================================
+'''
+    Step -15- Pedestrain and bicycle first arm table
+'''
+df = df.join(Pedestrian_and_bicycle_first_arm_Table)
+# ==============================================================================
+'''
+    Step -16- Skewness level of first arm to the next arm
+'''
+df = df.join(Is_there_centeral_Skewness_arm_one_two)
+# ==============================================================================
+'''
+    Step -17- Sidewalk type first side at first arm
+'''
+df = df.join(Sidewalk_type_First_Side_first_arm_Table)
+# ==============================================================================
+'''
+    Step -18- Sidewalk type second side at first arm
+'''
+df = df.join(Sidewalk_type_Second_Side_first_arm_Table)
+# ==============================================================================
+'''
+    Step -19- Traffic signal control type
+'''
+df = df.join(Traffic_signal_contral_type_first_arm_Table)
+# ==============================================================================
+'''
+    Step -20- Presence of pedestrain traffic signal
+'''
+inner_joint_Int.rename({'Presence_of_pedestrian_traffic_signal':'Arm1_Presence_of_pedestrian_traffic_signal'}, axis= 1,inplace =True)
 
+df = df.join(inner_joint_Int['Arm1_Presence_of_pedestrian_traffic_signal'])
 
+# ###################################################
+#         Second Arm - Variables (13 variables)
+# ###################################################
+# ==============================================================================
+'''
+    Step -21-1 Road Type for second Arm
+'''
+df = df.join(Road_type_for_second_arm_Table)
+# ==============================================================================
+'''
+    Step -22-2 Number of lanes for second Arm
+'''
+inner_joint_Int.rename({'Number_of_lanes_for_second_arm':'Arm2_Number_of_lanes_for_second_arm'}, axis= 1,inplace =True)
+
+df = df.join(inner_joint_Int["Arm2_Number_of_lanes_for_second_arm"])
+
+# ==============================================================================
+'''
+    Step -23-3 Number of lanes for second Arm
+'''
+inner_joint_Int.rename({'Number_of_lanes_for_second_arm':'Arm2_Number_of_lanes_for_second_arm'}, axis= 1,inplace =True)
+
+df = df.join(inner_joint_Int["Arm2_Number_of_lanes_for_second_arm"])
 
 
 
@@ -1013,82 +1071,10 @@ df = df.join(df2)
 # ==================================================#
 Final_DataSet = df.copy(deep = True)
 # ---- Export as a xlsx file --------
-# Final_DataSet.to_excel(Current_Path + "/Toyota_Survey_Sheetfiles/3_Results_Creating_dummies_cont/Final_DataSet.xlsx", sheet_name="Final_Dataset")
+Final_DataSet.to_excel(Current_Path + "/Toyota_Survey_Sheetfiles/3_Results_Creating_dummies_cont/Final_DataSet.xlsx", sheet_name="Final_Dataset")
 # ---- Export as a csv file --------
 Final_DataSet.to_csv(Current_Path + "/Toyota_Survey_Sheetfiles/3_Results_Creating_dummies_cont/Final_DataSet.csv", index = True)
 
-with open(Current_Path + "/Toyota_Survey_Sheetfiles/3_Results_Creating_dummies_cont/Final_DataSet.csv", 'w') as wf:
-    for line in Final_DataSet:
-        wf.write(line)
-# ===================================================
-#       Functions that I used with my analysis
-# ===================================================
-
-def check_df(df,option = None):
-    if option == 1:
-        for index,column in enumerate(df.columns):
-            print(index,column)
-    elif option==2:
-        print(df.describe().T)
-    else:
-        for index,column in enumerate(df.columns):
-            print(index,column)
-        print(50*'-')
-        print(df.describe().T)
-# ===================================================
-#       Check if two columns fro two different
-#                   df are equal
-# ===================================================
-def compare_two_columns(column1,column2):
-    if column1.any() == column2.any():
-        print(f"Yes {column1.name} and {column2.name} are equal")
-    else:
-        print(f"No {column1.name} and {column2.name} are not equal")
-
-# Such as: compare_two_columns(inner_joint_Int.index,Inters_type_Table.index)
-# ===================================================
-#       How to find Duplicate in a given column
-#         default case: inner_joint_Int.index
-# ===================================================
-def find_duplicates(df = inner_joint_Int.index):
-    list_non_duplicated = []
-    list_duplicated2 = []
-    location_of_duplicates = []
-    counter = 0
-    for i in range(len(df)):
-        if df[i] not in list_non_duplicated:
-            list_non_duplicated.append(df[i])
-        else:
-            list_duplicated2.append(df[i])
-            location_of_duplicates.append(i)
-            counter = counter + 1
-    for i in range(len(list_non_duplicated)):
-        print(list_non_duplicated[i])
-    print(list_duplicated2)
-    print(10*"-")
-    print(f"index of duplicates location \n {location_of_duplicates}")
-    print(10*"-")
-    print(f"No. of duplicated items = {counter}")
-    print(10*"-")
-
-
-def find_duplicates_with_pandas(col = inner_joint_Int.index):
-    # df.get_duplicates()   # is deprected
-    print(col[col.duplicated()])
-    # Or
-    print(col[col.duplicated()].unique())
-    # Or
-    #print(col.groupby(level=0).filter(lambda x: len(x) > 1)['type'])
-
-def change_to_unique_Data_frame(df):
-    '''
-        The solution here is used to ensure that all items in the
-        index should be unqiue and rename them if they are not
-        unique.
-        https://stackoverflow.com/questions/43095955/rename-duplicated-index-values-pandas-dataframe
-    '''
-    #df.index = df.index.where(~df.index.duplicated(), df.index + '_dp')
-    # If you want to remove of duplicated index to unique
-    # This method is better than the non-highlighted one as
-    # it return E1,E2,E3, as many as duplicates you have.
-    df.index = df.index + df.groupby(level=0).cumcount().astype(str).replace('0','')
+# with open(Current_Path + "/Toyota_Survey_Sheetfiles/3_Results_Creating_dummies_cont/Final_DataSet.csv", 'w') as wf:
+#     for line in Final_DataSet:
+#         wf.write(line)
