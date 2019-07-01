@@ -3,7 +3,7 @@
           Creating Dummies for and
             arrange your dataset
             Tue Jun. 19th 2019
-                 17:03:00
+                 17:03:00,
 =========================================================
     - We will create dummies using the pandas package to
         make all categorical variables dummies.
@@ -273,6 +273,7 @@ a1 = "23-K11790-000"  # ; inner_joint_Int.loc["23-K11790-000","Number_of_lanes_f
 a2 = "23-K11893-000"  # ; inner_joint_Int.loc["23-K11893-000","Number_of_lanes_for_first_arm"]
 a3 = "23-K11928-000"  # ; inner_joint_Int.loc["23-K11928-000","Number_of_lanes_for_first_arm"]
 print(f"The affected intersections \n\t For the variable Number_of_lanes_for_first_arm are:  {a1}, {a2} and {a3}")
+inner_joint_Int.rename({'Number_of_lanes_for_first_arm':'Arm1_Number_of_lanes_for_first_arm'}, axis= 1,inplace =True)
 # =======================================================
 # ======== No._of_lanes_changed_at_the_approach ===V10===
 # =======================================================
@@ -965,7 +966,7 @@ df = df.join(Road_type_for_first_arm_Table)
     Step -9- Number of lanes for first arm
 '''
 # There are 6 radiuses available in the dataframe whichare:
-df = df.join(inner_joint_Int["Number_of_lanes_for_first_arm"])
+df = df.join(inner_joint_Int["Arm1_Number_of_lanes_for_first_arm"])
 # ==============================================================================
 '''
     Step -10- No. of lanes changed at the approach - dummy
@@ -1046,22 +1047,24 @@ df = df.join(Road_type_for_second_arm_Table)
 '''
     Step -22-2 Number of lanes for second Arm
 '''
-inner_joint_Int.rename({'Number_of_lanes_for_second_arm':'Arm2_Number_of_lanes_for_second_arm'}, axis= 1,inplace =True)
-
 df = df.join(inner_joint_Int["Arm2_Number_of_lanes_for_second_arm"])
 
 # ==============================================================================
 '''
-    Step -23-3 Number of lanes for second Arm
+    Step -24-3 left Turn-only-lane for second arm
 '''
-inner_joint_Int.rename({'Number_of_lanes_for_second_arm':'Arm2_Number_of_lanes_for_second_arm'}, axis= 1,inplace =True)
+df = df.join(inner_joint_Int["Left_turn_only_lane_for_second_arm"])
+# ==============================================================================
+'''
+    Step -25-4 Right Turn-only-lane for second arm
+'''
+df = df.join(inner_joint_Int["Right_turn_only_lane_for_second_arm"])
 
-df = df.join(inner_joint_Int["Arm2_Number_of_lanes_for_second_arm"])
-
-
-
-
-
+# ==============================================================================
+'''
+    Step -26-5 Width of Physical median of second arm if existed
+'''
+df = df.join(inner_joint_Int["Width_of_Pysical_Median_of_second_arm_if_exist"])
 
 
 
