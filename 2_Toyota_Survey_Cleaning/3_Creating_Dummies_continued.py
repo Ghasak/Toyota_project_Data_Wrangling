@@ -488,7 +488,7 @@ inner_joint_Int["Width_of_Pysical_Median_of_second_arm_if_exist"].isnull().sum()
 inner_joint_Int["Width_of_Pysical_Median_of_second_arm_if_exist"].fillna(0, inplace=True)
 # We will create a variable for the physical median using np.where and converate it to a pandas-Series which
 # we will use join later to add it to our exited DataFrame (inner_joint_Int), notice I added also the index for matching.
-Is_there_Physical_Median_first_arm = pd.Series(np.where(inner_joint_Int["Width_of_Pysical_Median_of_second_arm_if_exist"] != 0, 1, 0), index=inner_joint_Int.index)
+Is_there_Physical_Median_second_arm = pd.Series(np.where(inner_joint_Int["Width_of_Pysical_Median_of_second_arm_if_exist"] != 0, 1, 0), index=inner_joint_Int.index)
 # =======================================================
 # === Width_of_central_strip_of_second_arm_if_exist ======V27====
 # =======================================================
@@ -508,7 +508,7 @@ inner_joint_Int["Width_of_central_strip_of_second_arm_if_exist"].isnull().sum()
 inner_joint_Int["Width_of_central_strip_of_second_arm_if_exist"].isnull().values.any()
 inner_joint_Int["Width_of_central_strip_of_second_arm_if_exist"].fillna(0, inplace=True)
 # Simliar to above lets create a dummy variable for all roads that have a central strip
-Is_there_centeral_strip_first_arm = pd.Series(np.where(inner_joint_Int["Width_of_central_strip_of_second_arm_if_exist"] != 0, 1, 0), index=inner_joint_Int.index)
+Is_there_centeral_strip_second_arm = pd.Series(np.where(inner_joint_Int["Width_of_central_strip_of_second_arm_if_exist"] != 0, 1, 0), index=inner_joint_Int.index)
 # =======================================================
 # = Pedestrian_and_bicycle_crossing_roadway_type1 ==V28===
 # =======================================================
@@ -957,37 +957,37 @@ df = df.join(Number_of_arms_Table)
 # ###################################################
 '''
     Variables for each arm - first arm
-    Step -8- Road type for first arm - first arm.
+    Step -8-1 Road type for first arm - first arm.
 '''
 # There are 6 radiuses available in the dataframe whichare:
 df = df.join(Road_type_for_first_arm_Table)
 # ==============================================================================
 '''
-    Step -9- Number of lanes for first arm
+    Step -9-2 Number of lanes for first arm
 '''
 # There are 6 radiuses available in the dataframe whichare:
 df = df.join(inner_joint_Int["Arm1_Number_of_lanes_for_first_arm"])
 # ==============================================================================
 '''
-    Step -10- No. of lanes changed at the approach - dummy
+    Step -10-3 No. of lanes changed at the approach - dummy
 '''
 # There are 6 radiuses available in the dataframe whichare:
 df = df.join(inner_joint_Int["Arm1_No_of_lanes_changed_at_the_approach"])
 # ==============================================================================
 '''
-    Step -11- Left turn only lane for first arm
+    Step -11-4 Left turn only lane for first arm
 '''
 # There are 6 radiuses available in the dataframe whichare:
 df = df.join(inner_joint_Int["Left_turn_only_lane_for_first_arm"])
 # ==============================================================================
 '''
-    Step -12- Right turn only lane for first arm
+    Step -12-5 Right turn only lane for first arm
 '''
 # There are 6 radiuses available in the dataframe whichare:
 df = df.join(inner_joint_Int["Right_turn_only_lane_for_first_arm"])
 # ==============================================================================
 '''
-    Step -13- Width of physical median of first arm
+    Step -13-6 Width of physical median of first arm
 '''
 # There are 6 radiuses available in the dataframe whichare:
 # df = df.merge(Is_there_Physical_Median_first_arm.to_frame(), left_index=True, right_index=True)
@@ -998,38 +998,38 @@ df1 = pd.DataFrame(Is_there_Physical_Median_first_arm.rename("Is_there_Physical_
 df = df.join(df1)
 # ==============================================================================
 '''
-    Step -14- Width of central strip of first arm dummy
+    Step -14-7 Width of central strip of first arm dummy
 '''
 df2 = pd.DataFrame(Is_there_centeral_strip_first_arm.rename("Is_there_centeral_strip_first_arm"))
 df = df.join(df2)
 # ==============================================================================
 '''
-    Step -15- Pedestrain and bicycle first arm table
+    Step -15-8 Pedestrain and bicycle first arm table
 '''
 df = df.join(Pedestrian_and_bicycle_first_arm_Table)
 # ==============================================================================
 '''
-    Step -16- Skewness level of first arm to the next arm
+    Step -16-9 Skewness level of first arm to the next arm
 '''
 df = df.join(Is_there_centeral_Skewness_arm_one_two)
 # ==============================================================================
 '''
-    Step -17- Sidewalk type first side at first arm
+    Step -17-10 Sidewalk type first side at first arm
 '''
 df = df.join(Sidewalk_type_First_Side_first_arm_Table)
 # ==============================================================================
 '''
-    Step -18- Sidewalk type second side at first arm
+    Step -18-11 Sidewalk type second side at first arm
 '''
 df = df.join(Sidewalk_type_Second_Side_first_arm_Table)
 # ==============================================================================
 '''
-    Step -19- Traffic signal control type
+    Step -19-12 Traffic signal control type
 '''
 df = df.join(Traffic_signal_contral_type_first_arm_Table)
 # ==============================================================================
 '''
-    Step -20- Presence of pedestrain traffic signal
+    Step -20-13 Presence of pedestrain traffic signal
 '''
 inner_joint_Int.rename({'Presence_of_pedestrian_traffic_signal':'Arm1_Presence_of_pedestrian_traffic_signal'}, axis= 1,inplace =True)
 
@@ -1051,23 +1051,67 @@ df = df.join(inner_joint_Int["Arm2_Number_of_lanes_for_second_arm"])
 
 # ==============================================================================
 '''
-    Step -24-3 left Turn-only-lane for second arm
+    Step -10-3 No. of lanes changed at the approach - dummy
+'''
+# There are 6 radiuses available in the dataframe whichare:
+df = df.join(inner_joint_Int["Arm2_No_of_lanes_changed_at_the_approach1"])
+# ==============================================================================
+'''
+    Step -24-4 left Turn-only-lane for second arm
 '''
 df = df.join(inner_joint_Int["Left_turn_only_lane_for_second_arm"])
 # ==============================================================================
 '''
-    Step -25-4 Right Turn-only-lane for second arm
+    Step -25-5 Right Turn-only-lane for second arm
 '''
 df = df.join(inner_joint_Int["Right_turn_only_lane_for_second_arm"])
 
 # ==============================================================================
 '''
-    Step -26-5 Width of Physical median of second arm if existed
+    Step -26-6 Width of Physical median of second arm if existed
 '''
-df = df.join(inner_joint_Int["Width_of_Pysical_Median_of_second_arm_if_exist"])
 
+df3 = pd.DataFrame(Is_there_Physical_Median_second_arm.rename("Is_there_Physical_Median_second_arm"))
+df = df.join(df3)
+# ==============================================================================
+'''
+    Step -27-7 Width_of_central_strip_of_second_arm_if_exist
+'''
+df4 = pd.DataFrame(Is_there_centeral_strip_second_arm.rename("Is_there_centeral_strip_second_arm"))
+df = df.join(df4)
+# ==============================================================================
+'''
+    Step -28-8 Pedestrian and bicycle crossing roadway type
+'''
+df = df.join(Pedestrian_and_bicycle_second_arm_Table)
+# ==============================================================================
+'''
+    Step -29-9 Skewness_level_of_second_arm_to_the_next_arm
+'''
+df = df.join(Is_there_centeral_Skewness_arm_two_three)
+# ==============================================================================
+'''
+    Step -30-10 Sidewalk type first side arm table
+'''
 
+df = df.join(Sidewalk_type_First_Side_second_arm_Table)
+# ==============================================================================
+'''
+    Step -31-11 Sidewalk type Second side arm table
+'''
+df = df.join(Sidewalk_type_Second_Side_second_arm_Table)
+# ==============================================================================
+'''
+    Step -32-12 Traffic Signal Control Type1
+'''
+df = df.join(Traffic_signal_contral_type_second_arm_Table)
+# ==============================================================================
+'''
+    Step -33-13 Presence_of_pedestrian_traffic_signal1
+'''
 
+inner_joint_Int.rename({'Presence_of_pedestrian_traffic_signal1':'Arm2_Presence_of_pedestrian_traffic_signal1'}, axis= 1,inplace =True)
+df = df.join(inner_joint_Int['Arm2_Presence_of_pedestrian_traffic_signal1'])
 
 # ==================================================#
 #           Export the Final Results
