@@ -883,12 +883,15 @@ right_turn_only_lane_for_fourth_arm_Table.columns = right_turn_only_lane_for_fou
 # That was my mistake which copy only a reference to the original dataframe df = inner_joint_Int
 df = inner_joint_Int.copy(deep = True)
 df.drop(df.columns[42:len(df.columns)],axis=1, inplace =True)
+
 # ==============================================================================
 '''
     Step -1- Adding the Intersection Type Dummy variables. and remove the
                 categorical variable "Intersection_type"
 '''
-df = df.join(Inters_type_Table)
+#df.set_index('key_0',inplace=True)
+df = pd.merge(df,Inters_type_Table, how='inner',left_on= df.index.name,right_on= Inters_type_Table.index.name)
+#df = df.join(Inters_type_Table)
 #df.drop(["Intersection_type"], axis=1)
 # ==============================================================================
 '''
@@ -989,11 +992,15 @@ df = df.join(df2)
 # ==================================================#
 #           Export the Final Results
 # ==================================================#
-Final_DataSet = df
+Final_DataSet = df.copy(deep = True)
 # ---- Export as a xlsx file --------
 # Final_DataSet.to_excel(Current_Path + "/Toyota_Survey_Sheetfiles/3_Results_Creating_dummies_cont/Final_DataSet.xlsx", sheet_name="Final_Dataset")
 # ---- Export as a csv file --------
-# Final_DataSet.to_csv(Current_Path + "/Toyota_Survey_Sheetfiles/3_Results_Creating_dummies_cont/Final_DataSet.csv", index = True)
+Final_DataSet.to_csv(Current_Path + "/Toyota_Survey_Sheetfiles/3_Results_Creating_dummies_cont/Final_DataSet.csv", index = True)
+
+with open(Current_Path + "/Toyota_Survey_Sheetfiles/3_Results_Creating_dummies_cont/Final_DataSet.csv", 'w') as wf:
+    for line in Final_DataSet:
+        wf.write(line)
 # ===================================================
 #       Functions that I used with my analysis
 # ===================================================
@@ -1009,3 +1016,13 @@ def check_df(df,option = None):
             print(index,column)
         print(50*'-')
         print(df.describe().T)
+
+# ===================================================
+#       Check if two columns fro two different
+#                   df are equal
+# ===================================================
+
+def compare_two_columns(column1,column2):
+    if column1.any() == column2.any():
+        print("yes")
+# Such as: compare_two_columns(inner_joint_Int.index,Inters_type_Table.index)
