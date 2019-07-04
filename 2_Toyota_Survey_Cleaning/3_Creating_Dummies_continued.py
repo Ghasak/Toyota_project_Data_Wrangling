@@ -801,7 +801,7 @@ inner_joint_Int["Right_turn_only_lane_for_fourth_arm"] = 1 * (inner_joint_Int["R
 # ==================================================================
 inner_joint_Int["Width_of_Pysical_Median_of_fourth_arm_if_exist"].isnull().sum()
 inner_joint_Int["Width_of_Pysical_Median_of_fourth_arm_if_exist"].fillna(0,inplace = True)
-Is_there_Physical_Median_Fourth_arm = pd.Series(np.where(inner_joint_Int["Width_of_Pysical_Median_of_fourth_arm_if_exist"] != 0, 1, 0), index=inner_joint_Int.index)
+Is_there_Physical_Median_fourth_arm = pd.Series(np.where(inner_joint_Int["Width_of_Pysical_Median_of_fourth_arm_if_exist"] != 0, 1, 0), index=inner_joint_Int.index)
 # ==============================================================
 # === Width_of_central_strip_of_fourth_arm_if_exist ======V53===
 # ==============================================================
@@ -811,7 +811,7 @@ inner_joint_Int["Width_of_central_strip_of_fourth_arm_if_exist"].isnull().sum()
 inner_joint_Int["Width_of_central_strip_of_fourth_arm_if_exist"].isnull().values.any()
 inner_joint_Int["Width_of_central_strip_of_fourth_arm_if_exist"].fillna(0, inplace=True)
 # Simliar to above lets create a dummy variable for all roads that have a central strip
-Is_there_centeral_strip_third_arm = pd.Series(np.where(inner_joint_Int["Width_of_central_strip_of_fourth_arm_if_exist"] != 0, 1, 0), index=inner_joint_Int.index)
+Is_there_centeral_strip_fourth_arm = pd.Series(np.where(inner_joint_Int["Width_of_central_strip_of_fourth_arm_if_exist"] != 0, 1, 0), index=inner_joint_Int.index)
 
 
 # =======================================================
@@ -835,7 +835,7 @@ print(f"also for our main categorical variable before transferred to dummies {k}
 inner_joint_Int["Skewness_level_of_fourth_arm_to_the_next_arm"].isnull().sum()
 inner_joint_Int["Skewness_level_of_fourth_arm_to_the_next_arm"].fillna("No (it is not skewed)", inplace=True)
 # Simliar to above lets create a dummy variable for all roads that have a central strip
-Is_there_centeral_Skewness_arm_three_fourth = 1 * (inner_joint_Int["Skewness_level_of_fourth_arm_to_the_next_arm"] == "Yes (it is skewed)")
+Is_there_centeral_Skewness_arm_fourth = 1 * (inner_joint_Int["Skewness_level_of_fourth_arm_to_the_next_arm"] == "Yes (it is skewed)")
 
 # =======================================================
 # =============== Sidewalk_type_First_Side3 =======V56===
@@ -1232,49 +1232,66 @@ df = df.join(inner_joint_Int["Left_turn_only_lane_for_fourth_arm"])
 '''
 df = df.join(inner_joint_Int["Right_turn_only_lane_for_fourth_arm"])
 
-# # ==============================================================================
-# '''
-#     Step -52-6 Is_there_Physical_Median_fourth_arm
-# '''
-df7 = pd.DataFrame(Is_there_Physical_Median_third_arm.rename("Is_there_Physical_Median_third_arm"))
+# ==============================================================================
+'''
+    Step -52-6 Is_there_Physical_Median_fourth_arm
+'''
+df7 = pd.DataFrame(Is_there_Physical_Median_fourth_arm.rename("Is_there_Physical_Median_fourth_arm"))
 df = df.join(df7)
-Is_there_Physical_Median_Fourth_arm
-# df = df.join(Is_there_Physical_Median_fourth_arm)
-
-# # ==============================================================================
-# '''
-#     Step -52-6 Is_there_centeral_strip_fourth_arm
-# '''
-# df7 = pd.DataFrame(Is_there_centeral_strip_fourth_arm.rename("Is_there_centeral_strip_fourth_arm"))
-# df = df.join(df7)
-
-# # ==============================================================================
-# '''
-#     Step -53-7 Pedestrian_and_bicycle_crossing_roadway_type3
-# '''
-
-# df8 = pd.DataFrame(Is_there_centeral_strip_fourth_arm.rename("Is_there_centeral_strip_fourth_arm"))
-# df = df.join(df8)
 
 
+# ==============================================================================
+'''
+    Step -53-7 Is_there_centeral_strip_fourth_arm
+'''
+df8 = pd.DataFrame(Is_there_centeral_strip_fourth_arm.rename("Is_there_centeral_strip_fourth_arm"))
+df = df.join(df8)
+
+# ==============================================================================
+'''
+    Step -54-8 Pedestrian_and_bicycle_crossing_roadway_type3
+'''
+df = df.join(Pedestrian_and_bicycle_fourth_arm_Table)
+
+
+# ==============================================================================
+'''
+    Step -55-9 Skewness_level_of_fourth_arm_to_the_next_arm
+'''
+
+df = df.join(Is_there_centeral_Skewness_arm_fourth)
+
+
+# ==============================================================================
+'''
+    Step -56-10 Sidewalk_type_First_Side3
+'''
+
+df = df.join(Sidewalk_type_First_Side_fourth_arm_Table)
+
+
+# ==============================================================================
+'''
+    Step -57-11 Sidewalk_type_Second_Side3
+'''
 
 
 
+df = df.join(Sidewalk_type_Second_Side_fourth_arm_Table)
 
+# ==============================================================================
+'''
+    Step -58-12 Traffic_signal_contral_type3
+'''
+df = df.join(Traffic_signal_contral_type_fourth_arm_Table)
 
+# ==============================================================================
+'''
+    Step -59-13 Presence_of_pedestrian_traffic_signal3
+'''
 
-
-
-
-
-
-
-
-
-
-
-
-
+inner_joint_Int.rename({'Presence_of_pedestrian_traffic_signal3':'Arm4_Presence_of_pedestrian_traffic_signal3'}, axis= 1,inplace =True)
+df = df.join(inner_joint_Int['Arm4_Presence_of_pedestrian_traffic_signal3'])
 
 
 
