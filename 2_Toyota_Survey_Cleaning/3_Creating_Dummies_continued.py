@@ -396,7 +396,7 @@ Traffic_signal_contral_type_first_arm_Table = pd.get_dummies(inner_joint_Int["Tr
 Traffic_signal_contral_type_first_arm_Table.columns = Traffic_signal_contral_type_first_arm_Table.columns.str.strip()
 # Create a column name underscored by removing any spaces or (-)
 Traffic_signal_contral_type_first_arm_Table.columns = Traffic_signal_contral_type_first_arm_Table.columns.str.replace(' |-', '_')
-
+# =======================================================
 # =============== Traffic_signal_contral_type ====V20====
 # =======================================================
 
@@ -607,6 +607,7 @@ Road_type_for_third_arm_Table = pd.get_dummies(inner_joint_Int["Road_type_for_th
 Road_type_for_third_arm_Table.columns = Road_type_for_third_arm_Table.columns.str.strip()
 # Create a column name underscored by removing any spaces or (-)
 Road_type_for_third_arm_Table.columns = Road_type_for_third_arm_Table.columns.str.replace(' |-', '_')
+# =======================================================
 # ================ Number_of_lanes_for_third_arm =================V35====
 # =======================================================
 # Check the missing values in your column
@@ -650,8 +651,9 @@ inner_joint_Int["Number_of_lanes_for_third_arm"] = listz
 inner_joint_Int["No_of_lanes_changed_at_the_approach2"].isnull().sum()
 # Converte a Dummy binary (text) -----> to (1/0)
 inner_joint_Int["No_of_lanes_changed_at_the_approach2"] = 1 * (inner_joint_Int["No_of_lanes_changed_at_the_approach2"] == "Yes (it has changed)")
-# # =======================================================
+# =======================================================
 # ===== Left_turn_only_lane_for_third_arm ========V37====
+# =======================================================
 inner_joint_Int["Left_turn_only_lane_for_third_arm"].isnull().sum()
 # Converte a Dummy binary (text) -----> to (1/0)
 inner_joint_Int["Left_turn_only_lane_for_third_arm"] = 1 * (inner_joint_Int["Left_turn_only_lane_for_third_arm"] == "Exist")
@@ -661,8 +663,9 @@ inner_joint_Int["Left_turn_only_lane_for_third_arm"] = 1 * (inner_joint_Int["Lef
 inner_joint_Int["Right_turn_only_lane_for_third_arm"].isnull().sum()
 # Converte a Dummy binary (text) -----> to (1/0)
 inner_joint_Int["Right_turn_only_lane_for_third_arm"] = 1 * (inner_joint_Int["Right_turn_only_lane_for_third_arm"] == "Exist")
-# # # === Width_of_Pysical_Median_of_third_arm_if_exist ====V39====
-# # # =======================================================
+# =======================================================
+# === Width_of_Pysical_Median_of_third_arm_if_exist ====V39====
+# =======================================================
 inner_joint_Int["Width_of_Pysical_Median_of_third_arm_if_exist"].isnull().sum()
 inner_joint_Int["Width_of_Pysical_Median_of_third_arm_if_exist"].fillna(0, inplace=True)
 # We will create a variable for the physical median using np.where and converate it to a pandas-Series which
@@ -687,7 +690,7 @@ print("Variable Pedestrian_and_bicycle_crossing_roadway_type2 of the third arm h
 print("Notice that the number (2) added in the end indicating the third arm")
 print("===================================================================")
 # Changing the Categorical Variable to the following:
-Pedestrian_and_bicycle_third_arm_Table = pd.get_dummies(inner_joint_Int["Pedestrian_and_bicycle_crossing_roadway_type2"], prefix="Arm3")
+Pedestrian_and_bicycle_third_arm_Table = pd.get_dummies(inner_joint_Int["Pedestrian_and_bicycle_crossing_roadway_type2"], prefix="Arm3_PedandBi")
 # We will clean the column names to not have spaces
 Pedestrian_and_bicycle_third_arm_Table.columns = Pedestrian_and_bicycle_third_arm_Table.columns.str.strip()
 # Create a column name underscored by removing any spaces or (-)
@@ -715,16 +718,16 @@ Sidewalk_type_First_Side_third_arm_Table.columns = Sidewalk_type_First_Side_thir
 # Create a column name underscored by removing any spaces or (-)
 Sidewalk_type_First_Side_third_arm_Table.columns = Sidewalk_type_First_Side_third_arm_Table.columns.str.replace(' |-', '_')
 # =======================================================
-# =============== Sidewalk_type_Second_Side2 ======V42====
+# =============== Sidewalk_type_Second_Side2 ======V44====
 # =======================================================
 inner_joint_Int["Sidewalk_type_Second_Side2"].isnull().sum()
 # Changing the Categorical Variable to the following:
 Sidewalk_type_Second_Side_third_arm_Table = pd.get_dummies(inner_joint_Int["Sidewalk_type_Second_Side2"], prefix="Arm3_2ndSide")
 # We will clean the column names to not have spaces
-Sidewalk_type_Second_Side_third_arm_Table.columns = Sidewalk_type_Second_Side_second_arm_Table.columns.str.strip()
+Sidewalk_type_Second_Side_third_arm_Table.columns = Sidewalk_type_Second_Side_third_arm_Table.columns.str.strip()
 # Create a column name underscored by removing any spaces or (-)
-Sidewalk_type_Second_Side_third_arm_Table.columns = Sidewalk_type_Second_Side_second_arm_Table.columns.str.replace(' |-', '_')
-# # =============== Traffic_signal_contral_type2 ====V43====
+Sidewalk_type_Second_Side_third_arm_Table.columns = Sidewalk_type_Second_Side_third_arm_Table.columns.str.replace(' |-', '_')
+# # =============== Traffic_signal_contral_type2 ====V45====
 # # =======================================================
 inner_joint_Int["Traffic_signal_contral_type2"].isnull().sum()
 # Changing the Categorical Variable to the following:
@@ -734,27 +737,27 @@ Traffic_signal_contral_type_third_arm_Table.columns = Traffic_signal_contral_typ
 # Create a column name underscored by removing any spaces or (-)
 Traffic_signal_contral_type_third_arm_Table.columns = Traffic_signal_contral_type_third_arm_Table.columns.str.replace(' |-', '_')
 
-# # =============== Presence_of_pedestrian_traffic_signal2 ====V44====
+# # =============== Presence_of_pedestrian_traffic_signal2 ====V46====
 # # =======================================================
 inner_joint_Int["Presence_of_pedestrian_traffic_signal2"].isnull().sum()
-# Chaging the Categorical Variable to the following:
+# Changing the Categorical Variable to the following:
 inner_joint_Int['Presence_of_pedestrian_traffic_signal2'] = 1 * (inner_joint_Int["Presence_of_pedestrian_traffic_signal2"] == "Exist")
 
 # ========================================================================
 # ###################################################
 #        Fourth Arm
 # ###################################################
-# =============== Road_type_for_fourth_arm ====V45=======
+# =============== Road_type_for_fourth_arm ====V47=======
 inner_joint_Int["Road_type_for_fourth_arm"].isnull().sum()
 inner_joint_Int["Road_type_for_fourth_arm"].fillna("Non_Existed", inplace=True)
 
-Road_type_for_fourth_arm_Table = pd.get_dummies(inner_joint_Int["Road_type_for_fourth_arm"], prefix="Arm4")
+Road_type_for_fourth_arm_Table = pd.get_dummies(inner_joint_Int["Road_type_for_fourth_arm"], prefix="Arm4_Road_type")
 # We will clean the column names to not have spaces
 Road_type_for_fourth_arm_Table.columns = Road_type_for_fourth_arm_Table.columns.str.strip()
 # Create a column name underscored by removing any spaces or (-)
 Road_type_for_fourth_arm_Table.columns = Road_type_for_fourth_arm_Table.columns.str.replace(' |-', '_')
 # =======================================================
-# ================ Number_of_lanes_for_fourth_arm =================V46====
+# ===== Number_of_lanes_for_fourth_arm ===========V48====
 # =======================================================
 # Check the missing values in your column
 inner_joint_Int["Number_of_lanes_for_fourth_arm"].isnull().sum()
@@ -775,127 +778,123 @@ for row in range(len(inner_joint_Int["Number_of_lanes_for_fourth_arm"])):
 print("========================================================")
 print(f"Number_of_lanes_for_fourth_arm has 6 or more at intersections {listg}")
 inner_joint_Int["Number_of_lanes_for_fourth_arm"] = listz
-# ================ No_of_lanes_changed_at_the_approach3 =================V47====
+# ================ No_of_lanes_changed_at_the_approach3 =================V49====
 
 inner_joint_Int["No_of_lanes_changed_at_the_approach3"].isnull().sum()
 inner_joint_Int["No_of_lanes_changed_at_the_approach3"].fillna("Non_Existed", inplace=True)
-# Converte a Dummy binary (text) -----> to (1/0)
-No_of_lanes_changed_at_the_approach3_Table = pd.get_dummies(inner_joint_Int["No_of_lanes_changed_at_the_approach3"], prefix="Arm4")
-# inner_joint_Int["No_of_lanes_changed_at_the_approach3"] = 1 * (inner_joint_Int["No_of_lanes_changed_at_the_approach3"] == "Yes (it has changed)")
+# Change The No of lanes changed at the approach to a dummy
+inner_joint_Int["No_of_lanes_changed_at_the_approach3"] = 1 * (inner_joint_Int["No_of_lanes_changed_at_the_approach3"] == "Yes (it has changed)")
 # =======================================================
-# ===== Left_turn_only_lane_for_fourth_arm ========V48====
+# ===== Left_turn_only_lane_for_fourth_arm ========V50===
+# =======================================================
 inner_joint_Int["Left_turn_only_lane_for_fourth_arm"].isnull().sum()
-# The Fourth Arm is missing means this intersection is either T or Y shape
-inner_joint_Int["Left_turn_only_lane_for_fourth_arm"].fillna("fourth_arm_is_not_existed", inplace=True)
-Left_turn_only_lane_for_fourth_arm_Table = pd.get_dummies(inner_joint_Int["Left_turn_only_lane_for_fourth_arm"], prefix="Arm4")
-# We will clean the column names to not have spaces
-Left_turn_only_lane_for_fourth_arm_Table.columns = Left_turn_only_lane_for_fourth_arm_Table.columns.str.strip()
-# Create a column name underscored by removing any spaces or (-)
-Left_turn_only_lane_for_fourth_arm_Table.columns = Left_turn_only_lane_for_fourth_arm_Table.columns.str.replace(' |-', '_')
 # Converte a Dummy binary (text) -----> to (1/0)
-# inner_joint_Int["Left_turn_only_lane_for_fourth_arm"] = 1 * (inner_joint_Int["Left_turn_only_lane_for_fourth_arm"] == "Exist")
-# # =======================================================
-# # ========= Right_turn_only_lane_for_fourth_arm ===V49====
-# # =======================================================
+inner_joint_Int["Left_turn_only_lane_for_fourth_arm"] = 1 * (inner_joint_Int["Left_turn_only_lane_for_fourth_arm"] == "Exist")
+# =======================================================
+# ========= Right_turn_only_lane_for_fourth_arm ===V51===
+# =======================================================
 inner_joint_Int["Right_turn_only_lane_for_fourth_arm"].isnull().sum()
-inner_joint_Int["Right_turn_only_lane_for_fourth_arm"].fillna("fourth_arm_is_not_existed", inplace=True)
-right_turn_only_lane_for_fourth_arm_Table = pd.get_dummies(inner_joint_Int["Right_turn_only_lane_for_fourth_arm"], prefix="Arm4")
+# Converte a Dummy binary (text) -----> to (1/0)
+inner_joint_Int["Right_turn_only_lane_for_fourth_arm"] = 1 * (inner_joint_Int["Right_turn_only_lane_for_fourth_arm"] == "Exist")
+# ==================================================================
+# ========= Width_of_Pysical_Median_of_fourth_arm_if_exist ===V52===
+# ==================================================================
+inner_joint_Int["Width_of_Pysical_Median_of_fourth_arm_if_exist"].isnull().sum()
+inner_joint_Int["Width_of_Pysical_Median_of_fourth_arm_if_exist"].fillna(0,inplace = True)
+Is_there_Physical_Median_Fourth_arm = pd.Series(np.where(inner_joint_Int["Width_of_Pysical_Median_of_fourth_arm_if_exist"] != 0, 1, 0), index=inner_joint_Int.index)
+# ==============================================================
+# === Width_of_central_strip_of_fourth_arm_if_exist ======V53===
+# ==============================================================
+
+# Check the missing values in your column
+inner_joint_Int["Width_of_central_strip_of_fourth_arm_if_exist"].isnull().sum()
+inner_joint_Int["Width_of_central_strip_of_fourth_arm_if_exist"].isnull().values.any()
+inner_joint_Int["Width_of_central_strip_of_fourth_arm_if_exist"].fillna(0, inplace=True)
+# Simliar to above lets create a dummy variable for all roads that have a central strip
+Is_there_centeral_strip_third_arm = pd.Series(np.where(inner_joint_Int["Width_of_central_strip_of_fourth_arm_if_exist"] != 0, 1, 0), index=inner_joint_Int.index)
+
+
+# =======================================================
+# = Pedestrian_and_bicycle_crossing_roadway_type3 ==V54==
+# =======================================================
+inner_joint_Int["Pedestrian_and_bicycle_crossing_roadway_type3"].isnull().sum()
+inner_joint_Int["Pedestrian_and_bicycle_crossing_roadway_type3"].fillna("Non_Existed", inplace=True)
+# Changing the Categorical Variable to the following:
+Pedestrian_and_bicycle_fourth_arm_Table = pd.get_dummies(inner_joint_Int["Pedestrian_and_bicycle_crossing_roadway_type3"], prefix="Arm4_PedandBic")
+
+Pedestrian_and_bicycle_fourth_arm_Table.columns = Pedestrian_and_bicycle_fourth_arm_Table.columns.str.strip().str.replace(' |-', '_')
+
+print(f"Check the Sum of Dummies equal to 1 using {Pedestrian_and_bicycle_fourth_arm_Table.describe().T.iloc[:,1].sum()}")
+print("===================================================================")
+k = inner_joint_Int["Pedestrian_and_bicycle_crossing_roadway_type3"].value_counts(normalize=True).sum()
+print(f"also for our main categorical variable before transferred to dummies {k}")
+
+# ========================================================
+# === Skewness_level_of_fourth_arm_to_the_next_arm ==V55==
+# ========================================================
+inner_joint_Int["Skewness_level_of_fourth_arm_to_the_next_arm"].isnull().sum()
+inner_joint_Int["Skewness_level_of_fourth_arm_to_the_next_arm"].fillna("No (it is not skewed)", inplace=True)
+# Simliar to above lets create a dummy variable for all roads that have a central strip
+Is_there_centeral_Skewness_arm_three_fourth = 1 * (inner_joint_Int["Skewness_level_of_fourth_arm_to_the_next_arm"] == "Yes (it is skewed)")
+
+# =======================================================
+# =============== Sidewalk_type_First_Side3 =======V56===
+# =======================================================
+inner_joint_Int["Sidewalk_type_First_Side3"].isnull().sum()
+inner_joint_Int["Sidewalk_type_First_Side3"].fillna("No sidewalk", inplace=True)
+# Changing the Categorical Variable to the following:
+Sidewalk_type_First_Side_fourth_arm_Table = pd.get_dummies(inner_joint_Int["Sidewalk_type_First_Side3"], prefix="Arm4_1stSide")
 # We will clean the column names to not have spaces
-right_turn_only_lane_for_fourth_arm_Table.columns = right_turn_only_lane_for_fourth_arm_Table.columns.str.strip()
+Sidewalk_type_First_Side_fourth_arm_Table.columns = Sidewalk_type_First_Side_fourth_arm_Table.columns.str.strip()
 # Create a column name underscored by removing any spaces or (-)
-right_turn_only_lane_for_fourth_arm_Table.columns = right_turn_only_lane_for_fourth_arm_Table.columns.str.replace(' |-', '_')
-# # Converte a Dummy binary (text) -----> to (1/0)
-# inner_joint_Int["Right_turn_only_lane_for_fourth_arm"] = 1 * (inner_joint_Int["Right_turn_only_lane_for_fourth_arm"] == "Exist")
-# # # # === Width_of_Pysical_Median_of_third_arm_if_exist ====V39====
-# # # # =======================================================
-# inner_joint_Int["Width_of_Pysical_Median_of_third_arm_if_exist"].isnull().sum()
-# inner_joint_Int["Width_of_Pysical_Median_of_third_arm_if_exist"].fillna(0, inplace=True)
-# # We will create a variable for the physical median using np.where and converate it to a pandas-Series which
-# # we will use join later to add it to our exited DataFrame (inner_joint_Int), notice I added also the index for matching.
-# Is_there_Physical_Median_third_arm = pd.Series(np.where(inner_joint_Int["Width_of_Pysical_Median_of_third_arm_if_exist"] != 0, 1, 0), index=inner_joint_Int.index)
-# # =======================================================
-# # === Width_of_central_strip_of_third_arm_if_exist ======V40====
-# # =======================================================
+Sidewalk_type_First_Side_fourth_arm_Table.columns = Sidewalk_type_First_Side_fourth_arm_Table.columns.str.replace(' |-', '_')
 
-# # Check the missing values in your column
-# inner_joint_Int["Width_of_central_strip_of_third_arm_if_exist"].isnull().sum()
-# inner_joint_Int["Width_of_central_strip_of_third_arm_if_exist"].isnull().values.any()
-# inner_joint_Int["Width_of_central_strip_of_third_arm_if_exist"].fillna(0, inplace=True)
-# # Simliar to above lets create a dummy variable for all roads that have a central strip
-# Is_there_centeral_strip_third_arm = pd.Series(np.where(inner_joint_Int["Width_of_central_strip_of_third_arm_if_exist"] != 0, 1, 0), index=inner_joint_Int.index)
-# # =======================================================
-# # = Pedestrian_and_bicycle_crossing_roadway_type2 ==V41===
-# # =======================================================
-# # This variable is categorical and has a problem, missing entry at 23-K06472-000
-# inner_joint_Int["Pedestrian_and_bicycle_crossing_roadway_type2"].isnull().sum()
-# print("Variable Pedestrian_and_bicycle_crossing_roadway_type2 of the third arm has no problem")
-# print("Notice that the number (2) added in the end indicating the third arm")
-# print("===================================================================")
-# # Changing the Categorical Variable to the following:
-# Pedestrian_and_bicycle_third_arm_Table = pd.get_dummies(inner_joint_Int["Pedestrian_and_bicycle_crossing_roadway_type2"], prefix="Arm3")
-# # We will clean the column names to not have spaces
-# Pedestrian_and_bicycle_third_arm_Table.columns = Pedestrian_and_bicycle_third_arm_Table.columns.str.strip()
-# # Create a column name underscored by removing any spaces or (-)
-# Pedestrian_and_bicycle_third_arm_Table.columns = Pedestrian_and_bicycle_third_arm_Table.columns.str.replace(' |-', '_')
-# print(f"Check the Sum of Dummies equal to 1 using {Pedestrian_and_bicycle_third_arm_Table.describe().T.iloc[:,1].sum()}")
-# print("===================================================================")
-# k = inner_joint_Int["Pedestrian_and_bicycle_crossing_roadway_type2"].value_counts(normalize=True).sum()
-# print(f"also for our main categorical variable before trasfered to dummies {k}")
-# # ========================================================================
-# # === Skewness_level_of_third_arm_to_the_next_arm ==V42==
-# # ========================================================================
-# inner_joint_Int["Skewness_level_of_third_arm_to_the_next_arm"].isnull().sum()
-# inner_joint_Int["Skewness_level_of_third_arm_to_the_next_arm"].fillna("No (it is not skewed)", inplace=True)
-# # Simliar to above lets create a dummy variable for all roads that have a central strip
-# Is_there_centeral_Skewness_arm_three_fourth = 1 * (inner_joint_Int["Skewness_level_of_third_arm_to_the_next_arm"] == "Yes (it is skewed)")
-# # =======================================================
-# # =============== Sidewalk_type_First_Side2 =======V43====
-# # =======================================================
-# inner_joint_Int["Sidewalk_type_First_Side2"].isnull().sum()  # There is a missing value at 23-K06475-000
-# inner_joint_Int["Sidewalk_type_First_Side2"].fillna("No sidewalk", inplace=True)
-# # Changing the Categorical Variable to the following:
-# Sidewalk_type_First_Side_third_arm_Table = pd.get_dummies(inner_joint_Int["Sidewalk_type_First_Side2"], prefix="Arm3_1stSide")
-# # We will clean the column names to not have spaces
-# Sidewalk_type_First_Side_third_arm_Table.columns = Sidewalk_type_First_Side_third_arm_Table.columns.str.strip()
-# # Create a column name underscored by removing any spaces or (-)
-# Sidewalk_type_First_Side_third_arm_Table.columns = Sidewalk_type_First_Side_third_arm_Table.columns.str.replace(' |-', '_')
-# # =======================================================
-# # =============== Sidewalk_type_Second_Side2 ======V42====
-# # =======================================================
-# inner_joint_Int["Sidewalk_type_Second_Side2"].isnull().sum()
-# # Changing the Categorical Variable to the following:
-# Sidewalk_type_Second_Side_third_arm_Table = pd.get_dummies(inner_joint_Int["Sidewalk_type_Second_Side2"], prefix="Arm3_2ndSide")
-# # We will clean the column names to not have spaces
-# Sidewalk_type_Second_Side_third_arm_Table.columns = Sidewalk_type_Second_Side_second_arm_Table.columns.str.strip()
-# # Create a column name underscored by removing any spaces or (-)
-# Sidewalk_type_Second_Side_third_arm_Table.columns = Sidewalk_type_Second_Side_second_arm_Table.columns.str.replace(' |-', '_')
-# # # =============== Traffic_signal_contral_type2 ====V43====
-# # # =======================================================
-# inner_joint_Int["Traffic_signal_contral_type2"].isnull().sum()
-# # Changing the Categorical Variable to the following:
-# Traffic_signal_contral_type_third_arm_Table = pd.get_dummies(inner_joint_Int["Traffic_signal_contral_type2"], prefix="Arm3")
-# # We will clean the column names to not have spaces
-# Traffic_signal_contral_type_third_arm_Table.columns = Traffic_signal_contral_type_third_arm_Table.columns.str.strip()
-# # Create a column name underscored by removing any spaces or (-)
-# Traffic_signal_contral_type_third_arm_Table.columns = Traffic_signal_contral_type_third_arm_Table.columns.str.replace(' |-', '_')
 
-# # # =============== Presence_of_pedestrian_traffic_signal2 ====V44====
-# # # =======================================================
-# inner_joint_Int["Presence_of_pedestrian_traffic_signal2"].isnull().sum()
-# # Changing the Categorical Variable to the following:
-# inner_joint_Int['Presence_of_pedestrian_traffic_signal2'] = 1 * (inner_joint_Int["Presence_of_pedestrian_traffic_signal2"] == "Exist")
 
-# # ================ Template =================V0==========
-# # =======================================================
-# # Things to do: you need to drop the columns that you don't use.
-# # inner_joint_Int.join(Sidewalk_type_First_Side_first_arm_Table)
-# # You need to add a prefix to each arm variable to clarify.
-# ==================================================#
-#          Preparation to exprot the results
-# ==================================================#
+# =======================================================
+# =============== Sidewalk_type_Second_Side3 ======V57====
+# =======================================================
+inner_joint_Int["Sidewalk_type_Second_Side3"].isnull().sum()
+# Changing the Categorical Variable to the following:
+Sidewalk_type_Second_Side_fourth_arm_Table = pd.get_dummies(inner_joint_Int["Sidewalk_type_Second_Side3"], prefix="Arm4_2ndSide")
+# We will clean the column names to not have spaces
+Sidewalk_type_Second_Side_fourth_arm_Table.columns = Sidewalk_type_Second_Side_fourth_arm_Table.columns.str.strip()
+# Create a column name underscored by removing any spaces or (-)
+Sidewalk_type_Second_Side_fourth_arm_Table.columns = Sidewalk_type_Second_Side_fourth_arm_Table.columns.str.replace(' |-', '_')
 
-# Append all our finding so far in our final dataset
-# Crash total count and age based Data
+# =======================================================
+# =============== Traffic_signal_contral_type3 ====V58===
+# =======================================================
+inner_joint_Int["Traffic_signal_contral_type3"].isnull().sum()
+# Changing the Categorical Variable to the following:
+Traffic_signal_contral_type_fourth_arm_Table = pd.get_dummies(inner_joint_Int["Traffic_signal_contral_type3"], prefix="Arm4_TrafSig")
+# We will clean the column names to not have spaces
+Traffic_signal_contral_type_fourth_arm_Table.columns = Traffic_signal_contral_type_fourth_arm_Table.columns.str.strip()
+# Create a column name underscored by removing any spaces or (-)
+Traffic_signal_contral_type_fourth_arm_Table.columns = Traffic_signal_contral_type_fourth_arm_Table.columns.str.replace(' |-', '_')
+
+# =======================================================
+# ==== Presence_of_pedestrian_traffic_signal3 ====V59====
+# =======================================================
+inner_joint_Int["Presence_of_pedestrian_traffic_signal3"].isnull().sum()
+# Changing the Categorical Variable to the following:
+inner_joint_Int['Presence_of_pedestrian_traffic_signal3'] = 1 * (inner_joint_Int["Presence_of_pedestrian_traffic_signal3"] == "Exist")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # ==============================================================================
 '''
     df is the original dataset that we have from our firs survey with -U sensei,
@@ -1109,9 +1108,175 @@ df = df.join(Traffic_signal_contral_type_second_arm_Table)
 '''
     Step -33-13 Presence_of_pedestrian_traffic_signal1
 '''
-
 inner_joint_Int.rename({'Presence_of_pedestrian_traffic_signal1':'Arm2_Presence_of_pedestrian_traffic_signal1'}, axis= 1,inplace =True)
 df = df.join(inner_joint_Int['Arm2_Presence_of_pedestrian_traffic_signal1'])
+# ###################################################
+#         Third Arm - Variables (13 variables)
+# ###################################################
+# ==============================================================================
+'''
+    Step -34-1 Presence_of_pedestrian_traffic_signal1
+'''
+df = df.join(Road_type_for_third_arm_Table)
+# ==============================================================================
+'''
+    Step -35-2 Number of lanes for third arm
+'''
+inner_joint_Int.rename({'Number_of_lanes_for_third_arm': 'Arm3_Number_of_lanes_for_third_arm'}, axis =1, inplace = True)
+
+df = df.join(inner_joint_Int["Arm3_Number_of_lanes_for_third_arm"])
+
+# ==============================================================================
+'''
+    Step -36-3 No_of_lanes_changed_at_the_approach2
+'''
+
+inner_joint_Int.rename({'No_of_lanes_changed_at_the_approach2':'Arm3_No_of_lanes_changed_at_the_approach2'}, axis =1 , inplace = True)
+
+df = df.join(inner_joint_Int['Arm3_No_of_lanes_changed_at_the_approach2'])
+
+# ==============================================================================
+'''
+    Step -37-4 Left_turn_only_lane_for_third_arm
+'''
+df = df.join(inner_joint_Int["Left_turn_only_lane_for_third_arm"])
+# ==============================================================================
+'''
+    Step -38-5 Right_turn_only_lane_for_third_arm
+'''
+df = df.join(inner_joint_Int['Right_turn_only_lane_for_third_arm'])
+
+# ==============================================================================
+'''
+    Step -39-6 Width_of_Physical_Median_of_third_arm_if_exist
+'''
+df5 = pd.DataFrame(Is_there_Physical_Median_third_arm.rename("Is_there_Physical_Median_third_arm"))
+df = df.join(df5)
+# ==============================================================================
+'''
+    Step -40-7 Width_of_central_strip_of_third_arm_if_exist
+'''
+df6 = pd.DataFrame(Is_there_centeral_strip_third_arm.rename("Is_there_centeral_strip_third_arm"))
+df = df.join(df6)
+# ==============================================================================
+'''
+    Step -41-8 Pedestrian_and_bicycle_crossing_roadway_type2
+'''
+
+df = df.join(Pedestrian_and_bicycle_third_arm_Table)
+
+# ==============================================================================
+'''
+    Step -42-9 Skewness_level_of_third_arm_to_the_next_arm
+'''
+
+df = df.join(Is_there_centeral_Skewness_arm_three_fourth)
+
+# ==============================================================================
+'''
+    Step -43-10 Sidewalk_type_First_Side_third_arm_Table
+'''
+
+df = df.join(Sidewalk_type_First_Side_third_arm_Table)
+
+# ==============================================================================
+'''
+    Step -44-11 Sidewalk_type_First_Side_third_arm_Table
+'''
+df = df.join(Sidewalk_type_Second_Side_third_arm_Table)
+# ==============================================================================
+'''
+    Step -45-12 Traffic_signal_contral_type2
+'''
+
+df = df.join(Traffic_signal_contral_type_third_arm_Table)
+
+# ==============================================================================
+'''
+    Step -46-13 Presence_of_pedestrian_traffic_signal2
+'''
+
+inner_joint_Int.rename({'Presence_of_pedestrian_traffic_signal2':'Arm3_Presence_of_pedestrian_traffic_signal2'}, axis= 1,inplace =True)
+df = df.join(inner_joint_Int['Arm3_Presence_of_pedestrian_traffic_signal2'])
+
+# ###################################################
+#         Fourth Arm - Variables (13 variables)
+# ###################################################
+# ==============================================================================
+'''
+    Step -47-1 Road_type_for_fourth_arm_Table
+'''
+
+df = df.join(Road_type_for_fourth_arm_Table)
+# ==============================================================================
+'''
+    Step -48-2 Road_type_for_fourth_arm_Table
+'''
+inner_joint_Int.rename({'Number_of_lanes_for_fourth_arm': 'Arm4_Number_of_lanes_for_fourth_arm'}, axis =1, inplace = True)
+df = df.join(inner_joint_Int["Arm4_Number_of_lanes_for_fourth_arm"])
+# ==============================================================================
+'''
+    Step -49-3 No_of_lanes_changed_at_the_approach3_Table)
+'''
+inner_joint_Int.rename({'No_of_lanes_changed_at_the_approach3': 'Arm4_No_of_lanes_changed_at_the_approach3'}, axis =1, inplace = True)
+df = df.join(inner_joint_Int["Arm4_No_of_lanes_changed_at_the_approach3"])
+# ==============================================================================
+'''
+    Step -50-4 Left_turn_only_lane_for_fourth_arm
+'''
+df = df.join(inner_joint_Int["Left_turn_only_lane_for_fourth_arm"])
+
+# ==============================================================================
+'''
+    Step -51-5 Right_turn_only_lane_for_fourth_arm
+'''
+df = df.join(inner_joint_Int["Right_turn_only_lane_for_fourth_arm"])
+
+# # ==============================================================================
+# '''
+#     Step -52-6 Is_there_Physical_Median_fourth_arm
+# '''
+df7 = pd.DataFrame(Is_there_Physical_Median_third_arm.rename("Is_there_Physical_Median_third_arm"))
+df = df.join(df7)
+Is_there_Physical_Median_Fourth_arm
+# df = df.join(Is_there_Physical_Median_fourth_arm)
+
+# # ==============================================================================
+# '''
+#     Step -52-6 Is_there_centeral_strip_fourth_arm
+# '''
+# df7 = pd.DataFrame(Is_there_centeral_strip_fourth_arm.rename("Is_there_centeral_strip_fourth_arm"))
+# df = df.join(df7)
+
+# # ==============================================================================
+# '''
+#     Step -53-7 Pedestrian_and_bicycle_crossing_roadway_type3
+# '''
+
+# df8 = pd.DataFrame(Is_there_centeral_strip_fourth_arm.rename("Is_there_centeral_strip_fourth_arm"))
+# df = df.join(df8)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # ==================================================#
 #           Export the Final Results
@@ -1121,7 +1286,12 @@ Final_DataSet = df.copy(deep = True)
 Final_DataSet.to_excel(Current_Path + "/Toyota_Survey_Sheetfiles/3_Results_Creating_dummies_cont/Final_DataSet.xlsx", sheet_name="Final_Dataset")
 # ---- Export as a csv file --------
 Final_DataSet.to_csv(Current_Path + "/Toyota_Survey_Sheetfiles/3_Results_Creating_dummies_cont/Final_DataSet.csv", index = True)
+# ---- Export Original DataFrame ---
+inner_joint_Int.to_excel(Current_Path + "/Toyota_Survey_Sheetfiles/3_Results_Creating_dummies_cont/inner_joint_Int.xlsx", sheet_name="inner_joint_Int")
 
 # with open(Current_Path + "/Toyota_Survey_Sheetfiles/3_Results_Creating_dummies_cont/Final_DataSet.csv", 'w') as wf:
 #     for line in Final_DataSet:
 #         wf.write(line)
+
+
+
