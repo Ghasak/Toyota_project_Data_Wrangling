@@ -707,7 +707,7 @@ inner_joint_Int["Skewness_level_of_third_arm_to_the_next_arm"].fillna("No (it is
 # Simliar to above lets create a dummy variable for all roads that have a central strip
 Is_there_centeral_Skewness_arm_three_fourth = 1 * (inner_joint_Int["Skewness_level_of_third_arm_to_the_next_arm"] == "Yes (it is skewed)")
 # =======================================================
-# =============== Sidewalk_type_First_Side2 =======V43====
+# =============== Sidewalk_type_First_Side2 =======V43===
 # =======================================================
 inner_joint_Int["Sidewalk_type_First_Side2"].isnull().sum()  # There is a missing value at 23-K06475-000
 inner_joint_Int["Sidewalk_type_First_Side2"].fillna("No sidewalk", inplace=True)
@@ -718,7 +718,7 @@ Sidewalk_type_First_Side_third_arm_Table.columns = Sidewalk_type_First_Side_thir
 # Create a column name underscored by removing any spaces or (-)
 Sidewalk_type_First_Side_third_arm_Table.columns = Sidewalk_type_First_Side_third_arm_Table.columns.str.replace(' |-', '_')
 # =======================================================
-# =============== Sidewalk_type_Second_Side2 ======V44====
+# =============== Sidewalk_type_Second_Side2 ======V44===
 # =======================================================
 inner_joint_Int["Sidewalk_type_Second_Side2"].isnull().sum()
 # Changing the Categorical Variable to the following:
@@ -727,6 +727,7 @@ Sidewalk_type_Second_Side_third_arm_Table = pd.get_dummies(inner_joint_Int["Side
 Sidewalk_type_Second_Side_third_arm_Table.columns = Sidewalk_type_Second_Side_third_arm_Table.columns.str.strip()
 # Create a column name underscored by removing any spaces or (-)
 Sidewalk_type_Second_Side_third_arm_Table.columns = Sidewalk_type_Second_Side_third_arm_Table.columns.str.replace(' |-', '_')
+# # =======================================================
 # # =============== Traffic_signal_contral_type2 ====V45====
 # # =======================================================
 inner_joint_Int["Traffic_signal_contral_type2"].isnull().sum()
@@ -924,41 +925,107 @@ inner_joint_Int["Numer_of_lanes_larger_than_four"] = listz
 # ===== No_of_lanes_changed_larger_than_four ======V62===
 # =======================================================
 
+inner_joint_Int["No_of_lanes_changed_larger_than_four"].isnull().sum()
+inner_joint_Int["No_of_lanes_changed_larger_than_four"].fillna("Non_Existed", inplace=True)
+# Change The No of lanes changed at the approach to a dummy
+inner_joint_Int["No_of_lanes_changed_larger_than_four"] = 1 * (inner_joint_Int["No_of_lanes_changed_larger_than_four"] == "Yes (it has changed)")
 
 
+# =======================================================
+# ===== Left_turn_only_lane_larger_than_four ========V63===
+# =======================================================
+inner_joint_Int["Left_turn_only_lane_larger_than_four"].isnull().sum()
+# Converte a Dummy binary (text) -----> to (1/0)
+inner_joint_Int["Left_turn_only_lane_larger_than_four"] = 1 * (inner_joint_Int["Left_turn_only_lane_larger_than_four"] == "Exist")
+# =======================================================
+# ========= Right_turn_only_lane_larger_than_four ===V64===
+# =======================================================
+inner_joint_Int["Right_turn_only_lane_larger_than_four"].isnull().sum()
+# Converte a Dummy binary (text) -----> to (1/0)
+inner_joint_Int["Right_turn_only_lane_larger_than_four"] = 1 * (inner_joint_Int["Right_turn_only_lane_larger_than_four"] == "Exist")
 
+# ==================================================================
+# ========= Width_of_Physical_Median_larger_than_four ===V65===
+# ==================================================================
+inner_joint_Int["Width_of_Physical_Median_larger_than_four"].isnull().sum()
+inner_joint_Int["Width_of_Physical_Median_larger_than_four"].fillna(0,inplace = True)
+Is_there_Physical_Median_five_arm = pd.Series(np.where(inner_joint_Int["Width_of_Physical_Median_larger_than_four"] != 0, 1, 0), index=inner_joint_Int.index)
+# ==============================================================
+# === Width_of_centeral_strip_larger_than_four ======V66===
+# ==============================================================
+# Check the missing values in your column
+inner_joint_Int["Width_of_centeral_strip_larger_than_four"].isnull().sum()
+inner_joint_Int["Width_of_centeral_strip_larger_than_four"].isnull().values.any()
+inner_joint_Int["Width_of_centeral_strip_larger_than_four"].fillna(0, inplace=True)
+# Simliar to above lets create a dummy variable for all roads that have a central strip
+Is_there_centeral_strip_five_arm = pd.Series(np.where(inner_joint_Int["Width_of_centeral_strip_larger_than_four"] != 0, 1, 0), index=inner_joint_Int.index)
 
+# =======================================================
+# = Pedestrain_and_bicycle__larger_than_four ==V67=======
+# =======================================================
 
+inner_joint_Int["Pedestrain_and_bicycle__larger_than_four"].isnull().sum()
 
+print("========Pedestrain and bicycle for larger than four arms=============")
+# Changing the Categorical Variable to the following:
+Pedestrian_and_bicycle_five_arm_Table = pd.get_dummies(inner_joint_Int["Pedestrain_and_bicycle__larger_than_four"], prefix="Arm5_6_PedandBi")
+# We will clean the column names to not have spaces
+Pedestrian_and_bicycle_five_arm_Table.columns = Pedestrian_and_bicycle_five_arm_Table.columns.str.strip()
+# Create a column name underscored by removing any spaces or (-)
+Pedestrian_and_bicycle_five_arm_Table.columns = Pedestrian_and_bicycle_five_arm_Table.columns.str.replace(' |-', '_')
+print(f"Check the Sum of Dummies equal to 1 using {Pedestrian_and_bicycle_five_arm_Table.describe().T.iloc[:,1].sum()}")
+print("===================================================================")
+k = inner_joint_Int["Pedestrain_and_bicycle__larger_than_four"].value_counts(normalize=True).sum()
+print(f"also for our main categorical variable before trasfered to dummies {k}")
 
+# ========================================================
+# === Skewness_level_larger_than_four ===============V68==
+# ========================================================
+inner_joint_Int["Skewness_level_larger_than_four"].isnull().sum()
+inner_joint_Int["Skewness_level_larger_than_four"].fillna("No (it is not skewed)", inplace=True)
+# Simliar to above lets create a dummy variable for all roads that have a central strip
+Is_there_centeral_Skewness_arm_fourth = 1 * (inner_joint_Int["Skewness_level_larger_than_four"] == "Yes (it is skewed)")
 
+# =======================================================
+# = Sidewalk_type_First_Side_larger_than_four =======V69=
+# =======================================================
+inner_joint_Int["Sidewalk_type_First_Side_larger_than_four"].isnull().sum()
+inner_joint_Int["Sidewalk_type_First_Side_larger_than_four"].fillna("No sidewalk", inplace=True)
+# Changing the Categorical Variable to the following:
+Sidewalk_type_First_Side_five_arm_Table = pd.get_dummies(inner_joint_Int["Sidewalk_type_First_Side_larger_than_four"], prefix="Arm5_6_1stSide")
+# We will clean the column names to not have spaces
+Sidewalk_type_First_Side_five_arm_Table.columns = Sidewalk_type_First_Side_five_arm_Table.columns.str.strip()
+# Create a column name underscored by removing any spaces or (-)
+Sidewalk_type_First_Side_five_arm_Table.columns = Sidewalk_type_First_Side_five_arm_Table.columns.str.replace(' |-', '_')
 
+# =======================================================
+# == Sidewalk_type_Second_Side_larger_than_four ===V70===
+# =======================================================
+inner_joint_Int["Sidewalk_type_Second_Side_larger_than_four"].isnull().sum()
+# Changing the Categorical Variable to the following:
+Sidewalk_type_Second_Side_five_arm_Table = pd.get_dummies(inner_joint_Int["Sidewalk_type_Second_Side_larger_than_four"], prefix="Arm5_6_2ndSide")
+# We will clean the column names to not have spaces
+Sidewalk_type_Second_Side_five_arm_Table.columns = Sidewalk_type_Second_Side_five_arm_Table.columns.str.strip()
+# Create a column name underscored by removing any spaces or (-)
+Sidewalk_type_Second_Side_five_arm_Table.columns = Sidewalk_type_Second_Side_five_arm_Table.columns.str.replace(' |-', '_')
 
+# =======================================================
+# == Traffic_signal_contral_type_larger_than_four ===V71=
+# =======================================================
+inner_joint_Int["Traffic_signal_contral_type_larger_than_four"].isnull().sum()
+# Changing the Categorical Variable to the following:
+Traffic_signal_contral_type_fourth_arm_Table = pd.get_dummies(inner_joint_Int["Traffic_signal_contral_type_larger_than_four"], prefix="Arm5_6_TrafSig")
+# We will clean the column names to not have spaces
+Traffic_signal_contral_type_fourth_arm_Table.columns = Traffic_signal_contral_type_fourth_arm_Table.columns.str.strip()
+# Create a column name underscored by removing any spaces or (-)
+Traffic_signal_contral_type_fourth_arm_Table.columns = Traffic_signal_contral_type_fourth_arm_Table.columns.str.replace(' |-', '_')
 
-
-
-# No_of_lanes_changed_larger_than_four
-# Left_turn_only_lane_larger_than_four
-# Right_turn_only_lane_larger_than_four
-# Width_of_Physical_Median_larger_than_four
-# Width_of_centeral_strip_larger_than_four
-# Pedestrain_and_bicycle__larger_than_four
-# Skewness_level_larger_than_four
-# Sidewalk_type_First_Side_larger_than_four
-# Sidewalk_type_Second_Side_larger_than_four
-# Traffic_signal_contral_type_larger_than_four
-# Presence_of_pedestrian_traffic_signal_larger_than_four
-
-
-
-
-
-
-
-
-
-
-
+# =======================================================================
+# ==== Presence_of_pedestrian_traffic_signal_larger_than_four ====V72====
+# =======================================================================
+inner_joint_Int["Presence_of_pedestrian_traffic_signal_larger_than_four"].isnull().sum()
+# Changing the Categorical Variable to the following:
+inner_joint_Int['Presence_of_pedestrian_traffic_signal_larger_than_four'] = 1 * (inner_joint_Int["Presence_of_pedestrian_traffic_signal_larger_than_four"] == "Exist")
 # ==============================================================================
 '''
     df is the original dataset that we have from our firs survey with -U sensei,
@@ -1386,6 +1453,10 @@ inner_joint_Int.to_excel(Current_Path + "/Toyota_Survey_Sheetfiles/3_Results_Cre
 # with open(Current_Path + "/Toyota_Survey_Sheetfiles/3_Results_Creating_dummies_cont/Final_DataSet.csv", 'w') as wf:
 #     for line in Final_DataSet:
 #         wf.write(line)
+
+
+
+
 
 
 
