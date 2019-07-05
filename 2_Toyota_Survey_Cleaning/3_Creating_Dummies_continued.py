@@ -778,8 +778,9 @@ for row in range(len(inner_joint_Int["Number_of_lanes_for_fourth_arm"])):
 print("========================================================")
 print(f"Number_of_lanes_for_fourth_arm has 6 or more at intersections {listg}")
 inner_joint_Int["Number_of_lanes_for_fourth_arm"] = listz
-# ================ No_of_lanes_changed_at_the_approach3 =================V49====
-
+# ==========================================================
+# ======== No_of_lanes_changed_at_the_approach3 =====V49====
+# ==========================================================
 inner_joint_Int["No_of_lanes_changed_at_the_approach3"].isnull().sum()
 inner_joint_Int["No_of_lanes_changed_at_the_approach3"].fillna("Non_Existed", inplace=True)
 # Change The No of lanes changed at the approach to a dummy
@@ -880,10 +881,73 @@ inner_joint_Int["Presence_of_pedestrian_traffic_signal3"].isnull().sum()
 # Changing the Categorical Variable to the following:
 inner_joint_Int['Presence_of_pedestrian_traffic_signal3'] = 1 * (inner_joint_Int["Presence_of_pedestrian_traffic_signal3"] == "Exist")
 
+# ========================================================================
+# ###################################################
+#        Larger than Fourth Arms
+# ###################################################
+# ========================================================================
+# =============== Road_type_larger_than_four_arms ====V60=======
+inner_joint_Int["Road_type_larger_than_four_arms"].isnull().sum()
+inner_joint_Int["Road_type_larger_than_four_arms"].fillna("Non_Existed", inplace=True)
+
+Road_type_Larger_than_fourth_arm_Table = pd.get_dummies(inner_joint_Int["Road_type_larger_than_four_arms"], prefix="Arm5_6_Road_type")
+# We will clean the column names to not have spaces
+Road_type_Larger_than_fourth_arm_Table.columns = Road_type_Larger_than_fourth_arm_Table.columns.str.strip()
+# Create a column name underscored by removing any spaces or (-)
+Road_type_Larger_than_fourth_arm_Table.columns = Road_type_Larger_than_fourth_arm_Table.columns.str.replace(' |-', '_')
+
+# =======================================================
+# ===== Numer_of_lanes_larger_than_four ===========V61===
+# =======================================================
+# Check the missing values in your column
+inner_joint_Int["Numer_of_lanes_larger_than_four"].isnull().sum()
+inner_joint_Int["Numer_of_lanes_larger_than_four"].isnull().values.any()
+inner_joint_Int["Numer_of_lanes_larger_than_four"].fillna(0, inplace=True)
+print("========================================================")
+listg = []
+listz = []
+listx = ["6 or more"]
+pattern = '|'.join(listx)
+# Remove hte pattern in your column
+for row in range(len(inner_joint_Int["Numer_of_lanes_larger_than_four"])):
+    if inner_joint_Int["Numer_of_lanes_larger_than_four"].iloc[row] != pattern:
+        listz.append(inner_joint_Int["Numer_of_lanes_larger_than_four"].iloc[row])
+    if inner_joint_Int["Numer_of_lanes_larger_than_four"].iloc[row] == pattern:
+        listg.append(inner_joint_Int.index[row])
+        listz.append(6)
+print("========================================================")
+print(f"Numer_of_lanes_larger_than_four has 6 or more at intersections {listg}")
+inner_joint_Int["Numer_of_lanes_larger_than_four"] = listz
+
+
+# =======================================================
+# ===== No_of_lanes_changed_larger_than_four ======V62===
+# =======================================================
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+# No_of_lanes_changed_larger_than_four
+# Left_turn_only_lane_larger_than_four
+# Right_turn_only_lane_larger_than_four
+# Width_of_Physical_Median_larger_than_four
+# Width_of_centeral_strip_larger_than_four
+# Pedestrain_and_bicycle__larger_than_four
+# Skewness_level_larger_than_four
+# Sidewalk_type_First_Side_larger_than_four
+# Sidewalk_type_Second_Side_larger_than_four
+# Traffic_signal_contral_type_larger_than_four
+# Presence_of_pedestrian_traffic_signal_larger_than_four
 
 
 
@@ -1274,9 +1338,6 @@ df = df.join(Sidewalk_type_First_Side_fourth_arm_Table)
 '''
     Step -57-11 Sidewalk_type_Second_Side3
 '''
-
-
-
 df = df.join(Sidewalk_type_Second_Side_fourth_arm_Table)
 
 # ==============================================================================
@@ -1292,6 +1353,22 @@ df = df.join(Traffic_signal_contral_type_fourth_arm_Table)
 
 inner_joint_Int.rename({'Presence_of_pedestrian_traffic_signal3':'Arm4_Presence_of_pedestrian_traffic_signal3'}, axis= 1,inplace =True)
 df = df.join(inner_joint_Int['Arm4_Presence_of_pedestrian_traffic_signal3'])
+
+# ###################################################
+#  Larger than Fourth Arm - Variables (13 variables)
+# ###################################################
+# ==============================================================================
+'''
+    Step -60-1 Road_type_for_Larger_fourth_arm_Table
+'''
+
+
+
+
+
+
+
+
 
 
 
