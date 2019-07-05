@@ -79,7 +79,7 @@ def pretty_print(df):
         print(df)
 
 
-def reset_g():
-    %reset
-    %clear
-    %run 3_Creating_Dummies_continued.py
+# def reset_g():
+#     %reset
+#     %clear
+#     %run 3_Creating_Dummies_continued.py

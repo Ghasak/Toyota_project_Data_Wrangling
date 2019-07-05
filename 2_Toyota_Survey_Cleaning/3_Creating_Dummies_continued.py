@@ -158,6 +158,7 @@ find_duplicates_with_pandas(col = inner_joint_Int.index)
 # Now we will add a counter to each intersection that
 # is duplicated.
 change_to_unique_Data_frame(df = inner_joint_Int)
+reset_g()
 
 # ==================================================#
 #       Change Categorical Variables to Dummies
