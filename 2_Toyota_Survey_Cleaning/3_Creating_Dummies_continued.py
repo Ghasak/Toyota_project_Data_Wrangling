@@ -984,7 +984,7 @@ print(f"also for our main categorical variable before trasfered to dummies {k}")
 inner_joint_Int["Skewness_level_larger_than_four"].isnull().sum()
 inner_joint_Int["Skewness_level_larger_than_four"].fillna("No (it is not skewed)", inplace=True)
 # Simliar to above lets create a dummy variable for all roads that have a central strip
-Is_there_centeral_Skewness_arm_fourth = 1 * (inner_joint_Int["Skewness_level_larger_than_four"] == "Yes (it is skewed)")
+Is_there_centeral_Skewness_arm_five = 1 * (inner_joint_Int["Skewness_level_larger_than_four"] == "Yes (it is skewed)")
 
 # =======================================================
 # = Sidewalk_type_First_Side_larger_than_four =======V69=
@@ -1014,11 +1014,11 @@ Sidewalk_type_Second_Side_five_arm_Table.columns = Sidewalk_type_Second_Side_fiv
 # =======================================================
 inner_joint_Int["Traffic_signal_contral_type_larger_than_four"].isnull().sum()
 # Changing the Categorical Variable to the following:
-Traffic_signal_contral_type_fourth_arm_Table = pd.get_dummies(inner_joint_Int["Traffic_signal_contral_type_larger_than_four"], prefix="Arm5_6_TrafSig")
+Traffic_signal_contral_type_five_arm_Table = pd.get_dummies(inner_joint_Int["Traffic_signal_contral_type_larger_than_four"], prefix="Arm5_6_TrafSig")
 # We will clean the column names to not have spaces
-Traffic_signal_contral_type_fourth_arm_Table.columns = Traffic_signal_contral_type_fourth_arm_Table.columns.str.strip()
+Traffic_signal_contral_type_five_arm_Table.columns = Traffic_signal_contral_type_five_arm_Table.columns.str.strip()
 # Create a column name underscored by removing any spaces or (-)
-Traffic_signal_contral_type_fourth_arm_Table.columns = Traffic_signal_contral_type_fourth_arm_Table.columns.str.replace(' |-', '_')
+Traffic_signal_contral_type_five_arm_Table.columns = Traffic_signal_contral_type_five_arm_Table.columns.str.replace(' |-', '_')
 
 # =======================================================================
 # ==== Presence_of_pedestrian_traffic_signal_larger_than_four ====V72====
@@ -1026,6 +1026,19 @@ Traffic_signal_contral_type_fourth_arm_Table.columns = Traffic_signal_contral_ty
 inner_joint_Int["Presence_of_pedestrian_traffic_signal_larger_than_four"].isnull().sum()
 # Changing the Categorical Variable to the following:
 inner_joint_Int['Presence_of_pedestrian_traffic_signal_larger_than_four'] = 1 * (inner_joint_Int["Presence_of_pedestrian_traffic_signal_larger_than_four"] == "Exist")
+
+
+
+
+
+
+
+
+
+
+
+
+
 # ==============================================================================
 '''
     df is the original dataset that we have from our firs survey with -U sensei,
@@ -1429,11 +1442,86 @@ df = df.join(inner_joint_Int['Arm4_Presence_of_pedestrian_traffic_signal3'])
     Step -60-1 Road_type_for_Larger_fourth_arm_Table
 '''
 
+df =  df.join(Road_type_Larger_than_fourth_arm_Table)
+
+# ==============================================================================
+'''
+    Step -61-2 Numer_of_lanes_larger_than_four
+'''
+inner_joint_Int.rename({'Numer_of_lanes_larger_than_four': 'Arm5_6_Numer_of_lanes_larger_than_four'}, axis =1, inplace = True)
+df =  df.join(inner_joint_Int["Arm5_6_Numer_of_lanes_larger_than_four"])
+# ==============================================================================
+'''
+    Step -62-3 No_of_lanes_changed_larger_than_four
+'''
+inner_joint_Int.rename({'No_of_lanes_changed_larger_than_four': 'Arm5_6_No_of_lanes_changed_larger_than_four'}, axis =1, inplace = True)
+df = df.join(inner_joint_Int["Arm5_6_No_of_lanes_changed_larger_than_four"])
+
+# ==============================================================================
+'''
+    Step -63-4 Left_turn_only_lane_larger_than_four
+'''
+df = df.join(inner_joint_Int["Left_turn_only_lane_larger_than_four"])
+
+# ==============================================================================
+'''
+    Step -64-5 Right_turn_only_lane_larger_than_four
+'''
+df = df.join(inner_joint_Int["Right_turn_only_lane_larger_than_four"])
+
+# ==============================================================================
+'''
+    Step -65-6 Width_of_Physical_Median_larger_than_four
+'''
+df9 = pd.DataFrame(Is_there_Physical_Median_five_arm.rename("Is_there_Physical_Median_five_arm"))
 
 
+df = df.join(df9)
+# ==============================================================================
+'''
+    Step -66-7 Width_of_centeral_strip_larger_than_four
+'''
+df10 = pd.DataFrame(Is_there_centeral_strip_five_arm.rename("Is_there_centeral_strip_five_arm"))
+
+df = df.join(df10)
+
+# ==============================================================================
+'''
+    Step -67-8 Pedestrain_and_bicycle__larger_than_four
+'''
+df = df.join(Pedestrian_and_bicycle_five_arm_Table)
 
 
+# ==============================================================================
+'''
+    Step -68-9 Skewness_level_larger_than_four
+'''
+df = df.join(Is_there_centeral_Skewness_arm_five)
+# ==============================================================================
+'''
+    Step -69-10 Sidewalk_type_First_Side_larger_than_four
+'''
 
+df = df.join(Sidewalk_type_First_Side_five_arm_Table)
+# ==============================================================================
+'''
+    Step -70-11 Sidewalk_type_Second_Side_larger_than_four
+'''
+df = df.join(Sidewalk_type_Second_Side_five_arm_Table)
+
+# ==============================================================================
+'''
+    Step -71-12 Traffic_signal_contral_type_larger_than_four
+'''
+
+df = df.join(Traffic_signal_contral_type_five_arm_Table)
+
+# ==============================================================================
+'''
+    Step -72-13 Presence_of_pedestrian_traffic_signal_larger_than_four
+'''
+inner_joint_Int.rename({'Presence_of_pedestrian_traffic_signal_larger_than_four':'Arm5_6_Presence_of_pedestrian_traffic_signal_larger_than_four'}, axis= 1,inplace =True)
+df = df.join(inner_joint_Int['Arm5_6_Presence_of_pedestrian_traffic_signal_larger_than_four'])
 
 
 

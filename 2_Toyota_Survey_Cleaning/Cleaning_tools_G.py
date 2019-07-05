@@ -77,3 +77,9 @@ def change_to_unique_Data_frame(df):
 def pretty_print(df):
     with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be     specified also
         print(df)
+
+
+def reset_g():
+    %reset
+    %clear
+    %run 3_Creating_Dummies_continued.py
