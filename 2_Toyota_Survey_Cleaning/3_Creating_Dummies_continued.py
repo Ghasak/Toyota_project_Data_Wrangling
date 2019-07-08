@@ -20,7 +20,6 @@ import numpy as np
 import os
 Current_Path = os.getcwd()
 
-
 # print(Current_Path)
 # print(f"This is the relative path {os.path.abspath(os.getcwd())}")
 # print(f"This is the full path {os.path.dirname(os.path.abspath(__file__))}")
@@ -249,6 +248,8 @@ inner_joint_Int["Road_type_for_first_arm"].isnull().values.any()
 # Replace the Missing values using: df[1].fillna(0, inplace=True)
 # Start with the intersection Type categorical variable
 Road_type_for_first_arm_Table = pd.get_dummies(inner_joint_Int["Road_type_for_first_arm"], prefix="Arm1_RoadType")
+# Check Sum of dummies:
+Road_type_for_first_arm_Table.describe().T.iloc[:,1].sum()
 # We will clean the column names to not have spaces
 Road_type_for_first_arm_Table.columns = Road_type_for_first_arm_Table.columns.str.strip()
 # Create a column name underscored by removing any spaces or (-)
@@ -467,7 +468,7 @@ print(f"The affected intesections \n\t For the variable Number_of_lanes_for_seco
 inner_joint_Int.rename({'Number_of_lanes_for_second_arm':'Arm2_Number_of_lanes_for_second_arm'}, axis= 1,inplace =True)
 # ================ No_of_lanes_changed_at_the_approach1 =================V23====
 
-# As we can see No. has already been replaced above to No_ using reqular expression
+# As we can see No. has already been replaced above to No_ using regular expression
 inner_joint_Int["No_of_lanes_changed_at_the_approach1"].isnull().sum()
 # Converte a Dummy binary (text) -----> to (1/0)
 inner_joint_Int["No_of_lanes_changed_at_the_approach1"] = 1 * (inner_joint_Int["No_of_lanes_changed_at_the_approach1"] == "Yes (it has changed)")
@@ -1139,12 +1140,14 @@ df = df.join(inner_joint_Int["Right_turn_only_lane_for_first_arm"])
 # df = df.join(Is_there_Physical_Median_first_arm) This one is not working to join panda series with pandas dataframe. The above solution works only with V0.24.0 onwards, check using print(pd.__version__)
 # Update it is working but not give a name for the column, so I need to coverate the series to a
 # DataFrame object in panda.
+df = df.join(inner_joint_Int["Width_of_Pysical_Median_of_first_arm_if_exist"])
 df1 = pd.DataFrame(Is_there_Physical_Median_first_arm.rename("Is_there_Physical_Median_first_arm"))
 df = df.join(df1)
 # ==============================================================================
 '''
     Step -14-7 Width of central strip of first arm dummy
 '''
+df = df.join(inner_joint_Int["Width_of_central_strip_of_first_arm_if_exist"])
 df2 = pd.DataFrame(Is_there_centeral_strip_first_arm.rename("Is_there_centeral_strip_first_arm"))
 df = df.join(df2)
 # ==============================================================================
@@ -1215,19 +1218,21 @@ df = df.join(inner_joint_Int["Right_turn_only_lane_for_second_arm"])
 '''
     Step -26-6 Width of Physical median of second arm if existed
 '''
-
+df =df.join(inner_joint_Int["Width_of_Pysical_Median_of_second_arm_if_exist"])
 df3 = pd.DataFrame(Is_there_Physical_Median_second_arm.rename("Is_there_Physical_Median_second_arm"))
 df = df.join(df3)
 # ==============================================================================
 '''
     Step -27-7 Width_of_central_strip_of_second_arm_if_exist
 '''
+df = df.join(inner_joint_Int["Width_of_central_strip_of_second_arm_if_exist"])
 df4 = pd.DataFrame(Is_there_centeral_strip_second_arm.rename("Is_there_centeral_strip_second_arm"))
 df = df.join(df4)
 # ==============================================================================
 '''
     Step -28-8 Pedestrian and bicycle crossing roadway type
 '''
+
 df = df.join(Pedestrian_and_bicycle_second_arm_Table)
 # ==============================================================================
 '''
@@ -1296,12 +1301,14 @@ df = df.join(inner_joint_Int['Right_turn_only_lane_for_third_arm'])
 '''
     Step -39-6 Width_of_Physical_Median_of_third_arm_if_exist
 '''
+df = df.join(inner_joint_Int["Width_of_Pysical_Median_of_third_arm_if_exist"])
 df5 = pd.DataFrame(Is_there_Physical_Median_third_arm.rename("Is_there_Physical_Median_third_arm"))
 df = df.join(df5)
 # ==============================================================================
 '''
     Step -40-7 Width_of_central_strip_of_third_arm_if_exist
 '''
+df = df.join(inner_joint_Int["Width_of_central_strip_of_third_arm_if_exist"])
 df6 = pd.DataFrame(Is_there_centeral_strip_third_arm.rename("Is_there_centeral_strip_third_arm"))
 df = df.join(df6)
 # ==============================================================================
@@ -1382,6 +1389,7 @@ df = df.join(inner_joint_Int["Right_turn_only_lane_for_fourth_arm"])
 '''
     Step -52-6 Is_there_Physical_Median_fourth_arm
 '''
+df = df.join(inner_joint_Int["Width_of_Pysical_Median_of_fourth_arm_if_exist"])
 df7 = pd.DataFrame(Is_there_Physical_Median_fourth_arm.rename("Is_there_Physical_Median_fourth_arm"))
 df = df.join(df7)
 
@@ -1390,6 +1398,7 @@ df = df.join(df7)
 '''
     Step -53-7 Is_there_centeral_strip_fourth_arm
 '''
+df = df.join(inner_joint_Int["Width_of_central_strip_of_fourth_arm_if_exist"])
 df8 = pd.DataFrame(Is_there_centeral_strip_fourth_arm.rename("Is_there_centeral_strip_fourth_arm"))
 df = df.join(df8)
 
@@ -1397,6 +1406,7 @@ df = df.join(df8)
 '''
     Step -54-8 Pedestrian_and_bicycle_crossing_roadway_type3
 '''
+
 df = df.join(Pedestrian_and_bicycle_fourth_arm_Table)
 
 
@@ -1475,6 +1485,7 @@ df = df.join(inner_joint_Int["Right_turn_only_lane_larger_than_four"])
 '''
     Step -65-6 Width_of_Physical_Median_larger_than_four
 '''
+df = df.join(inner_joint_Int["Width_of_Physical_Median_larger_than_four"])
 df9 = pd.DataFrame(Is_there_Physical_Median_five_arm.rename("Is_there_Physical_Median_five_arm"))
 
 
@@ -1483,6 +1494,7 @@ df = df.join(df9)
 '''
     Step -66-7 Width_of_centeral_strip_larger_than_four
 '''
+df =df.join(inner_joint_Int["Width_of_centeral_strip_larger_than_four"])
 df10 = pd.DataFrame(Is_there_centeral_strip_five_arm.rename("Is_there_centeral_strip_five_arm"))
 
 df = df.join(df10)
@@ -1540,7 +1552,6 @@ for sheet, frame in  frames.items(): # .use .items for python 3.X, and .iteritem
 
 #critical last step
 writer.save()
-
 
 # ---- Export as a csv file --------
 Final_DataSet.to_csv(Current_Path + "/Toyota_Survey_Sheetfiles/3_Results_Creating_dummies_cont/Final_DataSet.csv", index = True)
