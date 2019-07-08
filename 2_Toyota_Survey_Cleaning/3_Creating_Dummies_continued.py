@@ -158,7 +158,6 @@ find_duplicates_with_pandas(col = inner_joint_Int.index)
 # Now we will add a counter to each intersection that
 # is duplicated.
 change_to_unique_Data_frame(df = inner_joint_Int)
-reset_g()
 
 # ==================================================#
 #       Change Categorical Variables to Dummies
@@ -1532,10 +1531,23 @@ df = df.join(inner_joint_Int['Arm5_6_Presence_of_pedestrian_traffic_signal_large
 #           Export the Final Results
 # ==================================================#
 Final_DataSet = df.copy(deep = True)
-# ---- Export as a xlsx file --------
-Final_DataSet.to_excel(Current_Path + "/Toyota_Survey_Sheetfiles/3_Results_Creating_dummies_cont/Final_DataSet.xlsx", sheet_name="Final_Dataset")
+
+writer = pd.ExcelWriter(Current_Path + "/Toyota_Survey_Sheetfiles/3_Results_Creating_dummies_cont/Final_DataSet.xlsx", engine='xlsxwriter')
+#store your dataframes in a  dict, where the key is the sheet name you want
+
+frames = {'DataSet': Final_DataSet, 'Descriptive': Final_DataSet.describe().T}
+#now loop thru and put each on a specific sheet
+for sheet, frame in  frames.items(): # .use .items for python 3.X, and .iteritems() fro 2.X 
+    frame.to_excel(writer, sheet_name = sheet)
+
+#critical last step
+writer.save()
+
+
 # ---- Export as a csv file --------
 Final_DataSet.to_csv(Current_Path + "/Toyota_Survey_Sheetfiles/3_Results_Creating_dummies_cont/Final_DataSet.csv", index = True)
+
+
 # ---- Export Original DataFrame ---
 inner_joint_Int.to_excel(Current_Path + "/Toyota_Survey_Sheetfiles/3_Results_Creating_dummies_cont/inner_joint_Int.xlsx", sheet_name="inner_joint_Int")
 
