@@ -1523,10 +1523,6 @@ df = df.join(Traffic_signal_contral_type_five_arm_Table)
 inner_joint_Int.rename({'Presence_of_pedestrian_traffic_signal_larger_than_four':'Arm5_6_Presence_of_pedestrian_traffic_signal_larger_than_four'}, axis= 1,inplace =True)
 df = df.join(inner_joint_Int['Arm5_6_Presence_of_pedestrian_traffic_signal_larger_than_four'])
 
-
-
-
-
 # ==================================================#
 #           Export the Final Results
 # ==================================================#
@@ -1537,7 +1533,7 @@ writer = pd.ExcelWriter(Current_Path + "/Toyota_Survey_Sheetfiles/3_Results_Crea
 
 frames = {'DataSet': Final_DataSet, 'Descriptive': Final_DataSet.describe().T}
 #now loop thru and put each on a specific sheet
-for sheet, frame in  frames.items(): # .use .items for python 3.X, and .iteritems() fro 2.X 
+for sheet, frame in  frames.items(): # .use .items for python 3.X, and .iteritems() fro 2.X
     frame.to_excel(writer, sheet_name = sheet)
 
 #critical last step
