@@ -1537,6 +1537,32 @@ df = df.join(Traffic_signal_contral_type_five_arm_Table)
 inner_joint_Int.rename({'Presence_of_pedestrian_traffic_signal_larger_than_four':'Arm5_6_Presence_of_pedestrian_traffic_signal_larger_than_four'}, axis= 1,inplace =True)
 df = df.join(inner_joint_Int['Arm5_6_Presence_of_pedestrian_traffic_signal_larger_than_four'])
 
+
+
+
+
+
+# ==================================================#
+#           Problems discovered Later
+# ==================================================#
+# It seems there is a value in the Longest_Width_of_intersection
+# was not correct.
+# Finding which intersection
+for index,item in enumerate(df['Longest_Width_of_intersection']):
+    #print(i)
+    if item == '39..76':
+        print(10*"-","A Problem in Longest Width of Intersection at:",10*"-")
+        print (df['Longest_Width_of_intersection'].index[index],item)
+        item = 39.76
+        df['Longest_Width_of_intersection'].iloc[index] =item
+
+
+# Now Lets check if the problem has been fixed:
+print(10*"-","Check the problem",10*"-")
+for i,item in enumerate(df['Longest_Width_of_intersection']):
+    if df['Longest_Width_of_intersection'].index[i] == '23-K06396-000':
+        print (df['Longest_Width_of_intersection'].index[i],item)
+
 # ==================================================#
 #           Export the Final Results
 # ==================================================#
