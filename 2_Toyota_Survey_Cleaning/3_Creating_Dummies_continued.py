@@ -217,6 +217,8 @@ for i in range(len(List_Radius)):
     print(List_Radius[i])
     if inner_joint_Int[List_Radius[i]].isnull().values.any():
         inner_joint_Int[List_Radius[i]].fillna(0, inplace=True)
+    else:
+        inner_joint_Int[List_Radius[i]]
 # =======================================================
 # ================ Number_of_arms =================V7====
 # =======================================================
@@ -1086,7 +1088,7 @@ df = df.join(inner_joint_Int["Shortest_Width_of_intersection"])
 '''
 # There are 6 radiuses available in the dataframe whichare:
 for column in range(len(List_Radius)):
-    print(List_Radius)
+    print(List_Radius[column])
     df = df.join(inner_joint_Int[List_Radius[column]])
 # ==============================================================================
 '''
