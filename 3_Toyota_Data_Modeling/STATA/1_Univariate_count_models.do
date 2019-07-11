@@ -49,32 +49,57 @@ summarize  Three_arms Four_arms Five_arms Six_arms
 // ======================================================================================================
 // Variables of First Arm
 // Road type of first arm
+summarize  Arm1_RoadType_Divided_roadway_wi BL BM BN Arm1_RoadType_One_way_street Arm1_RoadType_Single_roadway_wit
+
+// Intersection characteristics-related to approaches
+summarize  Arm1_Number_of_lanes_for_first_a Arm1_No_of_lanes_changed_at_the_ Left_turn_only_lane_for_first_ar Right_turn_only_lane_for_first_a Width_of_Pysical_Median_of_first Is_there_Physical_Median_first_a Width_of_central_strip_of_first_ Is_there_centeral_strip_first_ar Skewness_level_of_first_arm_to_t
+
+// Traffic signal characteristics
+summarize  Arm1_RedYellow_flashing_signal Arm1_Stop_sign Arm1_Traffic_signal_with_left_or Arm1_Traffic_signal_without_left Arm1_Uncontroled Arm1_Presence_of_pedestrian_traf
+
+// Intersection characteristics-related to pedestrains and bicyclists
+// Bicycles
+summarize  Arm1_Crossing_path_without_bicyc Arm1_Crosswalk_existed_within_50 Arm1_Crosswalk_path_with_bicycle
+// Sidewalk 
+summarize  Arm1_1stSide_No_sidewalk Arm1_1stSide_Sidewalk_with_curbs Arm1_1stSide_Sidewalk_with_guard Arm1_1stSide_Sidewalk_without_an Arm1_2ndSide_No_sidewalk Arm1_2ndSide_Sidewalk_with_curbs Arm1_2ndSide_Sidewalk_with_guard Arm1_2ndSide_Sidewalk_without_an
+
+// ======================================================================================================
+// Variables of Second Arm
+// Road type of second arm
+
+summarize  Arm2_Divided_roadway_with_No_Phy CR Arm2_Divided_roadway_with_Physic CT Arm2_One_way_street Arm2_Single_roadway_without_cent
+
+// Intersection characteristics-related to approaches
+summarize  Arm2_Number_of_lanes_for_second_ Arm2_No_of_lanes_changed_at_the_ Left_turn_only_lane_for_second_a Right_turn_only_lane_for_second_ Width_of_Pysical_Median_of_secon Is_there_Physical_Median_second_ Width_of_central_strip_of_second Is_there_centeral_strip_second_a Skewness_level_of_second_arm_to_ 
 
 
-// Intersection variables
-summarize  Arm1_Number_of_lanes_for_first_a Arm1_No_of_lanes_changed_at_the_ Left_turn_only_lane_for_first_ar Right_turn_only_lane_for_first_a Width_of_Pysical_Median_of_first Is_there_Physical_Median_first_a Width_of_central_strip_of_first_ Is_there_centeral_strip_first_ar
+// Traffic signal characteristics
+summarize  Arm2_RedYellow_flashing_signal Arm2_Stop_sign Arm2_Traffic_signal_with_left_or Arm2_Traffic_signal_without_left Arm2_Uncontroled Arm2_Presence_of_pedestrian_traf
 
 
+// Intersection characteristics-related to pedestrains and bicyclists
+// Bicycles
+summarize  Arm2_Crossing_path_without_bicyc Arm2_Crosswalk_existed_within_50 Arm2_Crosswalk_path_with_bicycle
+
+// Sidewalk 
+summarize  Arm2_1stSide_No_sidewalk Arm2_1stSide_Sidewalk_with_curbs Arm2_1stSide_Sidewalk_with_guard Arm2_1stSide_Sidewalk_without_an Arm2_2ndSide_No_sidewalk Arm2_2ndSide_Sidewalk_with_curbs Arm2_2ndSide_Sidewalk_with_guard Arm2_2ndSide_Sidewalk_without_an
 
 
+// ======================================================================================================
+// Variables of Third Arm
+// Road type of Third arm
+
+ summarize Arm3_Divided_roadway_with_No_Phy DX Arm3_Divided_roadway_with_Physic DZ Arm3_One_way_street Arm3_Single_roadway_without_cent
+// Intersection characteristics-related to approaches
+ summarize  Arm3_Number_of_lanes_for_third_a Arm3_No_of_lanes_changed_at_the_ Left_turn_only_lane_for_third_ar Right_turn_only_lane_for_third_a Width_of_Pysical_Median_of_third Is_there_Physical_Median_third_a Width_of_central_strip_of_third_ Is_there_centeral_strip_third_ar  Skewness_level_of_third_arm_to_t
 
 
+// Traffic signal characteristics
+summarize  Arm3_RedYellow_flashing_signal Arm3_Stop_sign Arm3_Traffic_signal_with_left_or Arm3_Traffic_signal_without_left Arm3_Uncontroled Arm3_Presence_of_pedestrian_traf
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// Intersection characteristics-related to pedestrains and bicyclists
+// Bicycles
+summarize  Arm3_PedandBi_Crossing_path_with Arm3_PedandBi_Crosswalk_existed_ Arm3_PedandBi_Crosswalk_path_wit
+// Sidewalk 
+summarize  Arm3_1stSide_No_sidewalk Arm3_1stSide_Sidewalk_with_curbs Arm3_1stSide_Sidewalk_with_guard Arm3_1stSide_Sidewalk_without_an Arm3_2ndSide_No_sidewalk Arm3_2ndSide_Sidewalk_with_curbs Arm3_2ndSide_Sidewalk_with_guard Arm3_2ndSide_Sidewalk_without_an
