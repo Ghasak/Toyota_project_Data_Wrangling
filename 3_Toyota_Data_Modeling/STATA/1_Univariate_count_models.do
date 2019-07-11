@@ -14,3 +14,6 @@ summarize  High_speed Prefectural_Dummy_new General_national_road Major_prefectu
 
 // Road width by a variable collected by the police report - from Usui sensei dataset. 
 summarize  conf1_Less_than_35_m conf1_35_m_or_more conf1_55_m_or_more conf1_90_m_or_more conf1_130_or_more conf1_195_m_or_more
+
+// Road width by Usui sensei calculation using the map matching information
+summarize  conf2_Between_Less35_and_55m conf2_55_m_or_more conf2_90_m_or_more conf2_130_or_more

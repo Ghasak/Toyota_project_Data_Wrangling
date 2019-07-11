@@ -1562,6 +1562,13 @@ print(10*"-","Check the problem",10*"-")
 for i,item in enumerate(df['Longest_Width_of_intersection']):
     if df['Longest_Width_of_intersection'].index[i] == '23-K06396-000':
         print (df['Longest_Width_of_intersection'].index[i],item)
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Road width by police variable shows un matching of sum of dummies:
+dfc = pd.DataFrame({df['conf1_Less_than_35_m'].name: df['conf1_Less_than_35_m'],df['conf1_35_m_or_more'].name:df['conf1_35_m_or_more'],df['conf2_Between_Less35_and_55m'].name:df['conf2_Between_Less35_and_55m']})
+dfc['sum_var'] = df['conf1_35_m_or_more']+ df['conf1_Less_than_35_m']
+print(10*'-','Check the Two Columns',10*'-')
+print(dfc['conf2_Between_Less35_and_55m'].any() == dfc['sum_var'].any())
+print(dfc.describe().T)
 
 # ==================================================#
 #           Export the Final Results
