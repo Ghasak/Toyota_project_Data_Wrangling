@@ -41,10 +41,18 @@ summarize  traffic_volume log_traffic_volume traffic_volume_dummy log_traffic_vo
 summarize   T_or_staggered_intersection Y_shape_intersection Cross_intersection Intersection_with_more_than_four Other_shapes
 // Variables related to intersection geometry
 summarize  Number_of_driverways Distance_to_adjacent_intersectio Longest_Width_of_intersection Shortest_Width_of_intersection
-
+// intersection radius variables
+summarize  Radius_of_arm_1_and_arm_2_ Radius_of_arm_2_and_arm_3_ Radius_of_arm_3_and_arm_4_ Radius_of_arm_4_and_arm_5_ Radius_of_arm_5_and_arm_6_ Radius_of_arm_6_and_arm_7_
+// No. of arms for a given intersection (related to the intersection type)  
+summarize  Three_arms Four_arms Five_arms Six_arms
 
 // ======================================================================================================
+// Variables of First Arm
+// Road type of first arm
 
+
+// Intersection variables
+summarize  Arm1_Number_of_lanes_for_first_a Arm1_No_of_lanes_changed_at_the_ Left_turn_only_lane_for_first_ar Right_turn_only_lane_for_first_a Width_of_Pysical_Median_of_first Is_there_Physical_Median_first_a Width_of_central_strip_of_first_ Is_there_centeral_strip_first_ar
 
 
 
