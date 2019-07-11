@@ -103,3 +103,66 @@ summarize  Arm3_RedYellow_flashing_signal Arm3_Stop_sign Arm3_Traffic_signal_wit
 summarize  Arm3_PedandBi_Crossing_path_with Arm3_PedandBi_Crosswalk_existed_ Arm3_PedandBi_Crosswalk_path_wit
 // Sidewalk 
 summarize  Arm3_1stSide_No_sidewalk Arm3_1stSide_Sidewalk_with_curbs Arm3_1stSide_Sidewalk_with_guard Arm3_1stSide_Sidewalk_without_an Arm3_2ndSide_No_sidewalk Arm3_2ndSide_Sidewalk_with_curbs Arm3_2ndSide_Sidewalk_with_guard Arm3_2ndSide_Sidewalk_without_an
+
+// ======================================================================================================
+// Variables of Fourth Arm
+// Road type of Fourth arm
+summarize  Arm4_Road_type_Divided_roadway_w FD FE FF Arm4_Road_type_Non_Existed Arm4_Road_type_One_way_street Arm4_Road_type_Single_roadway_wi
+// Intersection characteristics-related to approaches
+summarize  Arm4_Number_of_lanes_for_fourth_ Arm4_No_of_lanes_changed_at_the_ Left_turn_only_lane_for_fourth_a Right_turn_only_lane_for_fourth_ Width_of_Pysical_Median_of_fourt Is_there_Physical_Median_fourth_ Width_of_central_strip_of_fourth Is_there_centeral_strip_fourth_a Skewness_level_of_fourth_arm_to_
+// Traffic signal characteristics
+summarize  Arm4_TrafSig_RedYellow_flashing_ Arm4_TrafSig_Stop_sign Arm4_TrafSig_Traffic_signal_with GH Arm4_TrafSig_Uncontroled Arm4_Presence_of_pedestrian_traf
+// Intersection characteristics-related to pedestrains and bicyclists
+// Bicycles
+summarize  Arm4_PedandBic_Crossing_path_wit Arm4_PedandBic_Crosswalk_existed Arm4_PedandBic_Crosswalk_path_wi Arm4_PedandBic_Non_Existed
+// Sidewalk
+summarize  Arm4_1stSide_No_sidewalk Arm4_1stSide_Sidewalk_with_curbs Arm4_1stSide_Sidewalk_with_guard Arm4_1stSide_Sidewalk_without_an Arm4_2ndSide_No_sidewalk Arm4_2ndSide_Sidewalk_with_curbs Arm4_2ndSide_Sidewalk_with_guard Arm4_2ndSide_Sidewalk_without_an 
+
+// ======================================================================================================
+// Variables of Fifth and sixth Arm
+// Road type of Fifth and sixth arm
+summarize  Arm5_6_Road_type_Divided_roadway Arm5_6_Road_type_Non_Existed
+// Intersection characteristics-related to approaches
+summarize  Arm5_6_Numer_of_lanes_larger_tha Arm5_6_No_of_lanes_changed_large Left_turn_only_lane_larger_than_ Right_turn_only_lane_larger_than Width_of_Physical_Median_larger_ Is_there_Physical_Median_five_ar Width_of_centeral_strip_larger_t Is_there_centeral_strip_five_arm Skewness_level_larger_than_four
+// Traffic signal characteristics
+ summarize  Arm5_6_TrafSig_UncontroledStop_s Arm5_6_Presence_of_pedestrian_tr
+// Intersection characteristics-related to pedestrains and bicyclists
+// Bicycles
+summarize  Arm5_6_PedandBi_Crossing_path_wi
+// Sidewalk 
+ summarize  Arm5_6_1stSide_No_sidewalk Arm5_6_1stSide_Sidewalk_with_cur Arm5_6_2ndSide_No_sidewalkNo_sid
+// ======================================================================================================
+//									Variables generated for seeking significance vars.
+// ======================================================================================================
+
+// ----------- Minimum radius of intersection -------------
+gen minumum_radius = min( Radius_of_arm_1_and_arm_2_, Radius_of_arm_2_and_arm_3_, Radius_of_arm_3_and_arm_4_, Radius_of_arm_4_and_arm_5_, Radius_of_arm_5_and_arm_6_, Radius_of_arm_6_and_arm_7_)
+gen log_minimum_radius = log(minumum_radius)
+// ----------- Maximum radius of intersection -------------
+gen maximum_radius = max( Radius_of_arm_1_and_arm_2_, Radius_of_arm_2_and_arm_3_, Radius_of_arm_3_and_arm_4_, Radius_of_arm_4_and_arm_5_, Radius_of_arm_5_and_arm_6_, Radius_of_arm_6_and_arm_7_)
+gen log_maximum_radius = log(maximum_radius
+
+// ======================================================================================================
+//									Univaraite Count Modeling
+// ======================================================================================================
+
+// ----------- Univariate NBII Model -------------
+nbreg Crash_count Prefectural_Dummy_new Minor_prefectural_road Narrow_road conf1_30kmh_orless conf1_40kmh_orless conf1_50kmh_orless conf1_60kmh_orless conf1_No_regulation log_traffic_volume traffic_volume_dummy T_or_staggered_intersection Y_shape_intersection Intersection_with_more_than_four Cross_intersection (Number_of_driverways) Distance_to_adjacent_intersectio Longest_Width_of_intersection Shortest_Width_of_intersection minumum_radius log_maximum_radius, dispersion(constant)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
