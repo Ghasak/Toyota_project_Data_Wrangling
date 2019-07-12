@@ -1569,6 +1569,12 @@ dfc['sum_var'] = df['conf1_35_m_or_more']+ df['conf1_Less_than_35_m']
 print(10*'-','Check the Two Columns',10*'-')
 print(dfc['conf2_Between_Less35_and_55m'].any() == dfc['sum_var'].any())
 print(dfc.describe().T)
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Make a new variable for the radius
+
+
+
+
 
 # ==================================================#
 #           Export the Final Results

@@ -10,9 +10,9 @@ destring Width_of_central_strip_of_first_, replace force float percent dpcomma
 summarize  Crash_count Driver_Young Driver_Middle_age Driver_Senior
 
 // General-Intersection Road Type location of Intersection.
-summarize  High_speed Prefectural_Dummy_new General_national_road Major_prefectural_road Minor_prefectural_road Narrow_road 
+summarize  High_speed Prefectural_Dummy_new General_national_road Major_prefectural_road Minor_prefectural_road Narrow_road
 
-// Road width by a variable collected by the police report - from Usui sensei dataset. 
+// Road width by a variable collected by the police report - from Usui sensei dataset.
 
 // First configuration
 summarize  conf1_Less_than_35_m conf1_35_m_or_more conf1_55_m_or_more conf1_90_m_or_more conf1_130_or_more conf1_195_m_or_more
@@ -43,7 +43,7 @@ summarize   T_or_staggered_intersection Y_shape_intersection Cross_intersection 
 summarize  Number_of_driverways Distance_to_adjacent_intersectio Longest_Width_of_intersection Shortest_Width_of_intersection
 // intersection radius variables
 summarize  Radius_of_arm_1_and_arm_2_ Radius_of_arm_2_and_arm_3_ Radius_of_arm_3_and_arm_4_ Radius_of_arm_4_and_arm_5_ Radius_of_arm_5_and_arm_6_ Radius_of_arm_6_and_arm_7_
-// No. of arms for a given intersection (related to the intersection type)  
+// No. of arms for a given intersection (related to the intersection type)
 summarize  Three_arms Four_arms Five_arms Six_arms
 
 // ======================================================================================================
@@ -60,7 +60,7 @@ summarize  Arm1_RedYellow_flashing_signal Arm1_Stop_sign Arm1_Traffic_signal_wit
 // Intersection characteristics-related to pedestrains and bicyclists
 // Bicycles
 summarize  Arm1_Crossing_path_without_bicyc Arm1_Crosswalk_existed_within_50 Arm1_Crosswalk_path_with_bicycle
-// Sidewalk 
+// Sidewalk
 summarize  Arm1_1stSide_No_sidewalk Arm1_1stSide_Sidewalk_with_curbs Arm1_1stSide_Sidewalk_with_guard Arm1_1stSide_Sidewalk_without_an Arm1_2ndSide_No_sidewalk Arm1_2ndSide_Sidewalk_with_curbs Arm1_2ndSide_Sidewalk_with_guard Arm1_2ndSide_Sidewalk_without_an
 
 // ======================================================================================================
@@ -70,7 +70,7 @@ summarize  Arm1_1stSide_No_sidewalk Arm1_1stSide_Sidewalk_with_curbs Arm1_1stSid
 summarize  Arm2_Divided_roadway_with_No_Phy CR Arm2_Divided_roadway_with_Physic CT Arm2_One_way_street Arm2_Single_roadway_without_cent
 
 // Intersection characteristics-related to approaches
-summarize  Arm2_Number_of_lanes_for_second_ Arm2_No_of_lanes_changed_at_the_ Left_turn_only_lane_for_second_a Right_turn_only_lane_for_second_ Width_of_Pysical_Median_of_secon Is_there_Physical_Median_second_ Width_of_central_strip_of_second Is_there_centeral_strip_second_a Skewness_level_of_second_arm_to_ 
+summarize  Arm2_Number_of_lanes_for_second_ Arm2_No_of_lanes_changed_at_the_ Left_turn_only_lane_for_second_a Right_turn_only_lane_for_second_ Width_of_Pysical_Median_of_secon Is_there_Physical_Median_second_ Width_of_central_strip_of_second Is_there_centeral_strip_second_a Skewness_level_of_second_arm_to_
 
 
 // Traffic signal characteristics
@@ -81,7 +81,7 @@ summarize  Arm2_RedYellow_flashing_signal Arm2_Stop_sign Arm2_Traffic_signal_wit
 // Bicycles
 summarize  Arm2_Crossing_path_without_bicyc Arm2_Crosswalk_existed_within_50 Arm2_Crosswalk_path_with_bicycle
 
-// Sidewalk 
+// Sidewalk
 summarize  Arm2_1stSide_No_sidewalk Arm2_1stSide_Sidewalk_with_curbs Arm2_1stSide_Sidewalk_with_guard Arm2_1stSide_Sidewalk_without_an Arm2_2ndSide_No_sidewalk Arm2_2ndSide_Sidewalk_with_curbs Arm2_2ndSide_Sidewalk_with_guard Arm2_2ndSide_Sidewalk_without_an
 
 
@@ -101,7 +101,7 @@ summarize  Arm3_RedYellow_flashing_signal Arm3_Stop_sign Arm3_Traffic_signal_wit
 // Intersection characteristics-related to pedestrains and bicyclists
 // Bicycles
 summarize  Arm3_PedandBi_Crossing_path_with Arm3_PedandBi_Crosswalk_existed_ Arm3_PedandBi_Crosswalk_path_wit
-// Sidewalk 
+// Sidewalk
 summarize  Arm3_1stSide_No_sidewalk Arm3_1stSide_Sidewalk_with_curbs Arm3_1stSide_Sidewalk_with_guard Arm3_1stSide_Sidewalk_without_an Arm3_2ndSide_No_sidewalk Arm3_2ndSide_Sidewalk_with_curbs Arm3_2ndSide_Sidewalk_with_guard Arm3_2ndSide_Sidewalk_without_an
 
 // ======================================================================================================
@@ -116,7 +116,7 @@ summarize  Arm4_TrafSig_RedYellow_flashing_ Arm4_TrafSig_Stop_sign Arm4_TrafSig_
 // Bicycles
 summarize  Arm4_PedandBic_Crossing_path_wit Arm4_PedandBic_Crosswalk_existed Arm4_PedandBic_Crosswalk_path_wi Arm4_PedandBic_Non_Existed
 // Sidewalk
-summarize  Arm4_1stSide_No_sidewalk Arm4_1stSide_Sidewalk_with_curbs Arm4_1stSide_Sidewalk_with_guard Arm4_1stSide_Sidewalk_without_an Arm4_2ndSide_No_sidewalk Arm4_2ndSide_Sidewalk_with_curbs Arm4_2ndSide_Sidewalk_with_guard Arm4_2ndSide_Sidewalk_without_an 
+summarize  Arm4_1stSide_No_sidewalk Arm4_1stSide_Sidewalk_with_curbs Arm4_1stSide_Sidewalk_with_guard Arm4_1stSide_Sidewalk_without_an Arm4_2ndSide_No_sidewalk Arm4_2ndSide_Sidewalk_with_curbs Arm4_2ndSide_Sidewalk_with_guard Arm4_2ndSide_Sidewalk_without_an
 
 // ======================================================================================================
 // Variables of Fifth and sixth Arm
@@ -129,7 +129,7 @@ summarize  Arm5_6_Numer_of_lanes_larger_tha Arm5_6_No_of_lanes_changed_large Lef
 // Intersection characteristics-related to pedestrains and bicyclists
 // Bicycles
 summarize  Arm5_6_PedandBi_Crossing_path_wi
-// Sidewalk 
+// Sidewalk
  summarize  Arm5_6_1stSide_No_sidewalk Arm5_6_1stSide_Sidewalk_with_cur Arm5_6_2ndSide_No_sidewalkNo_sid
 // ======================================================================================================
 //									Variables generated for seeking significance vars.
@@ -140,15 +140,25 @@ gen minumum_radius = min( Radius_of_arm_1_and_arm_2_, Radius_of_arm_2_and_arm_3_
 gen log_minimum_radius = log(minumum_radius)
 // ----------- Maximum radius of intersection -------------
 gen maximum_radius = max( Radius_of_arm_1_and_arm_2_, Radius_of_arm_2_and_arm_3_, Radius_of_arm_3_and_arm_4_, Radius_of_arm_4_and_arm_5_, Radius_of_arm_5_and_arm_6_, Radius_of_arm_6_and_arm_7_)
-gen log_maximum_radius = log(maximum_radius
+gen log_maximum_radius = log(maximum_radius)
 
 // ======================================================================================================
 //									Univaraite Count Modeling
 // ======================================================================================================
 
 // ----------- Univariate NBII Model -------------
-nbreg Crash_count Prefectural_Dummy_new Minor_prefectural_road Narrow_road conf1_30kmh_orless conf1_40kmh_orless conf1_50kmh_orless conf1_60kmh_orless conf1_No_regulation log_traffic_volume traffic_volume_dummy T_or_staggered_intersection Y_shape_intersection Intersection_with_more_than_four Cross_intersection (Number_of_driverways) Distance_to_adjacent_intersectio Longest_Width_of_intersection Shortest_Width_of_intersection minumum_radius log_maximum_radius, dispersion(constant)
+nbreg Crash_count Prefectural_Dummy_new Minor_prefectural_road Narrow_road conf1_30kmh_orless conf1_40kmh_orless conf1_50kmh_orless conf1_60kmh_orless conf1_No_regulation log_traffic_volume traffic_volume_dummy T_or_staggered_intersection Y_shape_intersection Intersection_with_more_than_four Cross_intersection (Number_of_driverways) Distance_to_adjacent_intersectio Longest_Width_of_intersection Shortest_Width_of_intersection maximum_radius log_maximum_radius Arm1_RoadType_Divided_roadway_wi BL BM BN Arm1_RoadType_One_way_street Arm1_RoadType_Single_roadway_wit Arm1_Number_of_lanes_for_first_a Arm1_No_of_lanes_changed_at_the_ Left_turn_only_lane_for_first_ar Right_turn_only_lane_for_first_a Width_of_Pysical_Median_of_first Is_there_Physical_Median_first_a Width_of_central_strip_of_first_ Is_there_centeral_strip_first_ar Skewness_level_of_first_arm_to_t Arm1_RedYellow_flashing_signal Arm1_Stop_sign Arm1_Traffic_signal_with_left_or Arm1_Traffic_signal_without_left Arm1_Uncontroled Arm1_Presence_of_pedestrian_traf Arm1_Crossing_path_without_bicyc Arm1_Crosswalk_existed_within_50 Arm1_Crosswalk_path_with_bicycle Arm1_1stSide_No_sidewalk Arm1_1stSide_Sidewalk_with_curbs Arm1_1stSide_Sidewalk_with_guard Arm1_1stSide_Sidewalk_without_an Arm1_2ndSide_No_sidewalk Arm1_2ndSide_Sidewalk_with_curbs Arm1_2ndSide_Sidewalk_with_guard Arm1_2ndSide_Sidewalk_without_an, dispersion(constant)
+estat ic
 
+// ======================================================================================================
+// Determine which model to use Poisson or NBII by running NBII first and examine the LL of
+// likelihood-ratio test, Starting with Total Crash Count-Univaraite non-truncated poisson model
+// ======================================================================================================
+
+// ======================================================================================================
+// Univariate non-truncated NBII model with constant dispersion
+// ======================================================================================================
+nbreg Crash_count  General_national_road Major_prefectural_road Minor_prefectural_road Narrow_road , dispersion(constant)
 
 
 
