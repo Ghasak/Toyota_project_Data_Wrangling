@@ -104,7 +104,7 @@ inner_joint_Int = inner_joint_Int.drop(['Road_type_for_fifth_arm',
                                         ], 1)
 
 # We will set the intersection ID as an idex to our DataFrame:
-inner_joint_Int.set_index(['FilterLess35'], inplace=True)
+inner_joint_Int.set_index(['FilterLess35'], inplace = True)
 # Change the Name of this column as it has (. or - or space ---> '_')
 inner_joint_Int.columns = inner_joint_Int.columns.str.replace(' |-', '_')
 inner_joint_Int.columns = inner_joint_Int.columns.str.replace('\.', '')
@@ -119,7 +119,7 @@ inner_joint_Int["Longitute"] = inner_joint_Int["Longitute"].str.replace('°', ''
 =========================================================
     - There are Several steps we can do:
         [1] replace method e.g."df[Column].replace(dictionary)"
-            This will allow us to converate any column with text (categoraical)
+            This will allow us to converted any column with text (categoraical)
             to a different name or numbers or anything, using the dictionary.
         [same]    df[newcolumn] = df[column].map(dictionary)
             this method is same functionality to the replace method
@@ -128,9 +128,9 @@ inner_joint_Int["Longitute"] = inner_joint_Int["Longitute"].str.replace('°', ''
         [same] you can also use the creative method
                 1 * (df[column]=="value") which works for the binary cateogrical variables such as (Yes/No)
                 converated to (1/0), see V10
-            This method is to converate the dummy variable(text) to (1/0) values
+            This method is to converted the dummy variable(text) to (1/0) values
         [3] List_of_Dummies = pd.get_dummies(df[column])
-            This method will take the "column" converate it to dummies which are same as
+            This method will take the "column" converted it to dummies which are same as
             the categories of columns and store them in a mini pandas table "List_of_Dummies"
         [4] df = df.join(List_of_Dummies)
             this has to combine the get_dummies method in pandas to append the list of new

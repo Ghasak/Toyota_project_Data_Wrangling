@@ -122,7 +122,7 @@ cat_col = [c for i, c in enumerate(
     Int_Survey_DataSet.columns) if Int_Survey_DataSet.dtypes[i] in [np.object]]
 
 num_cols = [key for key in dict(Int_Survey_DataSet.dtypes)
-            if dict(Int_Survey_DataSet.dtypes)[key] in ['object']]  # Categorical Varible
+            if dict(Int_Survey_DataSet.dtypes)[key] in ['object']]  # Categorical Variable
 
 for colum in range(len(num_cols)):
     print(Int_Survey_DataSet[f"{num_cols[colum]}"].value_counts(
