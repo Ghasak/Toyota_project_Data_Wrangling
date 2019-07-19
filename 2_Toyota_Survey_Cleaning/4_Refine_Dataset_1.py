@@ -107,13 +107,16 @@ for index,item in enumerate((roadtype_list)):
 for index,item in enumerate(dfn):
     dfn[item] = df[item]
 
-# Now we will create a variables out of these set
+# Now we will create a variables out of these set- using both regular method and query
+# Regular method
+mask0 = dfn[(df['Arm1_RoadType_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip'] ==1) | (dfn['Arm1_RoadType_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip']==1)]
+# Query method
+mask1 = dfn.query("(Arm1_RoadType_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip == 1) or (Arm1_RoadType_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip ==1 )")
 
-x = dfn.query("('Arm1_RoadType_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip'== 1) and ('Arm2_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip' == 1) ")
-
-dfn.loc[dfn['Arm1_RoadType_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip'] ==1 and dfn['Arm2_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip']==1]
-
-
+# This method will git us same but through booleans variables same size to the dfn
+mask = (dfn['Arm1_RoadType_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip']==1) | (dfn['Arm2_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip'] == 1) | (dfn['Arm3_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip']) | (dfn['Arm4_Road_type_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip'])
+# Coverate the variable from boolean to binary
+mask.astype(int)
 
 
 
