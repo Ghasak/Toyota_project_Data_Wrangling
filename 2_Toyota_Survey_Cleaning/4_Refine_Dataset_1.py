@@ -233,6 +233,30 @@ RIGHT_TURN_EXCLUSIVE_LANE = ((df['Right_turn_only_lane_for_first_arm']==1)|
 
 RIGHT_TURN_EXCLUSIVE_LANE.name = 'RIGHT_TURN_EXCLUSIVE_LANE'
 
+# ==================================================#
+#       Width of central strip
+# ==================================================#
+# Here we have two variables one is the measure itself and
+# one is the dummy of existence of the central strip itself.
+# Arm1
+AVERAGE_WIDTH_PHYSICAL_MEDIAN =()
+MIN_WIDTH_PHYSICAL_MEDIAN
+MAX_WIDTH_PHYSICAL_MEDIAN
+Width_of_Pysical_Median_of_first_arm_if_exist
+Is_there_Physical_Median_first_arm
+# Arm2
+Width_of_Pysical_Median_of_second_arm_if_exist
+Is_there_Physical_Median_second_arm
+# Arm3
+Width_of_Pysical_Median_of_third_arm_if_exist
+Is_there_Physical_Median_third_arm
+# Arm4
+Width_of_Pysical_Median_of_fourth_arm_if_exist
+Is_there_Physical_Median_fourth_arm
+# Larger than 4 arms
+Width_of_Physical_Median_larger_than_four
+Is_there_Physical_Median_five_arm
+
 
 # ==================================================#
 #           Constructing Our DATASET
@@ -243,7 +267,10 @@ df = df.join(DIVIDED_NO_CENTERAL_DIVISION).join(DIVIDED_WITH_CENTRAL_DIVISION).j
 df = df.join(NUMBER_OF_LANES)
 # Adding Lanes changing
 df = df.join(NO_OF_LANES_CHANGED)
-
+# Adding the left turn exclusive lane
+df = df.join(LEFT_TURN_EXCLUSIVE_LANE)
+# Adding the right turn exclusive lane
+df = df.joint(RIGHT_TURN_EXCLUSIVE_LANE)
 
 
 
