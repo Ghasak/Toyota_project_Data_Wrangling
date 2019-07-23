@@ -253,55 +253,51 @@ for index in range(len(physical_median_width_df)):
     maximum_width_physical_median.append(physical_median_width_df.iloc[index,:].max())
     minimum_width_physcial_median.append(physical_median_width_df.iloc[index,:].min())
 # Now we will construct our Pandas Series from the list we created
-sum_width_physical_median = pd.Series(sum_width_physical_median,index = df.index, name = 'Sum_of_physical_median')
-maximum_width_physical_median = pd.Series(maximum_width_physical_median,index = df.index, name = 'Maximum_width_physical_median')
-minimum_width_physcial_median = pd.Series(minimum_width_physcial_median, index = df.index,name = 'Minimum_width_physcial_median')
+sum_width_physical_median     = pd.Series(sum_width_physical_median,index = df.index, name = 'SUM_OF_PHYSICAL_MEDIAN')
+maximum_width_physical_median = pd.Series(maximum_width_physical_median,index = df.index, name = 'MAXIMUM_WIDTH_PHYSICAL_MEDIAN')
+minimum_width_physcial_median = pd.Series(minimum_width_physcial_median, index = df.index,name = 'MINIMUM_WIDTH_PHYSICAL_MEIDAN')
 # Now we will convert it to a dataframe as
-sum_width_physical_median = pd.DataFrame(sum_width_physical_median)
+sum_width_physical_median     = pd.DataFrame(sum_width_physical_median)
 maximum_width_physical_median = pd.DataFrame(maximum_width_physical_median)
+minimum_width_physcial_median = pd.DataFrame(minimum_width_physcial_median)
 # Now we will divide the sum based on number of arms for each intersection
 average_width_physical_median = []
-
 
 for index in range(len(df)):
 
     if  checking_intersection_type['Three_arms'].iloc[index]==1 :
         print(f"the intersection of three arms is = {sum_width_physical_median.index[index]}")
-        average_width_physical_median.append(sum_width_physical_median['Sum_of_physical_median'][index]/3.0)
+        average_width_physical_median.append(sum_width_physical_median['SUM_OF_PHYSICAL_MEDIAN'][index]/3.0)
 
     elif checking_intersection_type['Four_arms'].iloc[index] ==1 :
         print(f"the intersection of four arms is = {sum_width_physical_median.index[index]}")
-        average_width_physical_median.append(sum_width_physical_median['Sum_of_physical_median'][index]/4.0)
+        average_width_physical_median.append(sum_width_physical_median['SUM_OF_PHYSICAL_MEDIAN'][index]/4.0)
 
     elif checking_intersection_type['Five_arms'].iloc[index]==1 :
         print(f"the intersection of five arms is = {sum_width_physical_median.index[index]}")
-        average_width_physical_median.append(sum_width_physical_median['Sum_of_physical_median'][index]/5.0)
+        average_width_physical_median.append(sum_width_physical_median['SUM_OF_PHYSICAL_MEDIAN'][index]/5.0)
 
     elif checking_intersection_type['Six_arms'].iloc[index] == 1:
         print(f"the intersection of six arms is = {sum_width_physical_median.index[index]}")
-        average_width_physical_median.append(sum_width_physical_median['Sum_of_physical_median'][index]/6.0)
+        average_width_physical_median.append(sum_width_physical_median['SUM_OF_PHYSICAL_MEDIAN'][index]/6.0)
 
+average_width_physical_median = pd.Series(average_width_physical_median, index = df.index, name = "AVERAGE_WIDTH_PHYSICAL_MEDIAN")
+average_width_physical_median = pd.DataFrame(average_width_physical_median)
 
+SUM_MAX_MIN_AVERAGE_WIDTH_PHYSICAL_MEDIAN = sum_width_physical_median.join(maximum_width_physical_median).join(minimum_width_physcial_median).join(average_width_physical_median)
+# --------------------------------------------------
+#     Now we add the dummy of physical median
+# --------------------------------------------------
+IS_THERE_PHYSICAL_MEDIAN = ((df['Is_there_Physical_Median_first_arm']==1)|
+                            (df['Is_there_Physical_Median_second_arm']==1)|
+                            (df['Is_there_Physical_Median_third_arm']==1)|
+                            (df['Is_there_Physical_Median_fourth_arm']==1)|
+                            (df['Is_there_Physical_Median_five_arm']==1)).astype(int)
 
-
-
-AVERAGE_WIDTH_PHYSICAL_MEDIAN =(physical_median_width_df).sum(axis =1)
-MIN_WIDTH_PHYSICAL_MEDIAN = (physical_median_width_df).min(axis =1)
-MAX_WIDTH_PHYSICAL_MEDIAN = (physical_median_width_df).max(axis =1)
-
-# Is_there_Physical_Median_first_arm
-# # Arm2
-
-# Is_there_Physical_Median_second_arm
-# # Arm3
-
-# Is_there_Physical_Median_third_arm
-# # Arm4
-
-# Is_there_Physical_Median_fourth_arm
-# # Larger than 4 arms
-
-# Is_there_Physical_Median_five_arm
+IS_THERE_PHYSICAL_MEDIAN.name = 'IS_THERE_PHYSICAL_MEDIAN'
+# ==================================================#
+#              NEW VARIABLE GOES HERE:
+# ==================================================#
 
 
 # ==================================================#
@@ -317,7 +313,8 @@ df = df.join(NO_OF_LANES_CHANGED)
 df = df.join(LEFT_TURN_EXCLUSIVE_LANE)
 # Adding the right turn exclusive lane
 df = df.join(RIGHT_TURN_EXCLUSIVE_LANE)
-
+# Adding the physical medium width (two variables)
+df = df.join(SUM_MAX_MIN_AVERAGE_WIDTH_PHYSICAL_MEDIAN).join(IS_THERE_PHYSICAL_MEDIAN)
 
 
 
