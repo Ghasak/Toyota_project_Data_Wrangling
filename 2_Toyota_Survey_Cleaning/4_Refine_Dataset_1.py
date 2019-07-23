@@ -239,22 +239,34 @@ RIGHT_TURN_EXCLUSIVE_LANE.name = 'RIGHT_TURN_EXCLUSIVE_LANE'
 # Here we have two variables one is the measure itself and
 # one is the dummy of existence of the central strip itself.
 # Arm1
-AVERAGE_WIDTH_PHYSICAL_MEDIAN =()
-MIN_WIDTH_PHYSICAL_MEDIAN
-MAX_WIDTH_PHYSICAL_MEDIAN
-Width_of_Pysical_Median_of_first_arm_if_exist
+AVERAGE_WIDTH_PHYSICAL_MEDIAN =(df[['Width_of_Pysical_Median_of_first_arm_if_exist',
+                                    'Width_of_Pysical_Median_of_second_arm_if_exist',
+                                    'Width_of_Pysical_Median_of_third_arm_if_exist',
+                                    'Width_of_Pysical_Median_of_fourth_arm_if_exist',
+                                    'Width_of_Physical_Median_larger_than_four']]).mean(axis =1)
+MIN_WIDTH_PHYSICAL_MEDIAN = (df[['Width_of_Pysical_Median_of_first_arm_if_exist',
+                                    'Width_of_Pysical_Median_of_second_arm_if_exist',
+                                    'Width_of_Pysical_Median_of_third_arm_if_exist',
+                                    'Width_of_Pysical_Median_of_fourth_arm_if_exist',
+                                    'Width_of_Physical_Median_larger_than_four']]).min(axis =1)
+MAX_WIDTH_PHYSICAL_MEDIAN = (df[['Width_of_Pysical_Median_of_first_arm_if_exist',
+                                    'Width_of_Pysical_Median_of_second_arm_if_exist',
+                                    'Width_of_Pysical_Median_of_third_arm_if_exist',
+                                    'Width_of_Pysical_Median_of_fourth_arm_if_exist',
+                                    'Width_of_Physical_Median_larger_than_four']]).max(axis =1)
+
 Is_there_Physical_Median_first_arm
 # Arm2
-Width_of_Pysical_Median_of_second_arm_if_exist
+
 Is_there_Physical_Median_second_arm
 # Arm3
-Width_of_Pysical_Median_of_third_arm_if_exist
+
 Is_there_Physical_Median_third_arm
 # Arm4
-Width_of_Pysical_Median_of_fourth_arm_if_exist
+
 Is_there_Physical_Median_fourth_arm
 # Larger than 4 arms
-Width_of_Physical_Median_larger_than_four
+
 Is_there_Physical_Median_five_arm
 
 
