@@ -122,8 +122,8 @@ mask_original.astype(int)
 dfnroadtype1 = df[['Arm1_RoadType_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip','Arm2_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip','Arm3_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip','Arm4_Road_type_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip','Arm5_6_Road_type_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip_Single_roadway_without_central_strip']]
 # Comprise the road type -Divided but no central division into one single variable
 dfnroadtype1 =(df['Arm1_RoadType_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip'] == 1)|(df['Arm2_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip'] == 1) |(df['Arm3_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip'] == 1) |(df['Arm4_Road_type_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip'] ==1) |(df['Arm5_6_Road_type_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip_Single_roadway_without_central_strip'] ==1)
-DIVIDED_NO_CENTERAL_DIVISION = dfnroadtype1.astype(int)
-DIVIDED_NO_CENTERAL_DIVISION.name = 'DIVIDED_NO_CENTERAL_DIVISION'
+DIVIDED_NO_CENTRAL_DIVISION = dfnroadtype1.astype(int)
+DIVIDED_NO_CENTRAL_DIVISION.name = 'DIVIDED_NO_CENTRAL_DIVISION'
 # --------------------------------------------------
 #     Road Type 2 Divided but with Central Division
 # --------------------------------------------------
@@ -296,15 +296,115 @@ IS_THERE_PHYSICAL_MEDIAN = ((df['Is_there_Physical_Median_first_arm']==1)|
 
 IS_THERE_PHYSICAL_MEDIAN.name = 'IS_THERE_PHYSICAL_MEDIAN'
 # ==================================================#
-#              NEW VARIABLE GOES HERE:
+#              Width of Central Strip:
 # ==================================================#
+
+width_central_strip_df = df[['Width_of_central_strip_of_first_arm_if_exist',
+                             'Width_of_central_strip_of_second_arm_if_exist',
+                             'Width_of_central_strip_of_third_arm_if_exist',
+                             'Width_of_central_strip_of_fourth_arm_if_exist',
+                             ]]
+
+'''
+    - [2019 Wed. Jul 24], I have found that there is a typo in the
+        (width_central_strip_df),could not convert string to float: '2,.99'
+        this typo comes when i tried to go into the loop down
+        I found the typo by trying to convert the (width_central_strip_df)
+        to an (float) using the command (width_central_strip_df.astype(float))
+    - Quick solution, I have changed '2,.99' in the original dataframe
+'''
+# -----------------------------------------------------------------
+# Starting checking column-by-column in our df related to width of central strip
+# First detect our column with the problem
+for index,item in enumerate(width_central_strip_df['Width_of_central_strip_of_first_arm_if_exist']):
+    if item == '2,.99':
+        print(width_central_strip_df.index[index])
+# Second-create function to correct the error
+def is_string(x):
+    if x == '2,.99':
+        x = 2.99
+    return(x)
+# Correct Master Dataframe
+df['Width_of_central_strip_of_first_arm_if_exist'] = df['Width_of_central_strip_of_first_arm_if_exist'].apply(is_string)
+# Assign the new value using apply()
+width_central_strip_df['Width_of_central_strip_of_first_arm_if_exist'] = width_central_strip_df['Width_of_central_strip_of_first_arm_if_exist'].apply(is_string)
+
+# -----------------------------------------------------------------
+
+sum_width_central_strip = []
+max_width_central_strip = []
+min_width_central_strip = []
+
+for index in range(len(width_central_strip_df)):
+    sum_width_central_strip.append(width_central_strip_df.iloc[index,:].sum())
+    max_width_central_strip.append(width_central_strip_df.iloc[index,:].max())
+    min_width_central_strip.append(width_central_strip_df.iloc[index,:].min())
+
+
+# Now we will construct our Pandas Series from the lists we created
+sum_width_central_strip = pd.Series(sum_width_central_strip,index = df.index, name = 'SUM_WIDTH_CENTRAL_STRIP')
+max_width_central_strip = pd.Series(max_width_central_strip,index = df.index, name = 'MAX_WIDTH_CENTRAL_STRIP')
+min_width_central_strip = pd.Series(min_width_central_strip,index = df.index, name = 'MIN_WIDTH_CENTRAL_STRIP')
+
+# Now we will convert it to a dataframe as
+sum_width_central_strip = pd.DataFrame(sum_width_central_strip)
+max_width_central_strip = pd.DataFrame(max_width_central_strip)
+min_width_central_strip = pd.DataFrame(min_width_central_strip)
+
+
+# Now we will divide the sum based on number of arms for each intersection
+average_width_central_strip = []
+
+for index in range(len(df)):
+
+    if  checking_intersection_type['Three_arms'].iloc[index]==1 :
+        print(f"the intersection of three arms is = {sum_width_central_strip.index[index]}")
+        average_width_central_strip.append(sum_width_central_strip['SUM_WIDTH_CENTRAL_STRIP'][index]/3.0)
+
+    elif checking_intersection_type['Four_arms'].iloc[index] ==1 :
+        print(f"the intersection of four arms is = {sum_width_central_strip.index[index]}")
+        average_width_central_strip.append(sum_width_central_strip['SUM_WIDTH_CENTRAL_STRIP'][index]/4.0)
+
+    elif checking_intersection_type['Five_arms'].iloc[index]==1 :
+        print(f"the intersection of five arms is = {sum_width_central_strip.index[index]}")
+        average_width_central_strip.append(sum_width_central_strip['SUM_WIDTH_CENTRAL_STRIP'][index]/5.0)
+
+    elif checking_intersection_type['Six_arms'].iloc[index] == 1:
+        print(f"the intersection of six arms is = {sum_width_central_strip.index[index]}")
+        average_width_central_strip.append(sum_width_central_strip['SUM_WIDTH_CENTRAL_STRIP'][index]/6.0)
+
+average_width_central_strip = pd.Series(average_width_central_strip, index = df.index, name = "AVERAGE_WIDTH_CENTRAL_STRIP")
+average_width_central_strip = pd.DataFrame(average_width_central_strip)
+
+SUM_MAX_MIN_AVERAGE_WIDTH_CENTRAL_STRIP = sum_width_central_strip.join(max_width_central_strip).join(min_width_central_strip).join(average_width_central_strip)
+# --------------------------------------------------
+#  Now we add the dummy of central strip existence
+# --------------------------------------------------
+IS_THERE_CENTRAL_STRIP = ((df['Is_there_centeral_strip_first_arm']==1) |
+                          (df['Is_there_centeral_strip_second_arm']==1)|
+                          (df['Is_there_centeral_strip_third_arm']==1) |
+                          (df['Is_there_centeral_strip_fourth_arm']==1)|
+                          (df['Is_there_centeral_strip_five_arm']==1)).astype(int)
+
+IS_THERE_CENTRAL_STRIP.name = 'IS_THERE_CENTRAL_STRIP'
+
+# ==================================================#
+#                 Skewness_level
+# ==================================================#
+IS_THERE_SKEWNESS = ((df['Skewness_level_of_first_arm_to_the_next_arm']  == 1) |
+                     (df['Skewness_level_of_second_arm_to_the_next_arm'] == 1) |
+                     (df['Skewness_level_of_third_arm_to_the_next_arm']  == 1) |
+                     (df['Skewness_level_of_fourth_arm_to_the_next_arm'] == 1) |
+                     (df['Skewness_level_larger_than_four']) == 1).astype(int)
+IS_THERE_SKEWNESS.name = 'IS_THERE_SKEWNESS'
+
 
 
 # ==================================================#
 #           Constructing Our DATASET
 # ==================================================#
 # Adding Road types
-df = df.join(DIVIDED_NO_CENTERAL_DIVISION).join(DIVIDED_WITH_CENTRAL_DIVISION).join(DIVIDED_NO_PHYSICAL_DIVISION).join(DIVIDED_WITH_PHYSICAL_DIVISION).join(NON_DIVIDED_SINGLE_ROADWAY)
+df = df.join(DIVIDED_NO_CENTRAL_DIVISION).join(DIVIDED_WITH_CENTRAL_DIVISION).join(DIVIDED_NO_PHYSICAL_DIVISION).join(DIVIDED_WITH_PHYSICAL_DIVISION).join(NON_DIVIDED_SINGLE_ROADWAY)
 # Adding Number of lanes
 df = df.join(NUMBER_OF_LANES)
 # Adding Lanes changing
@@ -315,6 +415,17 @@ df = df.join(LEFT_TURN_EXCLUSIVE_LANE)
 df = df.join(RIGHT_TURN_EXCLUSIVE_LANE)
 # Adding the physical medium width (two variables)
 df = df.join(SUM_MAX_MIN_AVERAGE_WIDTH_PHYSICAL_MEDIAN).join(IS_THERE_PHYSICAL_MEDIAN)
+# Adding the central strip width (two variables)
+df = df.join(SUM_MAX_MIN_AVERAGE_WIDTH_CENTRAL_STRIP).join(IS_THERE_CENTRAL_STRIP)
+# Adding the skewness level
+df = df.join(IS_THERE_SKEWNESS)
+# ------------------------------------------------------
+
+
+
+
+
+
 
 
 
@@ -328,14 +439,11 @@ df = df.join(SUM_MAX_MIN_AVERAGE_WIDTH_PHYSICAL_MEDIAN).join(IS_THERE_PHYSICAL_M
 printing = True
 if printing == True:
     Final_DataSet = df.copy(deep = True)
-
     writer = pd.ExcelWriter(Current_Path + "/Toyota_Survey_Sheetfiles/4_Refine_Dataframe/refined_df.xlsx", engine='xlsxwriter')
     #store your dataframes in a  dict, where the key is the sheet name you want
-
     frames = {'DataSet': Final_DataSet, 'Descriptive': Final_DataSet.describe().T}
     #now loop thru and put each on a specific sheet
     for sheet, frame in  frames.items(): # .use .items for python 3.X, and .iteritems() fro 2.X
         frame.to_excel(writer, sheet_name = sheet)
-
     #critical last step
     writer.save()
