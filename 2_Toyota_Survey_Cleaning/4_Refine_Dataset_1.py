@@ -398,6 +398,168 @@ IS_THERE_SKEWNESS = ((df['Skewness_level_of_first_arm_to_the_next_arm']  == 1) |
                      (df['Skewness_level_larger_than_four']) == 1).astype(int)
 IS_THERE_SKEWNESS.name = 'IS_THERE_SKEWNESS'
 
+# ==================================================#
+#                 Traffic Signal Variable
+# ==================================================#
+# create a min-df for each variable
+
+# Flashing red/yellow variable
+red_yellow_flashing_signal = df[['Arm1_Red/Yellow_flashing_signal',
+                                 'Arm2_Red/Yellow_flashing_signal',
+                                 'Arm3_Red/Yellow_flashing_signal',
+                                 'Arm4_TrafSig_Red/Yellow_flashing_signal']]
+
+# Stop sign of controlled intersection
+stop_sign = df[['Arm1_Stop_sign',
+                'Arm2_Stop_sign',
+                'Arm3_Stop_sign',
+                'Arm4_TrafSig_Stop_sign']]
+
+# Signal types - high level means right/left exclusive is available
+high_level_signal = df[['Arm1_Traffic_signal_with_left_or_right_turn_only',
+                        'Arm2_Traffic_signal_with_left_or_right_turn_only',
+                        'Arm3_Traffic_signal_with_left_or_right_turn_only',
+                        'Arm4_TrafSig_Traffic_signal_with_left_or_right_turn_only']]
+
+# Single types - regular type red-yellow-green
+regular_signal = df[['Arm1_Traffic_signal_without_left_or_right_turn_only',
+                     'Arm2_Traffic_signal_without_left_or_right_turn_only',
+                     'Arm3_Traffic_signal_without_left_or_right_turn_only',
+                     'Arm4_TrafSig_Traffic_signal_without_left_or_right_turn_only']]
+
+# Uncontrolled intersection - Non Signalized intersection
+uncontrolled_intersection = df[['Arm1_Uncontroled',
+                                'Arm2_Uncontroled',
+                                'Arm3_Uncontroled',
+                                'Arm4_TrafSig_Uncontroled',
+                                'Arm5_6_TrafSig_UncontroledStop_sign']]
+
+# Intersection with pedestrain flashing green signal
+
+flashing_green_pedestrain = df[['Arm1_Presence_of_pedestrian_traffic_signal',
+                                'Arm2_Presence_of_pedestrian_traffic_signal1',
+                                'Arm3_Presence_of_pedestrian_traffic_signal2',
+                                'Arm4_Presence_of_pedestrian_traffic_signal3',
+                                'Arm5_6_Presence_of_pedestrian_traffic_signal_larger_than_four']]
+# -------------------------------------------------------
+# Uncontrolled intersection - Non Signalized intersection
+# -------------------------------------------------------
+# At least one of the approaches has uncotrolled feature
+IT_UNCONTROLLED_INT =  ((uncontrolled_intersection['Arm1_Uncontroled'] == 1) |
+                        (uncontrolled_intersection['Arm1_Uncontroled'] == 1) |
+                        (uncontrolled_intersection['Arm2_Uncontroled'] == 1) |
+                        (uncontrolled_intersection['Arm3_Uncontroled'] == 1) |
+                        (uncontrolled_intersection['Arm4_TrafSig_Uncontroled'] == 1)|
+                        (uncontrolled_intersection['Arm5_6_TrafSig_UncontroledStop_sign'] == 1)).astype(int)
+IT_UNCONTROLLED_INT.name = 'IT_UNCONTROLLED_INT'
+
+a = uncontrolled_intersection['Arm1_Uncontroled']
+b = uncontrolled_intersection['Arm1_Uncontroled']
+c = uncontrolled_intersection['Arm2_Uncontroled']
+d = uncontrolled_intersection['Arm3_Uncontroled']
+e = uncontrolled_intersection['Arm4_TrafSig_Uncontroled']
+f = uncontrolled_intersection['Arm5_6_TrafSig_UncontroledStop_sign']
+
+# from from itertools import combinations  ;list(combinations(['a','b','c','d','e','f'],2))
+# if there are at least two approaches with uncontrolled feature
+IT_IS_UNCONTROLLED_TWO_AT_LEAST =   ((a & b) |
+                                     (a & c) |
+                                     (a & d) |
+                                     (a & e) |
+                                     (a & f) |
+                                     (b & c) |
+                                     (b & d) |
+                                     (b & e) |
+                                     (b & f) |
+                                     (c & d) |
+                                     (c & e) |
+                                     (c & f) |
+                                     (d & e) |
+                                     (d & f) |
+                                     (e & f)).astype(int)
+IT_IS_UNCONTROLLED_TWO_AT_LEAST.name = 'IT_IS_UNCONTROLLED_TWO_AT_LEAST'
+# -------------------------------------------------------
+#           Stop sign of controlled intersection
+# -------------------------------------------------------
+STOP_SIGN = ((df['Arm1_Stop_sign'] ==1) |
+             (df['Arm2_Stop_sign'] ==1) |
+             (df['Arm3_Stop_sign'] ==1) |
+             (df['Arm4_TrafSig_Stop_sign'] ==1) ).astype(int)
+
+STOP_SIGN.name = 'STOP_SIGN'
+# -------------------------------------------------------
+#       Does the intersection is signalized or not
+# -------------------------------------------------------
+
+IT_IS_NON_SIGNALIZED = ((IT_IS_UNCONTROLLED_TWO_AT_LEAST == 1) | (STOP_SIGN ==1)).astype(int)
+
+IT_IS_NON_SIGNALIZED.name = 'IT_IS_NON_SIGNALIZED'
+# -------------------------------------------------------
+#                   Signal types
+# -------------------------------------------------------
+# - Signal types - high level means right/left exclusive is available
+# It will be considered a signalized with high-level if there two and
+# only two approaches labeled with right/left exclusive signal.
+a = df['Arm1_Traffic_signal_with_left_or_right_turn_only']
+b = df['Arm2_Traffic_signal_with_left_or_right_turn_only']
+c = df['Arm3_Traffic_signal_with_left_or_right_turn_only']
+d = df['Arm4_TrafSig_Traffic_signal_with_left_or_right_turn_only']
+
+SIGNALIZED_HIGH_LEVEL_SIGNAL = ((a & b) |
+                                (a & c) |
+                                (a & d) |
+                                (b & c) |
+                                (b & d) |
+                                (c & d) ).astype(int)
+
+SIGNALIZED_HIGH_LEVEL_SIGNAL.name = 'SIGNALIZED_HIGH_LEVEL_SIGNAL'
+# ------------------------------------------------------------------
+# -Single types - regular type red-yellow-green
+a = df['Arm1_Traffic_signal_without_left_or_right_turn_only']
+b = df['Arm2_Traffic_signal_without_left_or_right_turn_only']
+c = df['Arm3_Traffic_signal_without_left_or_right_turn_only']
+d = df['Arm4_TrafSig_Traffic_signal_without_left_or_right_turn_only']
+
+
+SIGNALIZED_REGULAR_SIGNAL=((a & b & c) |
+                           (a & b & d) |
+                           (a & c & d) |
+                           (b & c & d)).astype(int)
+SIGNALIZED_REGULAR_SIGNAL.name = 'SIGNALIZED_REGULAR_SIGNAL'
+# Maybe can be optimized later - suggestion is to consider number of arms and use (&)
+# is_it_sigalized_regular = []
+SIGNALIZED_REGULAR_SIGNAL_2 = pd.Series(np.zeros(len(df)), name = "SIGNALIZED_REGULAR_SIGNAL_2",index = df.index)
+for index in range(len(df)):
+    if  checking_intersection_type['Three_arms'].iloc[index]==1 :
+        #print(f"the intersection of three arms is = {sum_width_central_strip.index[index]}")
+        if (a[index]  & b[index] & c[index]).astype(int):
+            SIGNALIZED_REGULAR_SIGNAL_2[index] = ((a[index]  & b[index] & c[index]).astype(int))
+
+    elif checking_intersection_type['Four_arms'].iloc[index] ==1 :
+        #print(f"the intersection of four arms is = {sum_width_central_strip.index[index]}")
+        if (a[index]  & b[index] & c[index] & d[index]).astype(int):
+            SIGNALIZED_REGULAR_SIGNAL_2[index] = ((a[index]  & b[index] & c[index] & d[index]).astype(int))
+
+    elif checking_intersection_type['Five_arms'].iloc[index]==1 :
+        #print(f"the intersection of five arms is = {sum_width_central_strip.index[index]}")
+        if (a[index]  & b[index] & c[index] & d[index] ).astype(int):
+            SIGNALIZED_REGULAR_SIGNAL_2[index] = (a[index]  & b[index] & c[index] ).astype(int)
+
+    elif checking_intersection_type['Six_arms'].iloc[index] == 1:
+        #print(f"the intersection of six arms is = {sum_width_central_strip.index[index]}")
+        if (a[index]  & b[index] & c[index] & d[index]).astype(int):
+            SIGNALIZED_REGULAR_SIGNAL_2[index] = (a[index]  & b[index] & c[index] ).astype(int)
+
+SIGNALIZED_REGULAR_SIGNAL_2 = SIGNALIZED_REGULAR_SIGNAL_2.to_frame()
+SIGNALIZED_REGULAR_SIGNAL_2.name = 'SIGNALIZED_REGULAR_SIGNAL_2'
+# -------------------------------------------------------
+#                   Signal types
+# -------------------------------------------------------
+
+
+
+
+
 
 
 # ==================================================#
@@ -419,6 +581,14 @@ df = df.join(SUM_MAX_MIN_AVERAGE_WIDTH_PHYSICAL_MEDIAN).join(IS_THERE_PHYSICAL_M
 df = df.join(SUM_MAX_MIN_AVERAGE_WIDTH_CENTRAL_STRIP).join(IS_THERE_CENTRAL_STRIP)
 # Adding the skewness level
 df = df.join(IS_THERE_SKEWNESS)
+# Adding the traffic signal variables
+df = df.join(IT_UNCONTROLLED_INT).join(IT_IS_UNCONTROLLED_TWO_AT_LEAST).join(STOP_SIGN).join(IT_IS_NON_SIGNALIZED).join(SIGNALIZED_HIGH_LEVEL_SIGNAL).join(SIGNALIZED_REGULAR_SIGNAL).join(SIGNALIZED_REGULAR_SIGNAL_2)
+
+
+
+
+
+
 # ------------------------------------------------------
 
 
