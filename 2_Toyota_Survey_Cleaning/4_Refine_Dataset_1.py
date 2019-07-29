@@ -640,10 +640,6 @@ average_radius = pd.DataFrame(average_radius)
 SUM_MAX_MIN_AVERAGE_RADIUS = sum_radius.join(max_radius).join(min_radius).join(average_radius)
 
 
-
-
-
-
 # ==================================================#
 #           Constructing Our DATASET
 # ==================================================#
@@ -665,7 +661,8 @@ df = df.join(SUM_MAX_MIN_AVERAGE_WIDTH_CENTRAL_STRIP).join(IS_THERE_CENTRAL_STRI
 df = df.join(IS_THERE_SKEWNESS)
 # Adding the traffic signal variables
 df = df.join(IT_UNCONTROLLED_INT).join(IT_IS_UNCONTROLLED_TWO_AT_LEAST).join(STOP_SIGN).join(IT_IS_NON_SIGNALIZED).join(SIGNALIZED_HIGH_LEVEL_SIGNAL).join(SIGNALIZED_REGULAR_SIGNAL).join(SIGNALIZED_REGULAR_SIGNAL_2)
-
+# Radius of intersection
+df = df.join(SUM_MAX_MIN_AVERAGE_RADIUS)
 
 
 
