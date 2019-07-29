@@ -552,10 +552,97 @@ for index in range(len(df)):
 
 SIGNALIZED_REGULAR_SIGNAL_2 = SIGNALIZED_REGULAR_SIGNAL_2.to_frame()
 SIGNALIZED_REGULAR_SIGNAL_2.name = 'SIGNALIZED_REGULAR_SIGNAL_2'
-# -------------------------------------------------------
-#                   Signal types
-# -------------------------------------------------------
 
+
+# ==================================================#
+#          Intersection Radius in (meter)
+# ==================================================#
+radius_intersection_df = df[['Radius_of_arm_1_and_arm_2_',
+                             'Radius_of_arm_2_and_arm_3_',
+                             'Radius_of_arm_3_and_arm_4_',
+                             'Radius_of_arm_4_and_arm_5_',
+                             'Radius_of_arm_5_and_arm_6_',
+                             'Radius_of_arm_6_and_arm_7_']]
+
+# found a problem with one of the records of our dataframe:
+# it seems one of the records has a string not a number
+# -----------------------------------------------------
+for index, item in enumerate(radius_intersection_df['Radius_of_arm_3_and_arm_4_']):
+    if item == '３１，３１':
+        print(radius_intersection_df.index[index])
+# The problem is located with intersection "23-K06576-000"
+# Now we will use the following idea:
+        # change  the master dataframe
+        df['Radius_of_arm_3_and_arm_4_'].iloc[index] = 31.31
+        radius_intersection_df['Radius_of_arm_3_and_arm_4_'].iloc[index] = 31.31
+radius_intersection_df['Radius_of_arm_3_and_arm_4_'].astype(float).describe().T
+radius_intersection_df = df[['Radius_of_arm_1_and_arm_2_',
+                             'Radius_of_arm_2_and_arm_3_',
+                             'Radius_of_arm_3_and_arm_4_',
+                             'Radius_of_arm_4_and_arm_5_',
+                             'Radius_of_arm_5_and_arm_6_',
+                             'Radius_of_arm_6_and_arm_7_']]
+# # You can also use the following idea:
+# # Second-create function to correct the error
+# def is_string2(x):
+#     if x == '３１，３１':
+#         x = 2.99
+#     return(x)
+# # Correct Master Dataframe
+# df['Radius_of_arm_3_and_arm_4_'] = df['Radius_of_arm_3_and_arm_4_'].apply(is_string2)
+# # Assign the new value using apply()
+# radius_intersection_df['Radius_of_arm_3_and_arm_4_'] = radius_intersection_df['Width_of_central_strip_of_first_arm_if_exist'].apply(is_string2)
+# -----------------------------------------------------
+sum_radius = []
+max_radius = []
+min_radius = []
+
+for index in range(len(radius_intersection_df)):
+    sum_radius.append(radius_intersection_df.iloc[index,:].sum())
+    max_radius.append(radius_intersection_df.iloc[index,:].max())
+    # We will get the smallest radius but not zero
+    min_radius.append(radius_intersection_df[radius_intersection_df > 0].iloc[index,:].min())
+
+# To check the smallest radius but not zero simply use:
+for row in radius_intersection_df.iloc[0,:]:
+    print(row)
+
+sum_radius = pd.Series(sum_radius,index = df.index, name = 'SUM_RADIUS')
+max_radius = pd.Series(max_radius,index = df.index, name = 'MAX_RADIUS')
+min_radius = pd.Series(min_radius,index = df.index, name = 'MIN_RADIUS')
+
+
+# Now we will convert it to a dataframe as
+sum_radius = pd.DataFrame(sum_radius)
+max_radius = pd.DataFrame(max_radius)
+min_radius = pd.DataFrame(min_radius)
+
+
+# Now we will divide the sum based on number of arms for each intersection
+average_radius = []
+
+for index in range(len(df)):
+
+    if  checking_intersection_type['Three_arms'].iloc[index]==1 :
+        print(f"the intersection of three arms is = {sum_radius.index[index]}")
+        average_radius.append(sum_radius['SUM_RADIUS'][index]/3.0)
+
+    elif checking_intersection_type['Four_arms'].iloc[index] ==1 :
+        print(f"the intersection of four arms is = {sum_radius.index[index]}")
+        average_radius.append(sum_radius['SUM_RADIUS'][index]/4.0)
+
+    elif checking_intersection_type['Five_arms'].iloc[index]==1 :
+        print(f"the intersection of five arms is = {sum_radius.index[index]}")
+        average_radius.append(sum_radius['SUM_RADIUS'][index]/5.0)
+
+    elif checking_intersection_type['Six_arms'].iloc[index] == 1:
+        print(f"the intersection of six arms is = {sum_radius.index[index]}")
+        average_radius.append(sum_radius['SUM_RADIUS'][index]/6.0)
+
+average_radius = pd.Series(average_radius, index = df.index, name = "AVERAGE_RADIUS")
+average_radius = pd.DataFrame(average_radius)
+
+SUM_MAX_MIN_AVERAGE_RADIUS = sum_radius.join(max_radius).join(min_radius).join(average_radius)
 
 
 
