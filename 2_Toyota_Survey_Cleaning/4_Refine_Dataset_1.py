@@ -576,12 +576,7 @@ for index, item in enumerate(radius_intersection_df['Radius_of_arm_3_and_arm_4_'
         df['Radius_of_arm_3_and_arm_4_'].iloc[index] = 31.31
         radius_intersection_df['Radius_of_arm_3_and_arm_4_'].iloc[index] = 31.31
 radius_intersection_df['Radius_of_arm_3_and_arm_4_'].astype(float).describe().T
-radius_intersection_df = df[['Radius_of_arm_1_and_arm_2_',
-                             'Radius_of_arm_2_and_arm_3_',
-                             'Radius_of_arm_3_and_arm_4_',
-                             'Radius_of_arm_4_and_arm_5_',
-                             'Radius_of_arm_5_and_arm_6_',
-                             'Radius_of_arm_6_and_arm_7_']]
+
 # # You can also use the following idea:
 # # Second-create function to correct the error
 # def is_string2(x):
