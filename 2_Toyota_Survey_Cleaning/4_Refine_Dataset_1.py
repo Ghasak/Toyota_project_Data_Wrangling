@@ -553,6 +553,44 @@ for index in range(len(df)):
 SIGNALIZED_REGULAR_SIGNAL_2 = SIGNALIZED_REGULAR_SIGNAL_2.to_frame()
 SIGNALIZED_REGULAR_SIGNAL_2.name = 'SIGNALIZED_REGULAR_SIGNAL_2'
 
+# -------------------------------------------------------
+#          Other Traffic Signales Configurations
+# -------------------------------------------------------
+'''
+    - After a quick discussion over the best way to find best
+        configuration to the model set I have set the signalized
+        variable. Now we have: signalized with regular, high-level
+        and others
+'''
+
+OTHERS1 =((df['Arm1_Red/Yellow_flashing_signal'] == 1) |
+          (df['Arm2_Red/Yellow_flashing_signal'] == 1) |
+          (df['Arm3_Red/Yellow_flashing_signal'] == 1) |
+          (df['Arm4_TrafSig_Red/Yellow_flashing_signal'] == 1))
+
+OTHERS2 =((df['Arm1_Stop_sign'] == 1) |
+          (df['Arm2_Stop_sign'] == 1) |
+          (df['Arm3_Stop_sign'] == 1) |
+          (df['Arm4_TrafSig_Stop_sign'] == 1))
+
+OTHERS3 = ((df['Arm1_Uncontroled'] == 1) |
+           (df['Arm2_Uncontroled'] ==1) |
+           (df['Arm3_Uncontroled'] ==1) |
+           (df['Arm4_TrafSig_Uncontroled'] ==1) |
+           (df['Arm5_6_TrafSig_UncontroledStop_sign'] ==1) )
+
+OTHERS = (OTHERS1 | OTHERS2 | OTHERS3).astype(int)
+OTHERS.name = 'OTHERS_SIGNALS'
+
+# -------------------------------------------------------
+#                Flashing Green Signales
+# -------------------------------------------------------
+FLASHING_GREEN_PED = ((df['Arm1_Presence_of_pedestrian_traffic_signal']  == 1 )|
+                      (df['Arm2_Presence_of_pedestrian_traffic_signal1'] == 1) |
+                      (df['Arm3_Presence_of_pedestrian_traffic_signal2'] == 1) |
+                      (df['Arm4_Presence_of_pedestrian_traffic_signal3'] == 1) |
+                      (df['Arm5_6_Presence_of_pedestrian_traffic_signal_larger_than_four'] == 1)).astype(int)
+FLASHING_GREEN_PED.name = 'FLASHING_GREEN_PED'
 
 # ==================================================#
 #          Intersection Radius in (meter)
@@ -563,7 +601,7 @@ radius_intersection_df = df[['Radius_of_arm_1_and_arm_2_',
                              'Radius_of_arm_4_and_arm_5_',
                              'Radius_of_arm_5_and_arm_6_',
                              'Radius_of_arm_6_and_arm_7_']]
-
+# -----------------------------------------------------
 # found a problem with one of the records of our dataframe:
 # it seems one of the records has a string not a number
 # -----------------------------------------------------
@@ -573,10 +611,12 @@ for index, item in enumerate(radius_intersection_df['Radius_of_arm_3_and_arm_4_'
 # The problem is located with intersection "23-K06576-000"
 # Now we will use the following idea:
         # change  the master dataframe
-        df['Radius_of_arm_3_and_arm_4_'].iloc[index] = 31.31
+        #df['Radius_of_arm_3_and_arm_4_'].iloc[index] = 31.31
         radius_intersection_df['Radius_of_arm_3_and_arm_4_'].iloc[index] = 31.31
-radius_intersection_df['Radius_of_arm_3_and_arm_4_'].astype(float).describe().T
+        df['Radius_of_arm_3_and_arm_4_'].iloc[index] = 31.31
 
+radius_intersection_df['Radius_of_arm_3_and_arm_4_'] = radius_intersection_df['Radius_of_arm_3_and_arm_4_'].astype(float)
+df['Radius_of_arm_3_and_arm_4_'] = df['Radius_of_arm_3_and_arm_4_'].astype(float)
 # # You can also use the following idea:
 # # Second-create function to correct the error
 # def is_string2(x):
@@ -587,6 +627,24 @@ radius_intersection_df['Radius_of_arm_3_and_arm_4_'].astype(float).describe().T
 # df['Radius_of_arm_3_and_arm_4_'] = df['Radius_of_arm_3_and_arm_4_'].apply(is_string2)
 # # Assign the new value using apply()
 # radius_intersection_df['Radius_of_arm_3_and_arm_4_'] = radius_intersection_df['Width_of_central_strip_of_first_arm_if_exist'].apply(is_string2)
+# -----------------------------------------------------
+
+# One of the records is so big in the maximum radius which is (141.63)
+# The real radius is (14.63 m) - We will adjust this one here:
+for index, item in enumerate(df['Radius_of_arm_3_and_arm_4_']):
+    if item == 141.63:
+        df['Radius_of_arm_3_and_arm_4_'].iloc[index] = 14.63
+        radius_intersection_df['Radius_of_arm_3_and_arm_4_'].iloc[index] = 14.63
+#
+# Radius_of_arm_2_and_arm_3_ = 141.63 ----> 14.63 m instead
+for index, item in enumerate(df['Radius_of_arm_2_and_arm_3_']):
+    if item == 141.63:
+        df['Radius_of_arm_2_and_arm_3_'].iloc[index] = 14.63
+        radius_intersection_df['Radius_of_arm_2_and_arm_3_'].iloc[index] = 14.63
+    elif item == 104.52:
+        df['Radius_of_arm_2_and_arm_3_'].iloc[index] = 14.52
+        radius_intersection_df['Radius_of_arm_2_and_arm_3_'].iloc[index] = 14.63
+
 # -----------------------------------------------------
 sum_radius = []
 max_radius = []
@@ -660,10 +718,11 @@ df = df.join(SUM_MAX_MIN_AVERAGE_WIDTH_CENTRAL_STRIP).join(IS_THERE_CENTRAL_STRI
 # Adding the skewness level
 df = df.join(IS_THERE_SKEWNESS)
 # Adding the traffic signal variables
-df = df.join(IT_UNCONTROLLED_INT).join(IT_IS_UNCONTROLLED_TWO_AT_LEAST).join(STOP_SIGN).join(IT_IS_NON_SIGNALIZED).join(SIGNALIZED_HIGH_LEVEL_SIGNAL).join(SIGNALIZED_REGULAR_SIGNAL).join(SIGNALIZED_REGULAR_SIGNAL_2)
+#df = df.join(IT_UNCONTROLLED_INT).join(IT_IS_UNCONTROLLED_TWO_AT_LEAST).join(STOP_SIGN).join(IT_IS_NON_SIGNALIZED).join(SIGNALIZED_HIGH_LEVEL_SIGNAL).join(SIGNALIZED_REGULAR_SIGNAL).join(SIGNALIZED_REGULAR_SIGNAL_2)
+df = df.join(SIGNALIZED_HIGH_LEVEL_SIGNAL).join(SIGNALIZED_REGULAR_SIGNAL).join(OTHERS).join(FLASHING_GREEN_PED)
 # Radius of intersection
 df = df.join(SUM_MAX_MIN_AVERAGE_RADIUS)
-
+#
 
 
 
