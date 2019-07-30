@@ -731,7 +731,12 @@ LOG_MIN_RADIUS.name = 'LOG_MIN_RADIUS'
 LOG_AVERAGE_RADIUS = np.log(SUM_MAX_MIN_AVERAGE_RADIUS['AVERAGE_RADIUS'])
 LOG_AVERAGE_RADIUS.name = 'LOG_AVERAGE_RADIUS'
 
+# Width of physical
+# Width of Central Strip
 
+NUMBER_OF_LANES
+SUM_MAX_MIN_AVERAGE_WIDTH_PHYSICAL_MEDIAN
+SUM_MAX_MIN_AVERAGE_WIDTH_CENTRAL_STRIP
 
 # ==================================================#
 #           Constructing Our DATASET
@@ -761,6 +766,12 @@ df = df.join(SUM_MAX_MIN_AVERAGE_RADIUS)
 # Combined both the othershapes and more than 5 arms intersection type
 df = df.join(INTERSECTION_TYPE_OTHERS)
 # ------------------------------------------------------
+
+
+
+
+
+
 
 
 # ==================================================#
