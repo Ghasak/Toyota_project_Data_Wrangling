@@ -585,7 +585,7 @@ OTHERS.name = 'OTHERS_SIGNALS'
 # -------------------------------------------------------
 #                Flashing Green Signales
 # -------------------------------------------------------
-FLASHING_GREEN_PED = ((df['Arm1_Presence_of_pedestrian_traffic_signal']  == 1 )|
+FLASHING_GREEN_PED = ((df['Arm1_Presence_of_pedestrian_traffic_signal']  == 1) |
                       (df['Arm2_Presence_of_pedestrian_traffic_signal1'] == 1) |
                       (df['Arm3_Presence_of_pedestrian_traffic_signal2'] == 1) |
                       (df['Arm4_Presence_of_pedestrian_traffic_signal3'] == 1) |
@@ -664,13 +664,10 @@ sum_radius = pd.Series(sum_radius,index = df.index, name = 'SUM_RADIUS')
 max_radius = pd.Series(max_radius,index = df.index, name = 'MAX_RADIUS')
 min_radius = pd.Series(min_radius,index = df.index, name = 'MIN_RADIUS')
 
-
 # Now we will convert it to a dataframe as
 sum_radius = pd.DataFrame(sum_radius)
 max_radius = pd.DataFrame(max_radius)
 min_radius = pd.DataFrame(min_radius)
-
-
 # Now we will divide the sum based on number of arms for each intersection
 average_radius = []
 
@@ -696,6 +693,44 @@ average_radius = pd.Series(average_radius, index = df.index, name = "AVERAGE_RAD
 average_radius = pd.DataFrame(average_radius)
 
 SUM_MAX_MIN_AVERAGE_RADIUS = sum_radius.join(max_radius).join(min_radius).join(average_radius)
+# ==================================================#
+#          Intersection Type Variables
+# ==================================================#
+intersection_type = df[['Cross_intersection',
+                        'Intersection_with_more_than_four_arms',
+                        'Other_shapes',
+                        'T_or_staggered_intersection',
+                        'Y_shape_intersection']]
+
+intersection_type['Other_shapes2'] = ((intersection_type['Other_shapes'] ==1) | (intersection_type['Intersection_with_more_than_four_arms'] ==1)).astype(int)
+INTERSECTION_TYPE_OTHERS = intersection_type['Other_shapes2']
+INTERSECTION_TYPE_OTHERS.name = 'INTERSECTION_TYPE_OTHERS'
+
+# ==================================================#
+#     Take Log and Adjust some Exposure Variables
+# ==================================================#
+LOG_NO_DRIVE_WAYS        = np.log(df['Number_of_driverways'])
+LOG_NO_DRIVE_WAYS.name   = 'LOG_NO_DRIVE_WAYS'
+
+LOG_DISTANCE_TO_ADJUST      = np.log(df['Distance_to_adjacent_intersection_within_500_meter'])
+LOG_DISTANCE_TO_ADJUST.name = 'LOG_DISTANCE_TO_ADJUST'
+
+LOG_LONGEST_WIDTH_INTER      = np.log(df['Longest_Width_of_intersection'])
+LOG_LONGEST_WIDTH_INTER.name = 'LOG_LONGEST_WIDTH_INTER'
+
+LOG_SHORTEST_WIDTH_INTER      = np.log(df['Shortest_Width_of_intersection'])
+LOG_SHORTEST_WIDTH_INTER.name = 'LOG_SHORTEST_WIDTH_INTER'
+
+# Radius of intersection
+LOG_MAX_RADIUS = np.log(SUM_MAX_MIN_AVERAGE_RADIUS['MAX_RADIUS'])
+LOG_MAX_RADIUS.name ='LOG_MAX_RADIUS'
+
+LOG_MIN_RADIUS = np.log(SUM_MAX_MIN_AVERAGE_RADIUS['MIN_RADIUS'])
+LOG_MIN_RADIUS.name = 'LOG_MIN_RADIUS'
+
+LOG_AVERAGE_RADIUS = np.log(SUM_MAX_MIN_AVERAGE_RADIUS['AVERAGE_RADIUS'])
+LOG_AVERAGE_RADIUS.name = 'LOG_AVERAGE_RADIUS'
+
 
 
 # ==================================================#
@@ -722,23 +757,10 @@ df = df.join(IS_THERE_SKEWNESS)
 df = df.join(SIGNALIZED_HIGH_LEVEL_SIGNAL).join(SIGNALIZED_REGULAR_SIGNAL).join(OTHERS).join(FLASHING_GREEN_PED)
 # Radius of intersection
 df = df.join(SUM_MAX_MIN_AVERAGE_RADIUS)
-#
-
-
-
-
 # ------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
+# Combined both the othershapes and more than 5 arms intersection type
+df = df.join(INTERSECTION_TYPE_OTHERS)
+# ------------------------------------------------------
 
 
 # ==================================================#
