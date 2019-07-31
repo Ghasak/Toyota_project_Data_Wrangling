@@ -711,20 +711,22 @@ INTERSECTION_TYPE_OTHERS.name = 'INTERSECTION_TYPE_OTHERS'
 # ==================================================#
 #     Take Log and Adjust some Exposure Variables
 # ==================================================#
-LOG_NO_DRIVE_WAYS        = np.log(df['Number_of_driverways'])
+LOG_NO_DRIVE_WAYS        = np.log(df['Number_of_driverways'].mask(df['Number_of_driverways'] <=0)).fillna(0)
 LOG_NO_DRIVE_WAYS.name   = 'LOG_NO_DRIVE_WAYS'
+# ------------------------------------------------------
+LOG_DISTANCE_TO_ADJUST      = np.log(df['Distance_to_adjacent_intersection_within_500_meter'].mask(df['Distance_to_adjacent_intersection_within_500_meter'] <=0)).fillna(0)
 
-LOG_DISTANCE_TO_ADJUST      = np.log(df['Distance_to_adjacent_intersection_within_500_meter'])
 LOG_DISTANCE_TO_ADJUST.name = 'LOG_DISTANCE_TO_ADJUST'
+# ------------------------------------------------------
+LOG_LONGEST_WIDTH_INTER      = np.log(df['Longest_Width_of_intersection'].mask(df['Longest_Width_of_intersection'] <=0)).fillna(0)
 
-LOG_LONGEST_WIDTH_INTER      = np.log(df['Longest_Width_of_intersection'])
 LOG_LONGEST_WIDTH_INTER.name = 'LOG_LONGEST_WIDTH_INTER'
-
-LOG_SHORTEST_WIDTH_INTER      = np.log(df['Shortest_Width_of_intersection'])
+# ------------------------------------------------------
+LOG_SHORTEST_WIDTH_INTER      = np.log(df['Shortest_Width_of_intersection'].mask(df['Shortest_Width_of_intersection'] <=0)).fillna(0)
 LOG_SHORTEST_WIDTH_INTER.name = 'LOG_SHORTEST_WIDTH_INTER'
-
+# ------------------------------------------------------
 # Radius of intersection
-LOG_MAX_RADIUS = np.log(SUM_MAX_MIN_AVERAGE_RADIUS['MAX_RADIUS'])
+LOG_MAX_RADIUS = np.log(SUM_MAX_MIN_AVERAGE_RADIUS['MAX_RADIUS'].mask(SUM_MAX_MIN_AVERAGE_RADIUS['MAX_RADIUS'] <=0)).fillna(0)
 LOG_MAX_RADIUS.name ='LOG_MAX_RADIUS'
 
 LOG_MIN_RADIUS = np.log(SUM_MAX_MIN_AVERAGE_RADIUS['MIN_RADIUS'])
@@ -732,20 +734,18 @@ LOG_MIN_RADIUS.name = 'LOG_MIN_RADIUS'
 
 LOG_AVERAGE_RADIUS = np.log(SUM_MAX_MIN_AVERAGE_RADIUS['AVERAGE_RADIUS'])
 LOG_AVERAGE_RADIUS.name = 'LOG_AVERAGE_RADIUS'
-
+# ------------------------------------------------------
 # Width of physical
 # Width of Central Strip
-
+# ------------------------------------------------------
 LOG_NUMBER_OF_LANES = np.log(NUMBER_OF_LANES)
 LOG_NUMBER_OF_LANES.name = 'LOG_NUMBER_OF_LANES'
-
+# ------------------------------------------------------
 # SUM_MAX_MIN_AVERAGE_WIDTH_PHYSICAL_MEDIAN
 # LOG_MAXIMUM_WIDTH_PHYSICAL_MEDIAN = np.log(SUM_MAX_MIN_AVERAGE_WIDTH_PHYSICAL_MEDIAN['MAXIMUM_WIDTH_PHYSICAL_MEDIAN'])
 # LOG_MAXIMUM_WIDTH_PHYSICAL_MEDIAN.name = 'LOG_MAXIMUM_WIDTH_PHYSICAL_MEDIAN'
-
-
+# ------------------------------------------------------
 #SUM_MAX_MIN_AVERAGE_WIDTH_CENTRAL_STRIP
-
 # ==================================================#
 #           Constructing Our DATASET
 # ==================================================#
