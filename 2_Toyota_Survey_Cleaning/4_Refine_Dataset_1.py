@@ -251,7 +251,7 @@ minimum_width_physcial_median = []
 for index in range(len(physical_median_width_df)):
     sum_width_physical_median.append(physical_median_width_df.iloc[index,:].sum())
     maximum_width_physical_median.append(physical_median_width_df.iloc[index,:].max())
-    minimum_width_physcial_median.append(physical_median_width_df.iloc[index,:].min())
+    minimum_width_physcial_median.append(physical_median_width_df[physical_median_width_df > 0].iloc[index,:].min())
 # Now we will construct our Pandas Series from the list we created
 sum_width_physical_median     = pd.Series(sum_width_physical_median,index = df.index, name = 'SUM_OF_PHYSICAL_MEDIAN')
 maximum_width_physical_median = pd.Series(maximum_width_physical_median,index = df.index, name = 'MAXIMUM_WIDTH_PHYSICAL_MEDIAN')
@@ -285,6 +285,7 @@ average_width_physical_median = pd.Series(average_width_physical_median, index =
 average_width_physical_median = pd.DataFrame(average_width_physical_median)
 
 SUM_MAX_MIN_AVERAGE_WIDTH_PHYSICAL_MEDIAN = sum_width_physical_median.join(maximum_width_physical_median).join(minimum_width_physcial_median).join(average_width_physical_median)
+SUM_MAX_MIN_AVERAGE_WIDTH_PHYSICAL_MEDIAN.fillna(0,inplace = True)
 # --------------------------------------------------
 #     Now we add the dummy of physical median
 # --------------------------------------------------
@@ -338,7 +339,7 @@ min_width_central_strip = []
 for index in range(len(width_central_strip_df)):
     sum_width_central_strip.append(width_central_strip_df.iloc[index,:].sum())
     max_width_central_strip.append(width_central_strip_df.iloc[index,:].max())
-    min_width_central_strip.append(width_central_strip_df.iloc[index,:].min())
+    min_width_central_strip.append(width_central_strip_df[width_central_strip_df > 0].iloc[index,:].min())
 
 
 # Now we will construct our Pandas Series from the lists we created
@@ -377,6 +378,7 @@ average_width_central_strip = pd.Series(average_width_central_strip, index = df.
 average_width_central_strip = pd.DataFrame(average_width_central_strip)
 
 SUM_MAX_MIN_AVERAGE_WIDTH_CENTRAL_STRIP = sum_width_central_strip.join(max_width_central_strip).join(min_width_central_strip).join(average_width_central_strip)
+SUM_MAX_MIN_AVERAGE_WIDTH_CENTRAL_STRIP.fillna(0, inplace = True)
 # --------------------------------------------------
 #  Now we add the dummy of central strip existence
 # --------------------------------------------------
@@ -734,9 +736,15 @@ LOG_AVERAGE_RADIUS.name = 'LOG_AVERAGE_RADIUS'
 # Width of physical
 # Width of Central Strip
 
-NUMBER_OF_LANES
-SUM_MAX_MIN_AVERAGE_WIDTH_PHYSICAL_MEDIAN
-SUM_MAX_MIN_AVERAGE_WIDTH_CENTRAL_STRIP
+LOG_NUMBER_OF_LANES = np.log(NUMBER_OF_LANES)
+LOG_NUMBER_OF_LANES.name = 'LOG_NUMBER_OF_LANES'
+
+# SUM_MAX_MIN_AVERAGE_WIDTH_PHYSICAL_MEDIAN
+# LOG_MAXIMUM_WIDTH_PHYSICAL_MEDIAN = np.log(SUM_MAX_MIN_AVERAGE_WIDTH_PHYSICAL_MEDIAN['MAXIMUM_WIDTH_PHYSICAL_MEDIAN'])
+# LOG_MAXIMUM_WIDTH_PHYSICAL_MEDIAN.name = 'LOG_MAXIMUM_WIDTH_PHYSICAL_MEDIAN'
+
+
+#SUM_MAX_MIN_AVERAGE_WIDTH_CENTRAL_STRIP
 
 # ==================================================#
 #           Constructing Our DATASET
