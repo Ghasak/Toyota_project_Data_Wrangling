@@ -711,41 +711,74 @@ INTERSECTION_TYPE_OTHERS.name = 'INTERSECTION_TYPE_OTHERS'
 # ==================================================#
 #     Take Log and Adjust some Exposure Variables
 # ==================================================#
+# ------------------------------------------------------
+#               No of driveways -cardinal no.
+# ------------------------------------------------------
 LOG_NO_DRIVE_WAYS        = np.log(df['Number_of_driverways'].mask(df['Number_of_driverways'] <=0)).fillna(0)
 LOG_NO_DRIVE_WAYS.name   = 'LOG_NO_DRIVE_WAYS'
+# ------------------------------------------------------
+#               Distance to adjacent intersection
 # ------------------------------------------------------
 LOG_DISTANCE_TO_ADJUST      = np.log(df['Distance_to_adjacent_intersection_within_500_meter'].mask(df['Distance_to_adjacent_intersection_within_500_meter'] <=0)).fillna(0)
 
 LOG_DISTANCE_TO_ADJUST.name = 'LOG_DISTANCE_TO_ADJUST'
 # ------------------------------------------------------
+#               Longest width of intersection
+# ------------------------------------------------------
 LOG_LONGEST_WIDTH_INTER      = np.log(df['Longest_Width_of_intersection'].mask(df['Longest_Width_of_intersection'] <=0)).fillna(0)
-
 LOG_LONGEST_WIDTH_INTER.name = 'LOG_LONGEST_WIDTH_INTER'
+# ------------------------------------------------------
+#               Shortest width of intersection
 # ------------------------------------------------------
 LOG_SHORTEST_WIDTH_INTER      = np.log(df['Shortest_Width_of_intersection'].mask(df['Shortest_Width_of_intersection'] <=0)).fillna(0)
 LOG_SHORTEST_WIDTH_INTER.name = 'LOG_SHORTEST_WIDTH_INTER'
 # ------------------------------------------------------
-# Radius of intersection
+#               Radius of intersection
+# ------------------------------------------------------
 LOG_MAX_RADIUS = np.log(SUM_MAX_MIN_AVERAGE_RADIUS['MAX_RADIUS'].mask(SUM_MAX_MIN_AVERAGE_RADIUS['MAX_RADIUS'] <=0)).fillna(0)
 LOG_MAX_RADIUS.name ='LOG_MAX_RADIUS'
 
-LOG_MIN_RADIUS = np.log(SUM_MAX_MIN_AVERAGE_RADIUS['MIN_RADIUS'])
+LOG_MIN_RADIUS = np.log(SUM_MAX_MIN_AVERAGE_RADIUS['MIN_RADIUS'].mask(SUM_MAX_MIN_AVERAGE_RADIUS['MIN_RADIUS'] <=0)).fillna(0)
 LOG_MIN_RADIUS.name = 'LOG_MIN_RADIUS'
+LOG_MIN_RADIUS = LOG_MIN_RADIUS.mask(LOG_MIN_RADIUS <= 0).fillna(0)
 
-LOG_AVERAGE_RADIUS = np.log(SUM_MAX_MIN_AVERAGE_RADIUS['AVERAGE_RADIUS'])
+LOG_AVERAGE_RADIUS = np.log(SUM_MAX_MIN_AVERAGE_RADIUS['AVERAGE_RADIUS'].mask(SUM_MAX_MIN_AVERAGE_RADIUS['AVERAGE_RADIUS'] <=0)).fillna(0)
+
 LOG_AVERAGE_RADIUS.name = 'LOG_AVERAGE_RADIUS'
 # ------------------------------------------------------
-# Width of physical
-# Width of Central Strip
+#                   Number of lanes
 # ------------------------------------------------------
-LOG_NUMBER_OF_LANES = np.log(NUMBER_OF_LANES)
+LOG_NUMBER_OF_LANES = np.log(NUMBER_OF_LANES.mask(NUMBER_OF_LANES <=0)).fillna(0)
 LOG_NUMBER_OF_LANES.name = 'LOG_NUMBER_OF_LANES'
 # ------------------------------------------------------
-# SUM_MAX_MIN_AVERAGE_WIDTH_PHYSICAL_MEDIAN
-# LOG_MAXIMUM_WIDTH_PHYSICAL_MEDIAN = np.log(SUM_MAX_MIN_AVERAGE_WIDTH_PHYSICAL_MEDIAN['MAXIMUM_WIDTH_PHYSICAL_MEDIAN'])
-# LOG_MAXIMUM_WIDTH_PHYSICAL_MEDIAN.name = 'LOG_MAXIMUM_WIDTH_PHYSICAL_MEDIAN'
+#           Physical width in (meter) - log
 # ------------------------------------------------------
-#SUM_MAX_MIN_AVERAGE_WIDTH_CENTRAL_STRIP
+LOG_MAX_WIDTH_PHYSICAL_MEDIAN = np.log(SUM_MAX_MIN_AVERAGE_WIDTH_PHYSICAL_MEDIAN['MAXIMUM_WIDTH_PHYSICAL_MEDIAN'].mask(SUM_MAX_MIN_AVERAGE_WIDTH_PHYSICAL_MEDIAN['MAXIMUM_WIDTH_PHYSICAL_MEDIAN'] <=0)).fillna(0)
+LOG_MAX_WIDTH_PHYSICAL_MEDIAN.name = 'LOG_MAX_WIDTH_PHYSICAL_MEDIAN'
+LOG_MAX_WIDTH_PHYSICAL_MEDIAN = LOG_MAX_WIDTH_PHYSICAL_MEDIAN.mask(LOG_MAX_WIDTH_PHYSICAL_MEDIAN <= 0).fillna(0)   # To get rid of the small values of log(0.0000e)
+# ------------------------------------------------------
+LOG_MIN_WIDTH_PHYSICAL_MEDIAN = np.log(SUM_MAX_MIN_AVERAGE_WIDTH_PHYSICAL_MEDIAN['MINIMUM_WIDTH_PHYSICAL_MEIDAN'].mask(SUM_MAX_MIN_AVERAGE_WIDTH_PHYSICAL_MEDIAN['MINIMUM_WIDTH_PHYSICAL_MEIDAN'] <=0)).fillna(0)
+LOG_MIN_WIDTH_PHYSICAL_MEDIAN.name = 'LOG_MIN_WIDTH_PHYSICAL_MEDIAN'
+LOG_MIN_WIDTH_PHYSICAL_MEDIAN = LOG_MIN_WIDTH_PHYSICAL_MEDIAN.mask(LOG_MIN_WIDTH_PHYSICAL_MEDIAN <= 0).fillna(0)   # To get rid of the small values of log(0.0000e)
+# ------------------------------------------------------
+LOG_AVERAGE_WIDTH_PHYSICAL_MEDIAN = np.log(SUM_MAX_MIN_AVERAGE_WIDTH_PHYSICAL_MEDIAN['AVERAGE_WIDTH_PHYSICAL_MEDIAN'].mask(SUM_MAX_MIN_AVERAGE_WIDTH_PHYSICAL_MEDIAN['AVERAGE_WIDTH_PHYSICAL_MEDIAN'] <=0)).fillna(0)
+LOG_AVERAGE_WIDTH_PHYSICAL_MEDIAN.name = 'LOG_AVERAGE_WIDTH_PHYSICAL_MEDIAN'
+LOG_AVERAGE_WIDTH_PHYSICAL_MEDIAN = LOG_AVERAGE_WIDTH_PHYSICAL_MEDIAN.mask(LOG_AVERAGE_WIDTH_PHYSICAL_MEDIAN <= 0).fillna(0)   # To get rid of the small values of log(0.0000e)
+# ------------------------------------------------------
+#           Central Strip width in (meter) - log
+# ------------------------------------------------------
+LOG_MAX_WIDTH_CENTRAL_STRIP = np.log(SUM_MAX_MIN_AVERAGE_WIDTH_CENTRAL_STRIP['MAX_WIDTH_CENTRAL_STRIP'].mask(SUM_MAX_MIN_AVERAGE_WIDTH_CENTRAL_STRIP['MAX_WIDTH_CENTRAL_STRIP'] <=0)).fillna(0)
+LOG_MAX_WIDTH_CENTRAL_STRIP.name = 'LOG_MAX_WIDTH_CENTRAL_STRIP'
+LOG_MAX_WIDTH_CENTRAL_STRIP = LOG_MAX_WIDTH_CENTRAL_STRIP.mask(LOG_MAX_WIDTH_CENTRAL_STRIP<=0).fillna(0)
+# ------------------------------------------------------
+LOG_MIN_WIDTH_CENTRAL_STRIP = np.log(SUM_MAX_MIN_AVERAGE_WIDTH_CENTRAL_STRIP['MIN_WIDTH_CENTRAL_STRIP'].mask(SUM_MAX_MIN_AVERAGE_WIDTH_CENTRAL_STRIP['MIN_WIDTH_CENTRAL_STRIP'] <=0)).fillna(0)
+LOG_MIN_WIDTH_CENTRAL_STRIP.name = 'LOG_MIN_WIDTH_CENTRAL_STRIP'
+LOG_MIN_WIDTH_CENTRAL_STRIP = LOG_MIN_WIDTH_CENTRAL_STRIP.mask(LOG_MIN_WIDTH_CENTRAL_STRIP<=0).fillna(0)
+# ------------------------------------------------------
+LOG_AVERAGE_WIDTH_CENTRAL_STRIP = np.log(SUM_MAX_MIN_AVERAGE_WIDTH_CENTRAL_STRIP['AVERAGE_WIDTH_CENTRAL_STRIP'].mask(SUM_MAX_MIN_AVERAGE_WIDTH_CENTRAL_STRIP['AVERAGE_WIDTH_CENTRAL_STRIP'] <=0)).fillna(0)
+LOG_AVERAGE_WIDTH_CENTRAL_STRIP.name = 'LOG_AVERAGE_WIDTH_CENTRAL_STRIP'
+LOG_AVERAGE_WIDTH_CENTRAL_STRIP = LOG_AVERAGE_WIDTH_CENTRAL_STRIP.mask(LOG_AVERAGE_WIDTH_CENTRAL_STRIP<=0).fillna(0)
+
 # ==================================================#
 #           Constructing Our DATASET
 # ==================================================#
