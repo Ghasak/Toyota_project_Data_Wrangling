@@ -807,14 +807,22 @@ df = df.join(SUM_MAX_MIN_AVERAGE_RADIUS)
 # Combined both the othershapes and more than 5 arms intersection type
 df = df.join(INTERSECTION_TYPE_OTHERS)
 # ------------------------------------------------------
-
-
-
-
-
-
-
-
+# Adding Log variables
+df = df.join(LOG_NO_DRIVE_WAYS.to_frame())
+df = df.join(LOG_DISTANCE_TO_ADJUST.to_frame())
+df = df.join(LOG_LONGEST_WIDTH_INTER.to_frame())
+df = df.join(LOG_SHORTEST_WIDTH_INTER.to_frame())
+df = df.join(LOG_MAX_RADIUS.to_frame())
+df = df.join(LOG_MIN_RADIUS.to_frame())
+df = df.join(LOG_AVERAGE_RADIUS.to_frame())
+df = df.join(LOG_NUMBER_OF_LANES.to_frame())
+df = df.join(LOG_MAX_WIDTH_PHYSICAL_MEDIAN.to_frame())
+df = df.join(LOG_MIN_WIDTH_PHYSICAL_MEDIAN.to_frame())
+df = df.join(LOG_AVERAGE_WIDTH_PHYSICAL_MEDIAN.to_frame())
+df = df.join(LOG_MAX_WIDTH_CENTRAL_STRIP.to_frame())
+df = df.join(LOG_MIN_WIDTH_CENTRAL_STRIP.to_frame())
+df = df.join(LOG_AVERAGE_WIDTH_CENTRAL_STRIP.to_frame())
+# ------------------------------------------------------
 # ==================================================#
 #           Export the Final Results
 # ==================================================#
