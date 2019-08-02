@@ -807,7 +807,8 @@ df = df.join(SUM_MAX_MIN_AVERAGE_RADIUS)
 # Combined both the othershapes and more than 5 arms intersection type
 df = df.join(INTERSECTION_TYPE_OTHERS)
 # ------------------------------------------------------
-# Adding Log variables
+#               Adding Log variables
+# ------------------------------------------------------
 df = df.join(LOG_NO_DRIVE_WAYS.to_frame())
 df = df.join(LOG_DISTANCE_TO_ADJUST.to_frame())
 df = df.join(LOG_LONGEST_WIDTH_INTER.to_frame())
