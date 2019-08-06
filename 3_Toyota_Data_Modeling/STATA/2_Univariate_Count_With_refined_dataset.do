@@ -45,7 +45,8 @@ nbreg Crash_count   Minor_prefectural_road Narrow_road conf1_30kmh_orless conf1_
 
 estat ic
 estimates store NBII_Total_Crash
-
+predict NBII_TOTAL_CRASH
+summarize NBII_TOTAL_CRASH Crash_count
 // Estimate the Log-likelhood Ratio Test between the two models
 lrtest (Poisson_Total_Crash) (NBII_Total_Crash), stats dir force
 // hausman test for parameter equality -
