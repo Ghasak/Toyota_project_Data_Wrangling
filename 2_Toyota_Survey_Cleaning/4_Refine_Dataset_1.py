@@ -707,6 +707,8 @@ intersection_type = df[['Cross_intersection',
 intersection_type['Other_shapes2'] = ((intersection_type['Other_shapes'] ==1) | (intersection_type['Intersection_with_more_than_four_arms'] ==1)).astype(int)
 INTERSECTION_TYPE_OTHERS = intersection_type['Other_shapes2']
 INTERSECTION_TYPE_OTHERS.name = 'INTERSECTION_TYPE_OTHERS'
+IS_IT_THREE_ARMS = ((df['T_or_staggered_intersection'] ==1) | (df['Y_shape_intersection'] ==1)).astype(int)
+IS_IT_THREE_ARMS.name = 'IS_IT_THREE_ARMS'
 
 # ==================================================#
 #     Take Log and Adjust some Exposure Variables
@@ -800,12 +802,13 @@ df = df.join(SUM_MAX_MIN_AVERAGE_WIDTH_CENTRAL_STRIP).join(IS_THERE_CENTRAL_STRI
 df = df.join(IS_THERE_SKEWNESS)
 # Adding the traffic signal variables
 #df = df.join(IT_UNCONTROLLED_INT).join(IT_IS_UNCONTROLLED_TWO_AT_LEAST).join(STOP_SIGN).join(IT_IS_NON_SIGNALIZED).join(SIGNALIZED_HIGH_LEVEL_SIGNAL).join(SIGNALIZED_REGULAR_SIGNAL).join(SIGNALIZED_REGULAR_SIGNAL_2)
-df = df.join(SIGNALIZED_HIGH_LEVEL_SIGNAL).join(SIGNALIZED_REGULAR_SIGNAL).join(OTHERS).join(FLASHING_GREEN_PED)
+df = df.join(SIGNALIZED_HIGH_LEVEL_SIGNAL).join(SIGNALIZED_REGULAR_SIGNAL).join(OTHERS).join(FLASHING_GREEN_PED).join(IT_IS_NON_SIGNALIZED)
 # Radius of intersection
 df = df.join(SUM_MAX_MIN_AVERAGE_RADIUS)
 # ------------------------------------------------------
 # Combined both the othershapes and more than 5 arms intersection type
 df = df.join(INTERSECTION_TYPE_OTHERS)
+df = df.join(IS_IT_THREE_ARMS)
 # ------------------------------------------------------
 #               Adding Log variables
 # ------------------------------------------------------
