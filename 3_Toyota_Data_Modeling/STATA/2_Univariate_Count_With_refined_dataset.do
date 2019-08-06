@@ -50,3 +50,5 @@ estimates store NBII_Total_Crash
 lrtest (Poisson_Total_Crash) (NBII_Total_Crash), stats dir force
 // hausman test for parameter equality -
 hausman NBII_Total_Crash Poisson_Total_Crash, force
+disp("There is a difference in coefficients and it is systematic")
+
