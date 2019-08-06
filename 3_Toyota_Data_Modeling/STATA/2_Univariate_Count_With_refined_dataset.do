@@ -1,5 +1,7 @@
 clear
 cls
+// Change the scroll buffer size usign the command line
+set scrollbufsize 300000
 // Input dataset - using excel
 import excel "/Users/ghasak/Desktop/Toyota_Project_Data_Wrangling/3_Toyota_Data_Modeling/STATA/refined_df.xlsx", sheet("DataSet") firstrow
 
@@ -35,4 +37,15 @@ poisson Crash_count Major_prefectural_road Minor_prefectural_road Narrow_road co
 
 // For total number of accidents - The mode we will use so far:
 poisson Crash_count  Minor_prefectural_road Narrow_road conf1_30kmh_orless conf1_40kmh_orless conf1_50kmh_orless conf1_60kmh_orless conf1_No_regulation log_traffic_volume    IS_IT_THREE_ARMS LOG_NO_DRIVE_WAYS  LOG_SHORTEST_WIDTH_INTER   NON_DIVIDED_SINGLE_ROADWAY  LOG_NUMBER_OF_LANES  NO_OF_LANES_CHANGED  LEFT_TURN_EXCLUSIVE_LANE  LOG_AVERAGE_WIDTH_PHYSICAL_MEDIA   IS_THERE_CENTRAL_STRIP   SIGNALIZED_HIGH_LEVEL_SIGNAL FLASHING_GREEN_PED
+
+estat ic
+estimates store Poisson_Total_Crash
+// Using NBII mode we get:
+nbreg Crash_count   Minor_prefectural_road Narrow_road conf1_30kmh_orless conf1_40kmh_orless conf1_50kmh_orless conf1_60kmh_orless conf1_No_regulation log_traffic_volume    IS_IT_THREE_ARMS LOG_NO_DRIVE_WAYS  LOG_SHORTEST_WIDTH_INTER   NON_DIVIDED_SINGLE_ROADWAY  LOG_NUMBER_OF_LANES  NO_OF_LANES_CHANGED  LEFT_TURN_EXCLUSIVE_LANE  LOG_AVERAGE_WIDTH_PHYSICAL_MEDIA   IS_THERE_CENTRAL_STRIP   SIGNALIZED_HIGH_LEVEL_SIGNAL FLASHING_GREEN_PED, dispersion(constant)
+
+estat ic
+estimates store NBII_Total_Crash
+
+// Estimate the Log-likelhood Ratio Test between the two models
+lrtest (Total_Crash_Poisson) (Total_Crash_NBII), stats dir force
 
