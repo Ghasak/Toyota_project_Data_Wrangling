@@ -47,5 +47,6 @@ estat ic
 estimates store NBII_Total_Crash
 
 // Estimate the Log-likelhood Ratio Test between the two models
-lrtest (Total_Crash_Poisson) (Total_Crash_NBII), stats dir force
-
+lrtest (Poisson_Total_Crash) (NBII_Total_Crash), stats dir force
+// hausman test for parameter equality -
+hausman NBII_Total_Crash Poisson_Total_Crash, force
