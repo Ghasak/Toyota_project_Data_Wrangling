@@ -27,3 +27,7 @@ poisson Crash_count Major_prefectural_road Minor_prefectural_road Narrow_road co
 // Step-3- Adding variables of intersection layout (combine all arms in single variable each)
 
 poisson Crash_count Major_prefectural_road Minor_prefectural_road Narrow_road conf1_30kmh_orless conf1_40kmh_orless conf1_50kmh_orless conf1_60kmh_orless conf1_No_regulation log_traffic_volume  T_or_staggered_intersection Y_shape_intersection LOG_NO_DRIVE_WAYS LOG_DISTANCE_TO_ADJUST LOG_SHORTEST_WIDTH_INTER   NON_DIVIDED_SINGLE_ROADWAY  LOG_NUMBER_OF_LANES  NO_OF_LANES_CHANGED
+
+
+poisson Crash_count Major_prefectural_road Minor_prefectural_road Narrow_road conf1_30kmh_orless conf1_40kmh_orless conf1_50kmh_orless conf1_60kmh_orless conf1_No_regulation log_traffic_volume  T_or_staggered_intersection Y_shape_intersection LOG_NO_DRIVE_WAYS  LOG_SHORTEST_WIDTH_INTER   NON_DIVIDED_SINGLE_ROADWAY  LOG_NUMBER_OF_LANES  NO_OF_LANES_CHANGED  LEFT_TURN_EXCLUSIVE_LANE  LOG_AVERAGE_WIDTH_PHYSICAL_MEDIA   IS_THERE_CENTRAL_STRIP   SIGNALIZED_HIGH_LEVEL_SIGNAL FLASHING_GREEN_PED
+
