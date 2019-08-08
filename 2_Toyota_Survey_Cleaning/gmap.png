@@ -1,0 +1,85 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    
+      <meta charset="utf-8">
+      <title>Bokeh Plot</title>
+      
+      
+        
+          
+        <link rel="stylesheet" href="https://cdn.pydata.org/bokeh/release/bokeh-1.0.4.min.css" type="text/css" />
+        
+        
+          
+        <script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-1.0.4.min.js"></script>
+        <script type="text/javascript">
+            Bokeh.set_log_level("info");
+        </script>
+        
+      
+      
+    
+  </head>
+  
+  
+  <body>
+    
+      
+        
+          
+          
+            
+              <div class="bk-root" id="3343c23e-3d6d-4ba2-9f84-2c10ee1b3823" data-root-id="1131"></div>
+            
+          
+        
+      
+      
+        <script type="application/json" id="1208">
+          {"ef624827-6cf4-4cd6-8054-72a11d99230b":{"roots":{"references":[{"attributes":{},"id":"1160","type":"LinearScale"},{"attributes":{"callback":null},"id":"1129","type":"Range1d"},{"attributes":{"lat":30.2861,"lng":-97.7394,"zoom":11},"id":"1127","type":"GMapOptions"},{"attributes":{},"id":"1163","type":"Selection"},{"attributes":{"active_drag":"auto","active_inspect":"auto","active_multi":null,"active_scroll":"auto","active_tap":"auto","tools":[{"id":"1145","type":"PanTool"},{"id":"1146","type":"WheelZoomTool"},{"id":"1147","type":"ResetTool"},{"id":"1148","type":"HelpTool"}]},"id":"1149","type":"Toolbar"},{"attributes":{"dimension":"lon"},"id":"1135","type":"MercatorTickFormatter"},{"attributes":{"data_source":{"id":"1154","type":"ColumnDataSource"},"glyph":{"id":"1156","type":"Circle"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1157","type":"Circle"},"selection_glyph":null,"view":{"id":"1159","type":"CDSView"}},"id":"1158","type":"GlyphRenderer"},{"attributes":{"api_key":"GOOGLE_API_KEY","below":[{"id":"1137","type":"LinearAxis"}],"left":[{"id":"1142","type":"LinearAxis"}],"map_options":{"id":"1127","type":"GMapOptions"},"renderers":[{"id":"1137","type":"LinearAxis"},{"id":"1142","type":"LinearAxis"},{"id":"1158","type":"GlyphRenderer"}],"title":{"id":"1128","type":"Title"},"toolbar":{"id":"1149","type":"Toolbar"},"x_range":{"id":"1129","type":"Range1d"},"x_scale":{"id":"1161","type":"LinearScale"},"y_range":{"id":"1130","type":"Range1d"},"y_scale":{"id":"1160","type":"LinearScale"}},"id":"1131","subtype":"GMap","type":"GMapPlot"},{"attributes":{"dimension":"lat"},"id":"1141","type":"MercatorTicker"},{"attributes":{"callback":null,"data":{"lat":[30.29,30.2,30.29],"lon":[-97.7,-97.74,-97.78]},"selected":{"id":"1163","type":"Selection"},"selection_policy":{"id":"1164","type":"UnionRenderers"}},"id":"1154","type":"ColumnDataSource"},{"attributes":{},"id":"1145","type":"PanTool"},{"attributes":{"formatter":{"id":"1140","type":"MercatorTickFormatter"},"plot":{"id":"1131","subtype":"GMap","type":"GMapPlot"},"ticker":{"id":"1141","type":"MercatorTicker"}},"id":"1142","type":"LinearAxis"},{"attributes":{},"id":"1161","type":"LinearScale"},{"attributes":{"plot":null,"text":"Austin"},"id":"1128","type":"Title"},{"attributes":{},"id":"1147","type":"ResetTool"},{"attributes":{"dimension":"lon"},"id":"1136","type":"MercatorTicker"},{"attributes":{},"id":"1164","type":"UnionRenderers"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#1f77b4"},"line_alpha":{"value":0.1},"line_color":{"value":"#1f77b4"},"size":{"units":"screen","value":15},"x":{"field":"lon"},"y":{"field":"lat"}},"id":"1157","type":"Circle"},{"attributes":{},"id":"1148","type":"HelpTool"},{"attributes":{"dimension":"lat"},"id":"1140","type":"MercatorTickFormatter"},{"attributes":{"source":{"id":"1154","type":"ColumnDataSource"}},"id":"1159","type":"CDSView"},{"attributes":{"callback":null},"id":"1130","type":"Range1d"},{"attributes":{"fill_alpha":{"value":0.8},"fill_color":{"value":"blue"},"line_color":{"value":"#1f77b4"},"size":{"units":"screen","value":15},"x":{"field":"lon"},"y":{"field":"lat"}},"id":"1156","type":"Circle"},{"attributes":{"formatter":{"id":"1135","type":"MercatorTickFormatter"},"plot":{"id":"1131","subtype":"GMap","type":"GMapPlot"},"ticker":{"id":"1136","type":"MercatorTicker"}},"id":"1137","type":"LinearAxis"},{"attributes":{},"id":"1146","type":"WheelZoomTool"}],"root_ids":["1131"]},"title":"Bokeh Application","version":"1.0.4"}}
+        </script>
+        <script type="text/javascript">
+          (function() {
+            var fn = function() {
+              Bokeh.safely(function() {
+                (function(root) {
+                  function embed_document(root) {
+                    
+                  var docs_json = document.getElementById('1208').textContent;
+                  var render_items = [{"docid":"ef624827-6cf4-4cd6-8054-72a11d99230b","roots":{"1131":"3343c23e-3d6d-4ba2-9f84-2c10ee1b3823"}}];
+                  root.Bokeh.embed.embed_items(docs_json, render_items);
+                
+                  }
+                  if (root.Bokeh !== undefined) {
+                    embed_document(root);
+                  } else {
+                    var attempts = 0;
+                    var timer = setInterval(function(root) {
+                      if (root.Bokeh !== undefined) {
+                        embed_document(root);
+                        clearInterval(timer);
+                      }
+                      attempts++;
+                      if (attempts > 100) {
+                        console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+                        clearInterval(timer);
+                      }
+                    }, 10, root)
+                  }
+                })(window);
+              });
+            };
+            if (document.readyState != "loading") fn();
+            else document.addEventListener("DOMContentLoaded", fn);
+          })();
+        </script>
+    
+  </body>
+  
+</html>

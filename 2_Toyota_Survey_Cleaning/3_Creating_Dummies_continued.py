@@ -1604,6 +1604,17 @@ inner_joint_Int.to_excel(Current_Path + "/Toyota_Survey_Sheetfiles/3_Results_Cre
 #         wf.write(line)
 
 
+import matplotlib.pyplot as plt
+from matplotlib import style
+inner_joint_Int['Altitude'] = inner_joint_Int['Altitude'].astype(float)
+inner_joint_Int['Longitute'] = inner_joint_Int['Longitute'].astype(float)
+plt.show(inner_joint_Int.plot(kind="scatter",
+                                 x="Longitute",
+                                 y="Altitude",
+                                 s=inner_joint_Int['Crash_count']*10, label ="Crash Count",figsize = (10,7),
+                                 c="Crash_count", cmap=plt.get_cmap("jet"), colorbar=True,
+                                 sharex=False,
+                                 alpha=0.1))
 
 
 
