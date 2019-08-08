@@ -63,11 +63,23 @@ disp("There is a difference in coefficients and it is systematic")
         - Select the most significant variables.
 */
 
-poisson Crash_count  Minor_prefectural_road Narrow_road conf1_30kmh_orless conf1_40kmh_orless conf1_50kmh_orless conf1_60kmh_orless conf1_No_regulation log_traffic_volume IS_IT_THREE_ARMS  LOG_NUMBER_OF_LANES  NON_DIVIDED_SINGLE_ROADWAY NO_OF_LANES_CHANGED   LOG_AVERAGE_WIDTH_PHYSICAL_MEDIA  IS_THERE_CENTRAL_STRIP  IS_THERE_SKEWNESS  SIGNALIZED_HIGH_LEVEL_SIGNAL FLASHING_GREEN_PED LOG_NO_DRIVE_WAYS LOG_SHORTEST_WIDTH_INTER
+poisson Crash_count  Minor_prefectural_road Narrow_road conf1_30kmh_orless conf1_40kmh_orless conf1_50kmh_orless conf1_60kmh_orless conf1_No_regulation log_traffic_volume IS_IT_THREE_ARMS LOG_SHORTEST_WIDTH_INTER LOG_NO_DRIVE_WAYS LOG_NUMBER_OF_LANES  NO_OF_LANES_CHANGED IS_THERE_SKEWNESS NON_DIVIDED_SINGLE_ROADWAY    LOG_AVERAGE_WIDTH_PHYSICAL_MEDIA  IS_THERE_CENTRAL_STRIP    SIGNALIZED_HIGH_LEVEL_SIGNAL FLASHING_GREEN_PED
 estimates store poisson_final_total
-nbreg Crash_count      Minor_prefectural_road Narrow_road conf1_30kmh_orless conf1_40kmh_orless conf1_50kmh_orless conf1_60kmh_orless conf1_No_regulation log_traffic_volume IS_IT_THREE_ARMS  LOG_NUMBER_OF_LANES  NON_DIVIDED_SINGLE_ROADWAY NO_OF_LANES_CHANGED   LOG_AVERAGE_WIDTH_PHYSICAL_MEDIA  IS_THERE_CENTRAL_STRIP  IS_THERE_SKEWNESS  SIGNALIZED_HIGH_LEVEL_SIGNAL FLASHING_GREEN_PED LOG_NO_DRIVE_WAYS LOG_SHORTEST_WIDTH_INTER, dispersion(constant)
+nbreg Crash_count  Minor_prefectural_road Narrow_road conf1_30kmh_orless conf1_40kmh_orless conf1_50kmh_orless conf1_60kmh_orless conf1_No_regulation log_traffic_volume IS_IT_THREE_ARMS LOG_SHORTEST_WIDTH_INTER LOG_NO_DRIVE_WAYS LOG_NUMBER_OF_LANES  NO_OF_LANES_CHANGED IS_THERE_SKEWNESS NON_DIVIDED_SINGLE_ROADWAY    LOG_AVERAGE_WIDTH_PHYSICAL_MEDIA  IS_THERE_CENTRAL_STRIP    SIGNALIZED_HIGH_LEVEL_SIGNAL FLASHING_GREEN_PED  , dispersion(constant)
 
 estimates store nbII_final_total
+disp("--------------------------------------------------------")
+disp("              Calculate the Incident Ratio              ")
+disp("--------------------------------------------------------")
+nbreg, irr
+disp("Notice that the results is similar if you take: exp(bi)")
+disp("Read here: https://stats.idre.ucla.edu/stata/dae/negative-binomial-regression/")
+
+disp("--------------------------------------------------------")
+disp("             Calculate the Marginal Effect              ")
+disp("--------------------------------------------------------")
+margins, dydx(_all) atmeans
+
 
 // Estimate the Log-likelhood Ratio Test between the two models
 lrtest (poisson_final_total) (nbII_final_total), stats dir force
@@ -94,3 +106,16 @@ LEFT_TURN_EXCLUSIVE_LANE
             LOG_LONGEST_WIDTH_INTER: This variable more significant to Young Drivers compare to the Senior Drivers
                 which means Young drivers either travel alot inside intersection labled as
 */
+
+/*
+The user-written fitstat command (as well as Stata’s estat commands) can be used to obtain additional model fit information that may be helpful if you want to compare models.  You can type search fitstat to download this program (see How can I use the search command to search for programs and get additional help? for more information about using search).
+search fitstat
+download:
+                    fitstat from http://fmwww.bc.edu/RePEc/bocode/f
+                        'FITSTAT': module to compute fit statistics for single equation regression
+                        models / fitstat is a post-estimation command that computes a variety of /
+                        measures of fit for many kinds of regression models. It works / after the
+                        following: clogit, cnreg, cloglog, intreg, logistic, / logit, mlogit,
+
+*/
+ fitstat
