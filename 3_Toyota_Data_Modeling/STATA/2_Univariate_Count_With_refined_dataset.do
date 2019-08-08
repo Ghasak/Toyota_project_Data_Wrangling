@@ -41,7 +41,7 @@ poisson Crash_count  Minor_prefectural_road Narrow_road conf1_30kmh_orless conf1
 estat ic
 estimates store Poisson_Total_Crash
 // Using NBII mode we get:
-nbreg Crash_count   Minor_prefectural_road Narrow_road conf1_30kmh_orless conf1_40kmh_orless conf1_50kmh_orless conf1_60kmh_orless conf1_No_regulation log_traffic_volume    IS_IT_THREE_ARMS LOG_NO_DRIVE_WAYS  LOG_SHORTEST_WIDTH_INTER   NON_DIVIDED_SINGLE_ROADWAY  LOG_NUMBER_OF_LANES  NO_OF_LANES_CHANGED  LEFT_TURN_EXCLUSIVE_LANE  LOG_AVERAGE_WIDTH_PHYSICAL_MEDIA   IS_THERE_CENTRAL_STRIP   SIGNALIZED_HIGH_LEVEL_SIGNAL FLASHING_GREEN_PED, dispersion(constant)
+nbreg Crash_count Minor_prefectural_road Narrow_road conf1_30kmh_orless conf1_40kmh_orless conf1_50kmh_orless conf1_60kmh_orless conf1_No_regulation log_traffic_volume    IS_IT_THREE_ARMS LOG_NO_DRIVE_WAYS  LOG_SHORTEST_WIDTH_INTER   NON_DIVIDED_SINGLE_ROADWAY  LOG_NUMBER_OF_LANES  NO_OF_LANES_CHANGED  LEFT_TURN_EXCLUSIVE_LANE  LOG_AVERAGE_WIDTH_PHYSICAL_MEDIA   IS_THERE_CENTRAL_STRIP   SIGNALIZED_HIGH_LEVEL_SIGNAL FLASHING_GREEN_PED, dispersion(constant)
 
 estat ic
 estimates store NBII_Total_Crash
@@ -53,3 +53,33 @@ lrtest (Poisson_Total_Crash) (NBII_Total_Crash), stats dir force
 hausman NBII_Total_Crash Poisson_Total_Crash, force
 disp("There is a difference in coefficients and it is systematic")
 
+//======================================================================================
+//                  Univariate NBII Model - Total Number of Crashes
+//======================================================================================
+/**
+    - Selecting Most Siginifcant using Method C
+        - Total number of crashes is the baseline.
+        - add all the variables and start trimming one by one.
+        - Select the most significant variables.
+*/
+
+nbreg Crash_count Minor_prefectural_road Narrow_road conf1_30kmh_orless conf1_40kmh_orless conf1_50kmh_orless conf1_60kmh_orless conf1_No_regulation log_traffic_volume IS_IT_THREE_ARMS LOG_LONGEST_WIDTH_INTER  , dispersion(constant)
+
+
+// Non-Sig Variables across all drivers types
+/*
+General_national_road
+Major_prefectural_road
+LOG_NO_DRIVE_WAYS
+LOG_DISTANCE_TO_ADJUST
+LOG_MAX_RADIUS
+LOG_MIN_RADIUS
+LOG_AVERAGE_RADIUS
+*/
+
+/**
+        - After finishing all significant variables now we go to Conclusion:
+
+            LOG_LONGEST_WIDTH_INTER: This variable more significant to Young Drivers compare to the Senior Drivers
+                which means Young drivers either travel alot inside intersection labled as
+*/
