@@ -63,9 +63,18 @@ disp("There is a difference in coefficients and it is systematic")
         - Select the most significant variables.
 */
 
-nbreg Crash_count Minor_prefectural_road Narrow_road conf1_30kmh_orless conf1_40kmh_orless conf1_50kmh_orless conf1_60kmh_orless conf1_No_regulation log_traffic_volume IS_IT_THREE_ARMS LOG_LONGEST_WIDTH_INTER  , dispersion(constant)
+poisson Crash_count  Minor_prefectural_road Narrow_road conf1_30kmh_orless conf1_40kmh_orless conf1_50kmh_orless conf1_60kmh_orless conf1_No_regulation log_traffic_volume IS_IT_THREE_ARMS  LOG_NUMBER_OF_LANES  NON_DIVIDED_SINGLE_ROADWAY NO_OF_LANES_CHANGED   LOG_AVERAGE_WIDTH_PHYSICAL_MEDIA  IS_THERE_CENTRAL_STRIP  IS_THERE_SKEWNESS  SIGNALIZED_HIGH_LEVEL_SIGNAL FLASHING_GREEN_PED LOG_NO_DRIVE_WAYS LOG_SHORTEST_WIDTH_INTER
+estimates store poisson_final_total
+nbreg Crash_count      Minor_prefectural_road Narrow_road conf1_30kmh_orless conf1_40kmh_orless conf1_50kmh_orless conf1_60kmh_orless conf1_No_regulation log_traffic_volume IS_IT_THREE_ARMS  LOG_NUMBER_OF_LANES  NON_DIVIDED_SINGLE_ROADWAY NO_OF_LANES_CHANGED   LOG_AVERAGE_WIDTH_PHYSICAL_MEDIA  IS_THERE_CENTRAL_STRIP  IS_THERE_SKEWNESS  SIGNALIZED_HIGH_LEVEL_SIGNAL FLASHING_GREEN_PED LOG_NO_DRIVE_WAYS LOG_SHORTEST_WIDTH_INTER, dispersion(constant)
 
+estimates store nbII_final_total
 
+// Estimate the Log-likelhood Ratio Test between the two models
+lrtest (poisson_final_total) (nbII_final_total), stats dir force
+
+// hausman test for parameter equality -
+hausman nbII_final_total poisson_final_total, force
+disp("There is a difference in coefficients and it is systematic")
 // Non-Sig Variables across all drivers types
 /*
 General_national_road
@@ -75,6 +84,8 @@ LOG_DISTANCE_TO_ADJUST
 LOG_MAX_RADIUS
 LOG_MIN_RADIUS
 LOG_AVERAGE_RADIUS
+LEFT_TURN_EXCLUSIVE_LANE
+
 */
 
 /**
