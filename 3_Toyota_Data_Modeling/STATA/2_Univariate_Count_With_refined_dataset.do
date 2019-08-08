@@ -62,22 +62,25 @@ disp("There is a difference in coefficients and it is systematic")
         - add all the variables and start trimming one by one.
         - Select the most significant variables.
 */
+summarize Crash_count Driver_Young Driver_Middle_age Driver_Senior  Minor_prefectural_road Narrow_road conf1_30kmh_orless conf1_40kmh_orless conf1_50kmh_orless conf1_60kmh_orless conf1_No_regulation log_traffic_volume IS_IT_THREE_ARMS LOG_SHORTEST_WIDTH_INTER LOG_NO_DRIVE_WAYS LOG_NUMBER_OF_LANES  NO_OF_LANES_CHANGED IS_THERE_SKEWNESS NON_DIVIDED_SINGLE_ROADWAY    LOG_AVERAGE_WIDTH_PHYSICAL_MEDIA  IS_THERE_CENTRAL_STRIP    SIGNALIZED_HIGH_LEVEL_SIGNAL FLASHING_GREEN_PED
 
 poisson Crash_count  Minor_prefectural_road Narrow_road conf1_30kmh_orless conf1_40kmh_orless conf1_50kmh_orless conf1_60kmh_orless conf1_No_regulation log_traffic_volume IS_IT_THREE_ARMS LOG_SHORTEST_WIDTH_INTER LOG_NO_DRIVE_WAYS LOG_NUMBER_OF_LANES  NO_OF_LANES_CHANGED IS_THERE_SKEWNESS NON_DIVIDED_SINGLE_ROADWAY    LOG_AVERAGE_WIDTH_PHYSICAL_MEDIA  IS_THERE_CENTRAL_STRIP    SIGNALIZED_HIGH_LEVEL_SIGNAL FLASHING_GREEN_PED
 estimates store poisson_final_total
-nbreg Crash_count  Minor_prefectural_road Narrow_road conf1_30kmh_orless conf1_40kmh_orless conf1_50kmh_orless conf1_60kmh_orless conf1_No_regulation log_traffic_volume IS_IT_THREE_ARMS LOG_SHORTEST_WIDTH_INTER LOG_NO_DRIVE_WAYS LOG_NUMBER_OF_LANES  NO_OF_LANES_CHANGED IS_THERE_SKEWNESS NON_DIVIDED_SINGLE_ROADWAY    LOG_AVERAGE_WIDTH_PHYSICAL_MEDIA  IS_THERE_CENTRAL_STRIP    SIGNALIZED_HIGH_LEVEL_SIGNAL FLASHING_GREEN_PED  , dispersion(constant)
 
+
+nbreg Crash_count  Minor_prefectural_road Narrow_road conf1_30kmh_orless conf1_40kmh_orless conf1_50kmh_orless conf1_60kmh_orless conf1_No_regulation log_traffic_volume IS_IT_THREE_ARMS LOG_SHORTEST_WIDTH_INTER LOG_NO_DRIVE_WAYS LOG_NUMBER_OF_LANES  NO_OF_LANES_CHANGED IS_THERE_SKEWNESS NON_DIVIDED_SINGLE_ROADWAY    LOG_AVERAGE_WIDTH_PHYSICAL_MEDIA  IS_THERE_CENTRAL_STRIP    SIGNALIZED_HIGH_LEVEL_SIGNAL FLASHING_GREEN_PED  , dispersion(constant)
 estimates store nbII_final_total
-disp("--------------------------------------------------------")
-disp("              Calculate the Incident Ratio              ")
-disp("--------------------------------------------------------")
+
+//  ----------------------------------------------------------
+//  --------------- Calculate the Incident Ratio -------------
+//  ----------------------------------------------------------
 nbreg, irr
 disp("Notice that the results is similar if you take: exp(bi)")
 disp("Read here: https://stats.idre.ucla.edu/stata/dae/negative-binomial-regression/")
+//  ----------------------------------------------------------
+//  --------------- Calculate the Marginal Effect ------------
+//  ----------------------------------------------------------
 
-disp("--------------------------------------------------------")
-disp("             Calculate the Marginal Effect              ")
-disp("--------------------------------------------------------")
 margins, dydx(_all) atmeans
 
 
@@ -86,7 +89,7 @@ lrtest (poisson_final_total) (nbII_final_total), stats dir force
 
 // hausman test for parameter equality -
 hausman nbII_final_total poisson_final_total, force
-disp("There is a difference in coefficients and it is systematic")
+disp("There is not that big difference in coefficients and it is not systematic")
 // Non-Sig Variables across all drivers types
 /*
 General_national_road
@@ -119,3 +122,82 @@ download:
 
 */
  fitstat
+
+
+//======================================================================================
+//                  Univariate Count Model - Young Drivers Crashes
+//======================================================================================
+
+
+poisson Driver_Young Minor_prefectural_road Narrow_road conf1_30kmh_orless conf1_40kmh_orless conf1_50kmh_orless conf1_60kmh_orless conf1_No_regulation log_traffic_volume IS_IT_THREE_ARMS LOG_SHORTEST_WIDTH_INTER LOG_NO_DRIVE_WAYS LOG_NUMBER_OF_LANES  NO_OF_LANES_CHANGED IS_THERE_SKEWNESS NON_DIVIDED_SINGLE_ROADWAY    LOG_AVERAGE_WIDTH_PHYSICAL_MEDIA  IS_THERE_CENTRAL_STRIP    SIGNALIZED_HIGH_LEVEL_SIGNAL FLASHING_GREEN_PED
+estimates store Poisson_Young_Drivers
+
+
+nbreg Driver_Young Minor_prefectural_road Narrow_road conf1_30kmh_orless conf1_40kmh_orless conf1_50kmh_orless conf1_60kmh_orless conf1_No_regulation log_traffic_volume IS_IT_THREE_ARMS LOG_SHORTEST_WIDTH_INTER LOG_NO_DRIVE_WAYS LOG_NUMBER_OF_LANES  NO_OF_LANES_CHANGED IS_THERE_SKEWNESS NON_DIVIDED_SINGLE_ROADWAY    LOG_AVERAGE_WIDTH_PHYSICAL_MEDIA  IS_THERE_CENTRAL_STRIP    SIGNALIZED_HIGH_LEVEL_SIGNAL FLASHING_GREEN_PED, dispersion(constant)
+estimates store NBII_Young_Drivers
+
+//  ----------------------------------------------------------
+//  ----- Log-Likelihood between Poisson and NBII ------------
+//  ----- Young Dirvers
+//  ----------------------------------------------------------
+// Estimate the Log-likelhood Ratio Test between the two models
+lrtest (Poisson_Young_Drivers) (NBII_Young_Drivers), stats dir force
+//  ----------------------------------------------------------
+//  ----- Hausman test   between Poisson and NBII ------------
+//  ----- Young Dirvers
+//  ----------------------------------------------------------
+// hausman test for parameter equality -
+hausman NBII_Young_Drivers Poisson_Young_Drivers, force
+disp("There is a difference in coefficients and it is systematic")
+
+
+//======================================================================================
+//                  Univariate Count Model - Middle Aged Drivers Crashes
+//======================================================================================
+
+poisson Driver_Middle_age Minor_prefectural_road Narrow_road conf1_30kmh_orless conf1_40kmh_orless conf1_50kmh_orless conf1_60kmh_orless conf1_No_regulation log_traffic_volume IS_IT_THREE_ARMS LOG_SHORTEST_WIDTH_INTER LOG_NO_DRIVE_WAYS LOG_NUMBER_OF_LANES  NO_OF_LANES_CHANGED IS_THERE_SKEWNESS NON_DIVIDED_SINGLE_ROADWAY    LOG_AVERAGE_WIDTH_PHYSICAL_MEDIA  IS_THERE_CENTRAL_STRIP    SIGNALIZED_HIGH_LEVEL_SIGNAL FLASHING_GREEN_PED
+estimates store Poisson_Middle_Aged_Drivers
+
+
+nbreg Driver_Middle_age Minor_prefectural_road Narrow_road conf1_30kmh_orless conf1_40kmh_orless conf1_50kmh_orless conf1_60kmh_orless conf1_No_regulation log_traffic_volume IS_IT_THREE_ARMS LOG_SHORTEST_WIDTH_INTER LOG_NO_DRIVE_WAYS LOG_NUMBER_OF_LANES  NO_OF_LANES_CHANGED IS_THERE_SKEWNESS NON_DIVIDED_SINGLE_ROADWAY    LOG_AVERAGE_WIDTH_PHYSICAL_MEDIA  IS_THERE_CENTRAL_STRIP    SIGNALIZED_HIGH_LEVEL_SIGNAL FLASHING_GREEN_PED, dispersion(constant)
+estimates store NBII_Middle_Aged_Drivers
+
+//  ----------------------------------------------------------
+//  ----- Log-Likelihood between Poisson and NBII ------------
+//  ----- Young Dirvers
+//  ----------------------------------------------------------
+// Estimate the Log-likelhood Ratio Test between the two models
+lrtest (Poisson_Middle_Aged_Drivers) (NBII_Middle_Aged_Drivers), stats dir force
+//  ----------------------------------------------------------
+//  ----- Hausman test   between Poisson and NBII ------------
+//  ----- Young Dirvers
+//  ----------------------------------------------------------
+// hausman test for parameter equality -
+hausman NBII_Middle_Aged_Drivers Poisson_Middle_Aged_Drivers, force
+disp("There is a difference in coefficients and it is systematic")
+
+
+//======================================================================================
+//                  Univariate Count Model - Senior Drivers Crashes
+//======================================================================================
+
+poisson Driver_Senior Minor_prefectural_road Narrow_road conf1_30kmh_orless conf1_40kmh_orless conf1_50kmh_orless conf1_60kmh_orless conf1_No_regulation log_traffic_volume IS_IT_THREE_ARMS LOG_SHORTEST_WIDTH_INTER LOG_NO_DRIVE_WAYS LOG_NUMBER_OF_LANES  NO_OF_LANES_CHANGED IS_THERE_SKEWNESS NON_DIVIDED_SINGLE_ROADWAY    LOG_AVERAGE_WIDTH_PHYSICAL_MEDIA  IS_THERE_CENTRAL_STRIP    SIGNALIZED_HIGH_LEVEL_SIGNAL FLASHING_GREEN_PED
+estimates store Poisson_Senior_Drivers
+
+
+nbreg Driver_Senior Minor_prefectural_road Narrow_road conf1_30kmh_orless conf1_40kmh_orless conf1_50kmh_orless conf1_60kmh_orless conf1_No_regulation log_traffic_volume IS_IT_THREE_ARMS LOG_SHORTEST_WIDTH_INTER LOG_NO_DRIVE_WAYS LOG_NUMBER_OF_LANES  NO_OF_LANES_CHANGED IS_THERE_SKEWNESS NON_DIVIDED_SINGLE_ROADWAY    LOG_AVERAGE_WIDTH_PHYSICAL_MEDIA  IS_THERE_CENTRAL_STRIP    SIGNALIZED_HIGH_LEVEL_SIGNAL FLASHING_GREEN_PED, dispersion(constant)
+estimates store NBII_Senior_Drivers
+
+//  ----------------------------------------------------------
+//  ----- Log-Likelihood between Poisson and NBII ------------
+//  ----- Young Dirvers
+//  ----------------------------------------------------------
+// Estimate the Log-likelhood Ratio Test between the two models
+lrtest (Poisson_Senior_Drivers) (NBII_Senior_Drivers), stats dir force
+//  ----------------------------------------------------------
+//  ----- Hausman test   between Poisson and NBII ------------
+//  ----- Young Dirvers
+//  ----------------------------------------------------------
+// hausman test for parameter equality -
+hausman NBII_Senior_Drivers Poisson_Senior_Drivers, force
+disp("There is a difference in coefficients and it is systematic")
