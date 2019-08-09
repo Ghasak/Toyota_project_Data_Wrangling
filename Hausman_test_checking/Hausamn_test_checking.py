@@ -69,14 +69,21 @@ print(f"The value of Hausman's test is = {R}")
 print("-------------+-----------------------")
 # The results is : 3.6273073810583787 which is same as STATA
 
+
+#  sqrt(diag(V_b-V_B))
+g = np.sqrt(np.diagonal(A-B))
+
+
+
+
 '''
 Example= Total Number of crashes: Toyota City
 ---- Coefficients ----
-|      (b)          (B)            (b-B)     sqrt(diag(V_b-V_B))
-|  nbII_final~l poisson_fi~l    Difference          S.E.
+              |      (b)          (B)            (b-B)     sqrt(diag(V_b-V_B))
+              |  nbII_final~l poisson_fi~l    Difference          S.E.
 -------------+----------------------------------------------------------------
 Minor_pref~d |    .1826186     .1722504        .0103682        .0256661
-Narrow_road |    .5042419     .5272689       -.0230269        .0397776
+ Narrow_road |    .5042419     .5272689       -.0230269        .0397776
 conf1_30km~s |    .3911569     .3891669          .00199        .0348945
 conf1_40km~s |    .5937907     .5944551       -.0006644        .0287893
 conf1_50km~s |    .5929481     .6037543       -.0108062        .0297459
@@ -103,3 +110,5 @@ Test:  Ho:  difference in coefficients not systematic
     chi2(19) = (b-B)'[(V_b-V_B)^(-1)](b-B)
              =        3.63
    Prob>chi2 =      1.0000'''
+
+
