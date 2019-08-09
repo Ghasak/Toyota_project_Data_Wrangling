@@ -1618,3 +1618,17 @@ plt.show(inner_joint_Int.plot(kind="scatter",
 
 
 
+import matplotlib.pyplot as plt
+import mplleaflet
+from random import randint
+
+
+fig, ax = plt.subplots()
+x = [randint(-10100, -9400)/100 for i in range(30)]
+y = [randint(3700, 4000)/100 for i in range(30)]
+ax.plot(x, y, 'bo')
+
+
+from IPython.display import IFrame
+
+IFrame(fig=fig, width=900, height=650)
