@@ -23,12 +23,12 @@ import os
 CURRENT_PATH = os.getcwd()
 
 print(CURRENT_PATH)
-
+os.chdir(CURRENT_PATH)
+CURRENT_PATH = os.getcwd()
 # print(f"This is the relative path {os.path.abspath(os.getcwd())}")
 # print(f"This is the full path {os.path.dirname(os.path.abspath(__file__))}")
 
-inner_joint_Int = pd.read_excel(CURRENT_PATH +
-                                 "/inner_joint_Int.xlsx",
+inner_joint_Int = pd.read_excel(CURRENT_PATH + "/inner_joint_Int.xlsx",
                                  sheet_name="inner_joint_Int" , index = "Unnamed: 0")
 
 
