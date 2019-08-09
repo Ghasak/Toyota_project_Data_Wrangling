@@ -20,15 +20,16 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import style
 import os
-Current_Path = os.getcwd()
+CURRENT_PATH = os.getcwd()
 
-# print(Current_Path)
+print(CURRENT_PATH)
+
 # print(f"This is the relative path {os.path.abspath(os.getcwd())}")
 # print(f"This is the full path {os.path.dirname(os.path.abspath(__file__))}")
 
-inner_joint_Int = pd.read_excel(Current_Path +
-                                "/Toyota_Survey_Sheetfiles/1_Cleaning_Data_set/Results/inner_joint_Int.xlsx",
-                                sheet_name="inner_joint_Int")
+inner_joint_Int = pd.read_excel(CURRENT_PATH +
+                                 "/inner_joint_Int.xlsx",
+                                 sheet_name="inner_joint_Int" , index = "Unnamed: 0")
 
 
 
