@@ -18,6 +18,7 @@
 import pandas as pd
 import numpy as np
 import os
+import re
 Current_Path = os.getcwd()
 
 
@@ -110,8 +111,48 @@ inner_joint_Int.set_index(['FilterLess35'], inplace=True)
 inner_joint_Int.columns = inner_joint_Int.columns.str.replace(' |-', '_')
 inner_joint_Int.columns = inner_joint_Int.columns.str.replace('\.', '')
 # Remove the (degree-sign) after each value you have so you can use later in Google-Earth.
-inner_joint_Int["Altitude"] = inner_joint_Int["Altitude"].str.replace('°', '')
-inner_joint_Int["Longitute"] = inner_joint_Int["Longitute"].str.replace('°', '')
+def is_number(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        pass
+    try:
+        import unicodedata
+        unicodedata.numeric(s)
+        return True
+    except(TypeError, ValueError):
+        pass
+        return False
+
+x = []
+
+for index, item in enumerate(inner_joint_Int["Altitude"]):
+    if is_number(item):
+        #print("{} is number".format(inner_joint_Int["Altitude"].iloc[index]))
+        x.append(inner_joint_Int["Altitude"].iloc[index])
+    else:
+        x.append(re.sub(r'°', '',inner_joint_Int["Altitude"].iloc[index]))
+        #print("{} is string and now it is {}".format(inner_joint_Int["Altitude"].iloc[index],x))
+Lat = pd.Series(x, name="Latitude",index = inner_joint_Int.index)
+Lat = Lat.astype(float)
+
+y = []
+for index, item in enumerate(inner_joint_Int["Longitute"]):
+    if is_number(item):
+        #print("{} is number".format(inner_joint_Int["Altitude"].iloc[index]))
+        y.append(inner_joint_Int["Longitute"].iloc[index])
+    else:
+        y.append(re.sub(r'°', '',inner_joint_Int["Longitute"].iloc[index]))
+        #print("{} is string and now it is {}".format(inner_joint_Int["Altitude"].iloc[index],y))
+Lon = pd.Series(y, name="Longitute",index = inner_joint_Int.index)
+Lon = Lon.astype(float)
+# This method causes some error and I have changed to as you can see above Mon Aug 12 2019
+# inner_joint_Int["Altitude"] = inner_joint_Int["Altitude"].str.replace('\°', '')
+# inner_joint_Int["Longitute"] = inner_joint_Int["Longitute"].str.replace('\°', '')
+inner_joint_Int["Altitude"]  = Lat
+inner_joint_Int["Longitute"] = Lon
+
 # ==================================================#
 #                Export the Results
 # ==================================================#

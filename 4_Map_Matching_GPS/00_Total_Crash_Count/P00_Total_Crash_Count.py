@@ -28,23 +28,22 @@ CURRENT_PATH = os.getcwd()
 # print(f"This is the relative path {os.path.abspath(os.getcwd())}")
 # print(f"This is the full path {os.path.dirname(os.path.abspath(__file__))}")
 
-df = pd.read_excel(CURRENT_PATH + "/inner_joint_Int.xlsx",
-                                 sheet_name="inner_joint_Int" , index = "Unnamed: 0")
+df = pd.read_excel(CURRENT_PATH + "/inner_joint_Int_Create_D.xlsx",
+                                 sheet_name="inner_joint_Int_Create_D" , index = "Unnamed: 0")
 
 
 
-# df['Altitude'] = df['Altitude'].astype(float)
-# df['Longitute'] = df['Longitute'].astype(float)
-# plt.show(df.plot(kind="scatter",
-#                                  x="Longitute",
-#                                  y="Altitude",
-#                                  s=df['Crash_count']*10, label ="Crash Count",figsize = (10,7),
-#                                  c="Crash_count", cmap=plt.get_cmap("jet"), colorbar=False,
-#                                  sharex=False,
-#                                  alpha=0.8))
+df['Altitude'] = df['Altitude'].astype(float)
+df['Longitute'] = df['Longitute'].astype(float)
+plt.show(df.plot(kind="scatter",
+                                 x="Longitute",
+                                 y="Altitude",
+                                 s=df['Crash_count']*10, label ="Crash Count",figsize = (10,7),
+                                 c="Crash_count", cmap=plt.get_cmap("jet"), colorbar=False,
+                                 sharex=False,
+                                 alpha=0.8))
 
 
+lat = df['Altitude'].values
+lon = df['Longitute'].values
 
-img = plt.imread("ToyotaCity.png")
-fig , ax = plt.subplots()
-ax.imshow(img)

@@ -1629,9 +1629,4 @@ y = [randint(3700, 4000)/100 for i in range(30)]
 ax.plot(x, y, 'bo')
 
 
-from IPython.display import IFrame
-
-IFrame(fig=fig, width=900, height=650)
-
-
 
