@@ -41,7 +41,7 @@ plt.show(df.plot(kind="scatter",
                                  s=df['Crash_count']*10, label ="Crash Count",figsize = (10,7),
                                  c="Crash_count", cmap=plt.get_cmap("jet"), colorbar=True,
                                  sharex=True,
-                                 alpha=0.8))
+                                 alpha=0.3))
 
 
 
