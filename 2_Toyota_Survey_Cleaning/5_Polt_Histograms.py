@@ -3,12 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 import seaborn as sns
-# sns.set_style('darkgrid')
-Current_Path = os.getcwd()
-DATA = os.path.join(Current_Path,"1_Cleaning_Toyota_Data/Looping_Over_Two_Datasets/[1] Count_All_Intersections/[4] Analysis of [80x]")
-#PATHX = "/Users/Ghasak/Desktop/MPDATA/Projects/Toyota_project_Data_Wrangling/1_Cleaning_Toyota_Data/Looping_Over_Two_Datasets/[1] Count_All_Intersections/[4] Analysis of [80x]/Results3/Pivot_table1.xlsx"
-print(DATA)
-Pivot_table1 = pd.read_excel(DATA + "/Results3/Pivot_table1.xlsx", sheet_name=0)
+
+Pivot_table1 = pd.read_excel("/Users/Ghasak/Desktop/MPDATA/Projects/Toyota_project_Data_Wrangling/2_Toyota_Survey_Cleaning/Toyota_Survey_Sheetfiles/4_Refine_Dataframe/refined_df.xlsx", sheet_name=0)
 # Resources: https://matplotlib.org/tutorials/text/text_intro.html
 # ==================================================#
 #      Distribution Layout of each Driver age
