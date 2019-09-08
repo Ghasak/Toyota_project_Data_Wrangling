@@ -86,9 +86,10 @@ def pretty_print(df):
 
 def prettyDescribeTable(df):
     """ - Working only for 8 columns and should be in df.describe().T"""
-    print("{:30.25}{:10.10}{:10.10}{:10.10}{:10.10}{:10.10}{:10.10}{:10.10}".format(df.columns[0],df.columns[1],df.columns[2],df.columns[3],df.columns[4],df.columns[5],df.columns[6],df.columns[7]))
+    print(50*"-","+",22*"-","+",22*"-","+",22*"-")
+    print("{:30.25}{:12.10}{:12.10}{:12.10}{:12.10}{:12.10}{:12.10}{:12.10}".format("EXPLANATORY VARIABLES",df.columns[0],df.columns[1],df.columns[2],df.columns[3],df.columns[4],df.columns[5],df.columns[6],df.columns[7]))
+    print(50*"-","+",22*"-","+",22*"-","+",22*"-")
     for index,item in enumerate(df.index):
         print("{:30.25} {:8.5f} {:8.5f} {:8.5f} {:8.5f} {:8.5f} {:8.5f} {:8.5f} {:8.5f}".format(item,df.iloc[index,0],df.iloc[index,1],df.iloc[index,2],df.iloc[index,3],df.iloc[index,4],df.iloc[index,5],df.iloc[index,6],df.iloc[index,7]))
-
 
 
