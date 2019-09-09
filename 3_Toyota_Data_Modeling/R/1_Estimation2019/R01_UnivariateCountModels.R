@@ -17,7 +17,8 @@
 # =========================================================================
 #               Cleaning the background of intialize Space
 # =========================================================================
-dev.off(dev.list()["RStudioGD"]) # clean the Graph Area
+while (!is.null(dev.list()))  dev.off(dev.list()["RStudioGD"])
+#dev.off(dev.list()["RStudioGD"]) # clean the Graph Area
 rm(list=ls())                    # clean the Workspace (dataset)
 cat("\014")                      # clean the console area
 graphics.off()                   # close graphics windows (For R Script)
@@ -27,7 +28,9 @@ graphics.off()                   # close graphics windows (For R Script)
 # =========================================================================
 
 # Data1 <- read.csv(file.choose())
-directory_location <- paste0(getwd(),'/Desktop/Toyota_Project_Data_Wrangling/3_Toyota_Data_Modeling/R/0_DataSet/dataSet.csv')
+directory_location <- "~/Desktop/Toyota_Project_Data_Wrangling/3_Toyota_Data_Modeling/R/0_DataSet/dataSet.csv"
+#directory_location <- "/Users/ghasak/Desktop/Toyota_Project_Data_Wrangling/3_Toyota_Data_Modeling/R/0_DataSet/dataSet.csv"
+#directory_location <- paste0(getwd(),'/Desktop/Toyota_Project_Data_Wrangling/3_Toyota_Data_Modeling/R/0_DataSet/dataSet.csv')
 Data1 <- read.csv(directory_location)
 
 Total       = Data1$Crash_count
@@ -267,79 +270,79 @@ for (q in 1:NROW(Data1)) {
     Sumx <<- matrix(0,NROW(ux),1)
       for (r in 1:NROW(ux)){
           lmx1[r] = exp(   beta1
-                         + beta2 * MinorPrefecturalRoad
-                         + beta3 * OtherRoadTypes
-                         + beta4 * Conf30KmhorLess
-                         + beta5 * Conf40KmhorLess
-                         + beta6 * Conf50KmhorLess
-                         + beta7 * Conf60KmhorLess
-                         + beta8 * ConfNoRegulation
-                         + beta9 * LogTrafficVolume
-                         + beta10* IntersTypeThreeArms
-                         + beta11* LogShortestWidth
-                         + beta12* LogNoDriveWays
-                         + beta13* LogNoLanes
-                         + beta14* NoLanesChanged
-                         + beta15* IsThereSkewness
-                         + beta16* NonDividedSigleRoadway
-                         + beta17* LogAverageWidthPhysicalMedian
-                         + beta18* IsThereCentralStrip
-                         + beta19* SignalizedHighLevelSignal
-                         + beta20* PedestrianSignalExisted
+                         + beta2 * MinorPrefecturalRoad[q]
+                         + beta3 * OtherRoadTypes[q]
+                         + beta4 * Conf30KmhorLess[q]
+                         + beta5 * Conf40KmhorLess[q]
+                         + beta6 * Conf50KmhorLess[q]
+                         + beta7 * Conf60KmhorLess[q]
+                         + beta8 * ConfNoRegulation[q]
+                         + beta9 * LogTrafficVolume[q]
+                         + beta10* IntersTypeThreeArms[q]
+                         + beta11* LogShortestWidth[q]
+                         + beta12* LogNoDriveWays[q]
+                         + beta13* LogNoLanes[q]
+                         + beta14* NoLanesChanged[q]
+                         + beta15* IsThereSkewness[q]
+                         + beta16* NonDividedSigleRoadway[q]
+                         + beta17* LogAverageWidthPhysicalMedian[q]
+                         + beta18* IsThereCentralStrip[q]
+                         + beta19* SignalizedHighLevelSignal[q]
+                         + beta20* PedestrianSignalExisted[q]
                          + f1 * ux[r,1])
 
           lmx2[r] = exp(   beta21
-                         + beta22* MinorPrefecturalRoad
-                         + beta23* OtherRoadTypes
-                         + beta24* Conf30KmhorLess
-                         + beta25* Conf40KmhorLess
-                         + beta26* Conf50KmhorLess
-                         + beta27* Conf60KmhorLess
-                         + beta28* ConfNoRegulation
-                         + beta29* LogTrafficVolume
-                         + beta30* IntersTypeThreeArms
-                         + beta31* LogShortestWidth
-                         + beta32* LogNoDriveWays
-                         + beta33* LogNoLanes
-                         + beta34* NoLanesChanged
-                         + beta35* IsThereSkewness
-                         + beta36* NonDividedSigleRoadway
-                         + beta37* LogAverageWidthPhysicalMedian
-                         + beta38* IsThereCentralStrip
-                         + beta39* SignalizedHighLevelSignal
-                         + beta40* PedestrianSignalExisted
+                         + beta22* MinorPrefecturalRoad[q]
+                         + beta23* OtherRoadTypes[q]
+                         + beta24* Conf30KmhorLess[q]
+                         + beta25* Conf40KmhorLess[q]
+                         + beta26* Conf50KmhorLess[q]
+                         + beta27* Conf60KmhorLess[q]
+                         + beta28* ConfNoRegulation[q]
+                         + beta29* LogTrafficVolume[q]
+                         + beta30* IntersTypeThreeArms[q]
+                         + beta31* LogShortestWidth[q]
+                         + beta32* LogNoDriveWays[q]
+                         + beta33* LogNoLanes[q]
+                         + beta34* NoLanesChanged[q]
+                         + beta35* IsThereSkewness[q]
+                         + beta36* NonDividedSigleRoadway[q]
+                         + beta37* LogAverageWidthPhysicalMedian[q]
+                         + beta38* IsThereCentralStrip[q]
+                         + beta39* SignalizedHighLevelSignal[q]
+                         + beta40* PedestrianSignalExisted[q]
                          + f2 * ux[r,1]
                          + f3 * ux[r,2])
 
           lmx3[r] = exp(   beta41
-                         + beta42* MinorPrefecturalRoad
-                         + beta43* OtherRoadTypes
-                         + beta44* Conf30KmhorLess
-                         + beta45* Conf40KmhorLess
-                         + beta46* Conf50KmhorLess
-                         + beta47* Conf60KmhorLess
-                         + beta48* ConfNoRegulation
-                         + beta49* LogTrafficVolume
-                         + beta50* IntersTypeThreeArms
-                         + beta51* LogShortestWidth
-                         + beta52* LogNoDriveWays
-                         + beta53* LogNoLanes
-                         + beta54* NoLanesChanged
-                         + beta55* IsThereSkewness
-                         + beta56* NonDividedSigleRoadway
-                         + beta57* LogAverageWidthPhysicalMedian
-                         + beta58* IsThereCentralStrip
-                         + beta59* SignalizedHighLevelSignal
-                         + beta60* PedestrianSignalExisted
+                         + beta42* MinorPrefecturalRoad[q]
+                         + beta43* OtherRoadTypes[q]
+                         + beta44* Conf30KmhorLess[q]
+                         + beta45* Conf40KmhorLess[q]
+                         + beta46* Conf50KmhorLess[q]
+                         + beta47* Conf60KmhorLess[q]
+                         + beta48* ConfNoRegulation[q]
+                         + beta49* LogTrafficVolume[q]
+                         + beta50* IntersTypeThreeArms[q]
+                         + beta51* LogShortestWidth[q]
+                         + beta52* LogNoDriveWays[q]
+                         + beta53* LogNoLanes[q]
+                         + beta54* NoLanesChanged[q]
+                         + beta55* IsThereSkewness[q]
+                         + beta56* NonDividedSigleRoadway[q]
+                         + beta57* LogAverageWidthPhysicalMedian[q]
+                         + beta58* IsThereCentralStrip[q]
+                         + beta59* SignalizedHighLevelSignal[q]
+                         + beta60* PedestrianSignalExisted[q]
                          + f4 * ux[r,1]
                          + f5 * ux[r,2]
                          + f6 * ux[r,3])
 
         # == Calculate the probability ========
 
-      P1[r] = exp((y1)*(log(lmx1[r]))-(lmx1[r])-lfactorial(y1))
-      P2[r] = exp((y2)*(log(lmx2[r]))-(lmx2[r])-lfactorial(y2))
-      P3[r] = exp((y3)*(log(lmx3[r]))-(lmx3[r])-lfactorial(y3))
+      P1[r] = exp((y1[q])*(log(lmx1[r]))-(lmx1[r])-lfactorial(y1[q]))
+      P2[r] = exp((y2[q])*(log(lmx2[r]))-(lmx2[r])-lfactorial(y2[q]))
+      P3[r] = exp((y3[q])*(log(lmx3[r]))-(lmx3[r])-lfactorial(y3[q]))
 
       # ========== Probability of Zero ======
       SPrz1[r] = exp(-lmx1[r])
