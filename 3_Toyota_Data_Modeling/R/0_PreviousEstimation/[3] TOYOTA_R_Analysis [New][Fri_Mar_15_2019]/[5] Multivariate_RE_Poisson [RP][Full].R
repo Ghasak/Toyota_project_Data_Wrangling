@@ -395,9 +395,6 @@ startx1 = c(Start,fx,sig_vect)  #,init_disp,sig_vect
 library(maxLik)
 ML2 <- maxLik(LLF2, start = startx1,method = "bfgs"
               ,control=list(printLevel=4))
-
-
-
 # ================================================================================
 #           Calculate teh Variance-Covaraince Matrix and Correlation
 # ================================================================================
