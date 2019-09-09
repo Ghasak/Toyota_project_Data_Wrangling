@@ -34,9 +34,9 @@ Total       = Data1$Crash_count
 Young       = Data1$Driver_Young
 Middle_age  = Data1$Driver_Middle_age
 Senior      = Data1$Driver_Senior
-# ================================================================================
+# =======================================================================
 #               Data Frame converting our data [Similar to Pandas]
-# ================================================================================
+# =======================================================================
 MinorPrefecturalRoad             <- Data1$Minor_prefectural_road
 OtherRoadTypes                   <- Data1$Narrow_road
 Conf30KmhorLess                  <- Data1$conf1_30kmh_orless
@@ -57,9 +57,9 @@ IsThereCentralStrip              <- Data1$IS_THERE_CENTRAL_STRIP
 SignalizedHighLevelSignal        <- Data1$SIGNALIZED_HIGH_LEVEL_SIGNAL
 PedestrianSignalExisted          <- Data1$FLASHING_GREEN_PED
 
-# ================================================================================
+# =======================================================================
 #               Halton Sequence in R-Using the package randtoolbox
-# ================================================================================
+# =======================================================================
 library(randtoolbox)
 dim1 = 3  # How many chains you want to draw
 # You can get Normal distribution if you make normal =TRUE
@@ -68,9 +68,9 @@ ux= halton(n, dim = dim1, init = TRUE, normal = TRUE, usetime = FALSE)
 # sobol(n, dim = 1, init = TRUE, scrambling = 0, seed = 4711, normal = FALSE)
 # torus(n, dim = 1, prime, init = TRUE, mixed = FALSE, usetime = FALSE,normal=FALSE)
 
-# ================================================================================
+# =====================================================================
 #               Run Univariate Poisson to get start values
-# ================================================================================
+# =====================================================================
 require(maxLik)
 require(sandwich)
 require(foreign)
@@ -171,9 +171,10 @@ Start_m3 <<- matrix(Start_m3,nrow = NROW(Start_m3),1)
 
 Start <<- rbind(Start_m1,Start_m2,Start_m3)
 
-# ================================================================================
-#     Maximum Simulated Likelihood For Multivariate Indpendent Count Model
-# ================================================================================
+# ===============================================================
+#              Maximum Simulated Likelihood For
+#             Multivariate Indpendent Count Model
+# ===============================================================
 # Now this Model is the one similar to the m1, m2 and m3 above, I will use
 # Negative Binomial Model for Young, Middel_Aged, and Poisson for Senior
 
@@ -366,9 +367,9 @@ library(maxLik)
 ML2 <- maxLik(LLF2, start = startx1,method = "bfgs"
               ,control=list(printLevel=4))
 
-# ========================================================================
-#           Calculate teh Variance-Covaraince Matrix and Correlation
-# ========================================================================
+# ==================================================================
+#    Calculate teh Variance-Covaraince Matrix and Correlation
+# ==================================================================
 
 "-------Variance Covaraince Matrix -------"
 "-------final iter = 79 and at convergence 228"
