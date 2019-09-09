@@ -11,4 +11,8 @@ directory_location <- "~/Desktop/Toyota_Project_Data_Wrangling/3_Toyota_Data_Mod
 #directory_location <- paste0(getwd(),'/Desktop/Toyota_Project_Data_Wrangling/3_Toyota_Data_Modeling/R/0_DataSet/dataSet.csv')
 Data1 <- read.csv(directory_location)
 
-print(Data1)
+print("Hello World")
+
+# Using this command will make your file works with an output same name, but you will store the results all
+# But it wont work for estimation of any model.
+print("You can use: R CMD BATCH \"--args arg1 arg2\" file.R & ")

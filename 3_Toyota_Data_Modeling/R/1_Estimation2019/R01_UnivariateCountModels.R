@@ -413,11 +413,9 @@ coeftest(ML2, vcov=sandwich)
 vcov(ML2) # Caculate the variance-covariance matrix
 coef(ML2)
 logLik(ML2)
-
 # Extract the gradients evaluated at each observation
 library( sandwich )
 Gradx <- estfun( ML2 )
-
 # How to caculate the numerical gradient
 Grad <-numericGradient(LLF2,coef(ML2)) #coef(ML2) c(2.561980,3.33142 ,-1.319369)
 GX <- cbind(mean(Grad[,1]),mean(Grad[,2]),mean(Grad[,3]))
@@ -429,7 +427,6 @@ HessianX = ML2$hessian
 G2 = (solve(HessianX)%*%(JacobianX)%*%solve(HessianX))
 V = (G2) # variance-covariance matrix is actually the estimator above
 SE2 = sqrt(diag(V))
-
 # Comparison among the two different estimators
 cbind(SE1,SE2)
 cbind(coef(ML2)/SE1,coef(ML2)/SE2)
