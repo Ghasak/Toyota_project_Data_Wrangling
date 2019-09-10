@@ -41,7 +41,7 @@ Acc_ID_Data.index
 
 
 # ==================================================#
-#   Distance Function (considering Curvtuer of earth)
+#   Distance Function (considering Curvature of earth)
 # ==================================================#
 
 def measure(lat1, lon1, lat2, lon2):
@@ -59,7 +59,6 @@ def measure(lat1, lon1, lat2, lon2):
     a = (np.sin(dlat / 2) * np.sin(dlat / 2)) + (np.cos(lat1 * np.pi / 180) * np.cos(lat2 * np.pi / 180)) * (np.sin(dlon / 2) * np.sin(dlon / 2))
     c = 2 * np.arctan2(np.sqrt(a), np.sqrt(1 - a))
     d = R * c
-
     return (d * 1000)     # distance in meter
     # Tested with
     # measure(35.07121056, 137.1518367,35.07110167, 137.147385)
@@ -72,7 +71,7 @@ def measure(lat1, lon1, lat2, lon2):
 def ecluidianDist(lat1, lon1, lat2, lon2):
     """
         This function calculate the distance between to points on the Earth Surface not considering
-            the curvture of the earth.
+            the curvature of the earth.
             - the Latitude and Longitude should be measured in DD (Degree-Decimal).
             - The approximation of the Long and lat factors are obtained from :
                 https://s-giken.info/distance/distance.php
@@ -126,7 +125,7 @@ Filter50 = pd.Series(0, index=Acc_ID_Data_indexed.index)
 Filter75 = pd.Series(0, index=Acc_ID_Data_indexed.index)
 Filter100 = pd.Series(0, index=Acc_ID_Data_indexed.index)
 for q in range(len(Int_ID_Data_indexed.LATITUDE)):
-    !clear
+    ##!clear
     print(" Intersection No. {}".format(q))
     for i in range(len(Acc_ID_Data_indexed.Latitudex)):
         Distance.iloc[i][q] = measure(Int_ID_Data_indexed.LATITUDE[q],
@@ -209,7 +208,7 @@ for s in range(2 * F):
 TopFive = pd.DataFrame(Distance_Dict, index=(Acc_ID_Data_indexed.index))
 # populate the DataFrame with our results from the Distance measured.
 for acc in range(len(TopFive)):
-    !clear
+    #!clear
     print(" Accident No. {}".format(acc))
     TopFive.iloc[acc, 0:F] = Distance.iloc[acc, 0:].sort_values(ascending=True)[:F].keys()
     TopFive.iloc[acc, F:] = Distance.iloc[acc, 0:].sort_values(ascending=True)[:F].values[:]
@@ -263,7 +262,7 @@ for acc in range(len(TopFive)):       # For debugging TopFive.iloc[0:5,0:]
     elif (TopFive.iloc[acc].loc["Distance1"] < 50):   # (TopFive.iloc[acc].loc["Distance1"] > 35) and
         Desginated_Intersection_less50.iloc[acc] = TopFive.iloc[acc].loc["Intersection1"]
     else:
-        !clear
+        ##!clear
         count_cases = count_cases + 1
         print("Accidents not meeting our Criteria {}".format(count_cases))
         print("=================================")
