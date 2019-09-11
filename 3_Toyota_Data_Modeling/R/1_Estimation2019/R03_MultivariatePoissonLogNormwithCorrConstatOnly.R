@@ -201,139 +201,28 @@ LLF2 <- function(b){
     beta1  <-  b[1]
     beta2  <-  b[2]
     beta3  <-  b[3]
-    beta4  <-  b[4]
-    beta5  <-  b[5]
-    beta6  <-  b[6]
-    beta7  <-  b[7]
-    beta8  <-  b[8]
-    beta9  <-  b[9]
-    beta10 <-  b[10]
-    beta11 <-  b[11]
-    beta12 <-  b[12]
-    beta13 <-  b[13]
-    beta14 <-  b[14]
-    beta15 <-  b[15]
-    beta16 <-  b[16]
-    beta17 <-  b[17]
-    beta18 <-  b[18]
-    beta19 <-  b[19]
-    beta20 <-  b[20]
-    beta21 <-  b[21]
-    beta22 <-  b[22]
-    beta23 <-  b[23]
-    beta24 <-  b[24]
-    beta25 <-  b[25]
-    beta26 <-  b[26]
-    beta27 <-  b[27]
-    beta28 <-  b[28]
-    beta29 <-  b[29]
-    beta30 <-  b[30]
-    beta31 <-  b[31]
-    beta32 <-  b[32]
-    beta33 <-  b[33]
-    beta34 <-  b[34]
-    beta35 <-  b[35]
-    beta36 <-  b[36]
-    beta37 <-  b[37]
-    beta38 <-  b[38]
-    beta39 <-  b[39]
-    beta40 <-  b[40]
-    beta41 <-  b[41]
-    beta42 <-  b[42]
-    beta43 <-  b[43]
-    beta44 <-  b[44]
-    beta45 <-  b[45]
-    beta46 <-  b[46]
-    beta47 <-  b[47]
-    beta48 <-  b[48]
-    beta49 <-  b[49]
-    beta50 <-  b[50]
-    beta51 <-  b[51]
-    beta52 <-  b[52]
-    beta53 <-  b[53]
-    beta54 <-  b[54]
-    beta55 <-  b[55]
-    beta56 <-  b[56]
-    beta57 <-  b[57]
-    beta58 <-  b[58]
-    beta59 <-  b[59]
-    beta60 <-  b[60]
 
-    f1     <-  b[61]
-    f2     <-  b[62]
-    f3     <-  b[63]
-    f4     <-  b[64]
-    f5     <-  b[65]
-    f6     <-  b[66]
+
+    f1     <-  b[4]
+    f2     <-  b[5]
+    f3     <-  b[6]
+    f4     <-  b[7]
+    f5     <-  b[8]
+    f6     <-  b[9]
 
 for (q in 1:NROW(Data1)) {
     Sumx <<- matrix(0,NROW(ux),1)
       for (r in 1:NROW(ux)){
           lmx1[r] = exp(   beta1
-                         + beta2 * MinorPrefecturalRoad[q]
-                         + beta3 * OtherRoadTypes[q]
-                         + beta4 * Conf30KmhorLess[q]
-                         + beta5 * Conf40KmhorLess[q]
-                         + beta6 * Conf50KmhorLess[q]
-                         + beta7 * Conf60KmhorLess[q]
-                         + beta8 * ConfNoRegulation[q]
-                         + beta9 * LogTrafficVolume[q]
-                         + beta10* IntersTypeThreeArms[q]
-                         + beta11* LogShortestWidth[q]
-                         + beta12* LogNoDriveWays[q]
-                         + beta13* LogNoLanes[q]
-                         + beta14* NoLanesChanged[q]
-                         + beta15* IsThereSkewness[q]
-                         + beta16* NonDividedSigleRoadway[q]
-                         + beta17* LogAverageWidthPhysicalMedian[q]
-                         + beta18* IsThereCentralStrip[q]
-                         + beta19* SignalizedHighLevelSignal[q]
-                         + beta20* PedestrianSignalExisted[q]
                          + f1 * ux[r,1])
 
-          lmx2[r] = exp(   beta21
-                         + beta22* MinorPrefecturalRoad[q]
-                         + beta23* OtherRoadTypes[q]
-                         + beta24* Conf30KmhorLess[q]
-                         + beta25* Conf40KmhorLess[q]
-                         + beta26* Conf50KmhorLess[q]
-                         + beta27* Conf60KmhorLess[q]
-                         + beta28* ConfNoRegulation[q]
-                         + beta29* LogTrafficVolume[q]
-                         + beta30* IntersTypeThreeArms[q]
-                         + beta31* LogShortestWidth[q]
-                         + beta32* LogNoDriveWays[q]
-                         + beta33* LogNoLanes[q]
-                         + beta34* NoLanesChanged[q]
-                         + beta35* IsThereSkewness[q]
-                         + beta36* NonDividedSigleRoadway[q]
-                         + beta37* LogAverageWidthPhysicalMedian[q]
-                         + beta38* IsThereCentralStrip[q]
-                         + beta39* SignalizedHighLevelSignal[q]
-                         + beta40* PedestrianSignalExisted[q]
+          lmx2[r] = exp(   beta2
+
                          + f2 * ux[r,1]
                          + f3 * ux[r,2])
 
-          lmx3[r] = exp(   beta41
-                         + beta42* MinorPrefecturalRoad[q]
-                         + beta43* OtherRoadTypes[q]
-                         + beta44* Conf30KmhorLess[q]
-                         + beta45* Conf40KmhorLess[q]
-                         + beta46* Conf50KmhorLess[q]
-                         + beta47* Conf60KmhorLess[q]
-                         + beta48* ConfNoRegulation[q]
-                         + beta49* LogTrafficVolume[q]
-                         + beta50* IntersTypeThreeArms[q]
-                         + beta51* LogShortestWidth[q]
-                         + beta52* LogNoDriveWays[q]
-                         + beta53* LogNoLanes[q]
-                         + beta54* NoLanesChanged[q]
-                         + beta55* IsThereSkewness[q]
-                         + beta56* NonDividedSigleRoadway[q]
-                         + beta57* LogAverageWidthPhysicalMedian[q]
-                         + beta58* IsThereCentralStrip[q]
-                         + beta59* SignalizedHighLevelSignal[q]
-                         + beta60* PedestrianSignalExisted[q]
+          lmx3[r] = exp(   beta3
+
                          + f4 * ux[r,1]
                          + f5 * ux[r,2]
                          + f6 * ux[r,3])
@@ -365,7 +254,8 @@ fx <<- matrix(1,6,1)    # Defind the variables of the
 #init_disp <- c((1/m1$theta),(1/m2$theta))
 #sig_vect <<-matrix(1,36,1)
 #=============================Call the function for test==================
-startx1 = c(Start,fx)  #,init_disp,sig_vect
+START <- c( -5.651470702,-2.157534709,-2.667631299) # Constant only from Univariate Models
+startx1 = c(START,fx)  #,init_disp,sig_vect
 library(maxLik)
 ML2 <- maxLik(LLF2, start = startx1,method = "bfgs"
               ,control=list(printLevel=4))
@@ -377,12 +267,12 @@ ML2 <- maxLik(LLF2, start = startx1,method = "bfgs"
 "-------Variance Covaraince Matrix -------"
 "-------final iter = 79 and at convergence 228"
 beta  <- ML2$estimate
-fn1   <- beta[61]
-fn2   <- beta[62]
-fn3   <- beta[63]
-fn4   <- beta[64]
-fn5   <- beta[65]
-fn6   <- beta[66]
+fn1   <- beta[4]
+fn2   <- beta[5]
+fn3   <- beta[6]
+fn4   <- beta[7]
+fn5   <- beta[8]
+fn6   <- beta[9]
 Var1  <-  (fn1^2)
 Var2  <-  (fn2^2+fn3^2)
 Var3  <-  (fn4^2+fn5^2+fn6^2)
@@ -459,65 +349,8 @@ results <- cbind(estimate,standard_Err,t_stat2)  #,rankx,deparse.level = 2)
 
 rownames(results) <- c(
 "(Intercept1)",
-"MinorPrefecturalRoad",
-"OtherRoadTypes",
-"Conf30KmhorLess",
-"Conf40KmhorLess",
-"Conf50KmhorLess",
-"Conf60KmhorLess",
-"ConfNoRegulation",
-"LogTrafficVolume",
-"IntersTypeThreeArms",
-"LogShortestWidth",
-"LogNoDriveWays",
-"LogNoLanes",
-"NoLanesChanged",
-"IsThereSkewness",
-"NonDividedSigleRoadway",
-"LogAverageWidthPhysicalMedian",
-"IsThereCentralStrip",
-"SignalizedHighLevelSignal",
-"PedestrianSignalExisted",
 "(Intercept2)",
-"MinorPrefecturalRoad",
-"OtherRoadTypes",
-"Conf30KmhorLess",
-"Conf40KmhorLess",
-"Conf50KmhorLess",
-"Conf60KmhorLess",
-"ConfNoRegulation",
-"LogTrafficVolume",
-"IntersTypeThreeArms",
-"LogShortestWidth",
-"LogNoDriveWays",
-"LogNoLanes",
-"NoLanesChanged",
-"IsThereSkewness",
-"NonDividedSigleRoadway",
-"LogAverageWidthPhysicalMedian",
-"IsThereCentralStrip",
-"SignalizedHighLevelSignal",
-"PedestrianSignalExisted",
 "(Intercept3)",
-"MinorPrefecturalRoad",
-"OtherRoadTypes",
-"Conf30KmhorLess",
-"Conf40KmhorLess",
-"Conf50KmhorLess",
-"Conf60KmhorLess",
-"ConfNoRegulation",
-"LogTrafficVolume",
-"IntersTypeThreeArms",
-"LogShortestWidth",
-"LogNoDriveWays",
-"LogNoLanes",
-"NoLanesChanged",
-"IsThereSkewness",
-"NonDividedSigleRoadway",
-"LogAverageWidthPhysicalMedian",
-"IsThereCentralStrip",
-"SignalizedHighLevelSignal",
-"PedestrianSignalExisted",
 "f1",
 "f2",
 "f3",

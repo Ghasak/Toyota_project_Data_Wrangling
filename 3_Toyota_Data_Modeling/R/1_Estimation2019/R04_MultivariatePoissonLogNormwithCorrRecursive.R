@@ -260,11 +260,11 @@ LLF2 <- function(b){
     beta60 <-  b[60]
 
     f1     <-  b[61]
-    f2     <-  b[62]
-    f3     <-  b[63]
-    f4     <-  b[64]
-    f5     <-  b[65]
-    f6     <-  b[66]
+    #f2     <-  b[62]
+    f3     <-  b[62]
+    #f4     <-  b[64]
+    #f5     <-  b[65]
+    f6     <-  b[63]
 
 for (q in 1:NROW(Data1)) {
     Sumx <<- matrix(0,NROW(ux),1)
@@ -311,7 +311,7 @@ for (q in 1:NROW(Data1)) {
                          + beta38* IsThereCentralStrip[q]
                          + beta39* SignalizedHighLevelSignal[q]
                          + beta40* PedestrianSignalExisted[q]
-                         + f2 * ux[r,1]
+                         #+ f2 * ux[r,1]
                          + f3 * ux[r,2])
 
           lmx3[r] = exp(   beta41
@@ -334,8 +334,8 @@ for (q in 1:NROW(Data1)) {
                          + beta58* IsThereCentralStrip[q]
                          + beta59* SignalizedHighLevelSignal[q]
                          + beta60* PedestrianSignalExisted[q]
-                         + f4 * ux[r,1]
-                         + f5 * ux[r,2]
+                         #+ f4 * ux[r,1]
+                         #+ f5 * ux[r,2]
                          + f6 * ux[r,3])
 
         # == Calculate the probability ========
@@ -361,7 +361,7 @@ for (q in 1:NROW(Data1)) {
 }
 
 
-fx <<- matrix(1,6,1)    # Defind the variables of the
+fx <<- matrix(1,3,1)    # Defind the variables of the
 #init_disp <- c((1/m1$theta),(1/m2$theta))
 #sig_vect <<-matrix(1,36,1)
 #=============================Call the function for test==================
@@ -378,11 +378,11 @@ ML2 <- maxLik(LLF2, start = startx1,method = "bfgs"
 "-------final iter = 79 and at convergence 228"
 beta  <- ML2$estimate
 fn1   <- beta[61]
-fn2   <- beta[62]
-fn3   <- beta[63]
-fn4   <- beta[64]
-fn5   <- beta[65]
-fn6   <- beta[66]
+fn2   <- 0
+fn3   <- beta[62]
+fn4   <- 0
+fn5   <- 0
+fn6   <- beta[63]
 Var1  <-  (fn1^2)
 Var2  <-  (fn2^2+fn3^2)
 Var3  <-  (fn4^2+fn5^2+fn6^2)
@@ -519,10 +519,7 @@ rownames(results) <- c(
 "SignalizedHighLevelSignal",
 "PedestrianSignalExisted",
 "f1",
-"f2",
 "f3",
-"f4",
-"f5",
 "f6")
 print(results)
 print("Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1")
