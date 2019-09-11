@@ -119,9 +119,18 @@ mask_original.astype(int)
 #     Road Type 1 Divided but no Central Division
 # --------------------------------------------------
 # Road type Divided but no Central Division
-dfnroadtype1 = df[['Arm1_RoadType_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip','Arm2_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip','Arm3_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip','Arm4_Road_type_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip','Arm5_6_Road_type_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip_Single_roadway_without_central_strip']]
+dfnroadtype1 = df[['Arm1_RoadType_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip',
+                   'Arm2_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip',
+                   'Arm3_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip',
+                   'Arm4_Road_type_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip',
+                   'Arm5_6_Road_type_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip_Single_roadway_without_central_strip']]
 # Comprise the road type -Divided but no central division into one single variable
-dfnroadtype1 =(df['Arm1_RoadType_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip'] == 1)|(df['Arm2_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip'] == 1) |(df['Arm3_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip'] == 1) |(df['Arm4_Road_type_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip'] ==1) |(df['Arm5_6_Road_type_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip_Single_roadway_without_central_strip'] ==1)
+dfnroadtype1 =((df['Arm1_RoadType_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip'] == 1)|
+               (df['Arm2_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip'] == 1) |
+               (df['Arm3_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip'] == 1) |
+               (df['Arm4_Road_type_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip'] ==1) |
+               (df['Arm5_6_Road_type_Divided_roadway_with_No_Physical_Median_and_No_Central_Strip_Single_roadway_without_central_strip'] ==1))
+
 DIVIDED_NO_CENTRAL_DIVISION = dfnroadtype1.astype(int)
 DIVIDED_NO_CENTRAL_DIVISION.name = 'DIVIDED_NO_CENTRAL_DIVISION'
 # --------------------------------------------------
@@ -130,24 +139,26 @@ DIVIDED_NO_CENTRAL_DIVISION.name = 'DIVIDED_NO_CENTRAL_DIVISION'
 # Road type Divided with Central Division
 # Arm1 -
 dfnroadtype2_arm1 = df[['Arm1_RoadType_Divided_roadway_with_No_Physical_Median_and_with_Central_Strip',
-'Arm1_RoadType_Divided_roadway_with_Physical_Median_and_No_Central_Strip',
-'Arm1_RoadType_Divided_roadway_with_Physical_Median_and_with_Central_Strip']]
+                        'Arm1_RoadType_Divided_roadway_with_Physical_Median_and_No_Central_Strip',
+                        'Arm1_RoadType_Divided_roadway_with_Physical_Median_and_with_Central_Strip']]
 # Arm2 -
 dfnroadtype2_arm2 = df[['Arm2_Divided_roadway_with_No_Physical_Median_and_with_Central_Strip',
-'Arm2_Divided_roadway_with_Physical_Median_and_No_Central_Strip',
-'Arm2_Divided_roadway_with_Physical_Median_and_with_Central_Strip']]
+                        'Arm2_Divided_roadway_with_Physical_Median_and_No_Central_Strip',
+                        'Arm2_Divided_roadway_with_Physical_Median_and_with_Central_Strip']]
 # Arm3 -
 dfnroadtype2_arm3 = df[['Arm3_Divided_roadway_with_No_Physical_Median_and_with_Central_Strip',
-'Arm3_Divided_roadway_with_Physical_Median_and_No_Central_Strip',
-'Arm3_Divided_roadway_with_Physical_Median_and_with_Central_Strip']]
+                        'Arm3_Divided_roadway_with_Physical_Median_and_No_Central_Strip',
+                        'Arm3_Divided_roadway_with_Physical_Median_and_with_Central_Strip']]
 # Arm4 -
 dfnroadtype2_arm4 = df[['Arm4_Road_type_Divided_roadway_with_No_Physical_Median_and_with_Central_Strip',
-'Arm4_Road_type_Divided_roadway_with_Physical_Median_and_No_Central_Strip',
-'Arm4_Road_type_Divided_roadway_with_Physical_Median_and_with_Central_Strip']]
+                        'Arm4_Road_type_Divided_roadway_with_Physical_Median_and_No_Central_Strip',
+                        'Arm4_Road_type_Divided_roadway_with_Physical_Median_and_with_Central_Strip']]
 
 # Comprise Road type 2 Divided with central division
 # Arm1
-dfnroadtype2_arm1 = (df['Arm1_RoadType_Divided_roadway_with_No_Physical_Median_and_with_Central_Strip'] ==1)| (df['Arm1_RoadType_Divided_roadway_with_Physical_Median_and_No_Central_Strip']==1) |(df['Arm1_RoadType_Divided_roadway_with_Physical_Median_and_with_Central_Strip']==1)
+dfnroadtype2_arm1 = ((df['Arm1_RoadType_Divided_roadway_with_No_Physical_Median_and_with_Central_Strip'] ==1)|
+                    (df['Arm1_RoadType_Divided_roadway_with_Physical_Median_and_No_Central_Strip']==1) |
+                    (df['Arm1_RoadType_Divided_roadway_with_Physical_Median_and_with_Central_Strip']==1))
 dfnroadtype2_arm1 = dfnroadtype2_arm1.astype(int)
 # Arm2
 dfnroadtype2_arm2 = (df['Arm2_Divided_roadway_with_No_Physical_Median_and_with_Central_Strip']) | (df['Arm2_Divided_roadway_with_Physical_Median_and_No_Central_Strip']) | (df['Arm2_Divided_roadway_with_Physical_Median_and_with_Central_Strip'])
@@ -160,7 +171,10 @@ dfnroadtype2_arm4 = (df['Arm4_Road_type_Divided_roadway_with_No_Physical_Median_
 dfnroadtype2_arm4 = dfnroadtype2_arm4.astype(int)
 
 # Now put them all in one virtual arm
-dfnroadtype2 = (dfnroadtype2_arm1 == 1) | (dfnroadtype2_arm2 ==1) | (dfnroadtype2_arm3 ==1) | (dfnroadtype2_arm4 ==1)
+dfnroadtype2 = ((dfnroadtype2_arm1 == 1) |
+                (dfnroadtype2_arm2 ==1)  |
+                (dfnroadtype2_arm3 ==1)  |
+                (dfnroadtype2_arm4 ==1))
 DIVIDED_WITH_CENTRAL_DIVISION = dfnroadtype2.astype(int)
 DIVIDED_WITH_CENTRAL_DIVISION.name = 'DIVIDED_WITH_CENTRAL_DIVISION'
 # --------------------------------------------------
@@ -168,9 +182,9 @@ DIVIDED_WITH_CENTRAL_DIVISION.name = 'DIVIDED_WITH_CENTRAL_DIVISION'
 #           - based on physical median existence
 # --------------------------------------------------
 DIVIDED_NO_PHYSICAL_DIVISION = ((df['Arm1_RoadType_Divided_roadway_with_No_Physical_Median_and_with_Central_Strip']==1) |
-                              (df['Arm2_Divided_roadway_with_No_Physical_Median_and_with_Central_Strip']==1)|
-                              (df['Arm3_Divided_roadway_with_No_Physical_Median_and_with_Central_Strip']==1)|
-                              (df['Arm4_Road_type_Divided_roadway_with_No_Physical_Median_and_with_Central_Strip']==1)).astype(int)
+                                (df['Arm2_Divided_roadway_with_No_Physical_Median_and_with_Central_Strip']==1)|
+                                (df['Arm3_Divided_roadway_with_No_Physical_Median_and_with_Central_Strip']==1)|
+                                (df['Arm4_Road_type_Divided_roadway_with_No_Physical_Median_and_with_Central_Strip']==1)).astype(int)
 DIVIDED_NO_PHYSICAL_DIVISION.name = 'DIVIDED_NO_PHYSICAL_DIVISION'
 # --------------------------------------------------
 x1 = (df['Arm1_RoadType_Divided_roadway_with_Physical_Median_and_with_Central_Strip'] ==1 ) | (df['Arm1_RoadType_Divided_roadway_with_Physical_Median_and_with_Central_Strip'] ==1 )
