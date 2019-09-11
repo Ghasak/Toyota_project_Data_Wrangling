@@ -26,9 +26,11 @@ graphics.off()                   # close graphics windows (For R Script)
 # =========================================================================
 #           Input Data and Intializing the parameter vectors
 # =========================================================================
-
+# Using MacBook Pro
+directory_location <- "~/Desktop/MPDATA/Projects/Toyota_project_Data_Wrangling/3_Toyota_Data_Modeling/R/0_DataSet/DataSet.csv"
 # Data1 <- read.csv(file.choose())
-directory_location <- "~/Desktop/Toyota_Project_Data_Wrangling/3_Toyota_Data_Modeling/R/0_DataSet/dataSet.csv"
+# Using MacPro
+#directory_location <- "~/Desktop/Toyota_Project_Data_Wrangling/3_Toyota_Data_Modeling/R/0_DataSet/dataSet.csv"
 #directory_location <- "/Users/ghasak/Desktop/Toyota_Project_Data_Wrangling/3_Toyota_Data_Modeling/R/0_DataSet/dataSet.csv"
 #directory_location <- paste0(getwd(),'/Desktop/Toyota_Project_Data_Wrangling/3_Toyota_Data_Modeling/R/0_DataSet/dataSet.csv')
 Data1 <- read.csv(directory_location)
