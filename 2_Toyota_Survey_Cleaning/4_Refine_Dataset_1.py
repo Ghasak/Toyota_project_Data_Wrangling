@@ -855,3 +855,53 @@ if printing == True:
         frame.to_excel(writer, sheet_name = sheet)
     #critical last step
     writer.save()
+
+
+# ==================================================#
+#           Most Significant Variables
+# ==================================================#
+
+SignificantVariables = pd.DataFrame({df["Minor_prefectural_road"].name:df["Minor_prefectural_road"],
+                                     df["Narrow_road"].name:df["Narrow_road"],
+                                     df["conf1_30kmh_orless"].name:df["conf1_30kmh_orless"],
+                                     df["conf1_40kmh_orless"].name:df["conf1_40kmh_orless"],
+                                     df["conf1_50kmh_orless"].name:df["conf1_50kmh_orless"],
+                                     df["conf1_60kmh_orless"].name:df["conf1_60kmh_orless"],
+                                     df["conf1_No_regulation"].name:df["conf1_No_regulation"],
+                                     df["log_traffic_volume"].name:df["log_traffic_volume"],
+                                     df["IS_IT_THREE_ARMS"].name:df["IS_IT_THREE_ARMS"],
+                                     df["LOG_SHORTEST_WIDTH_INTER"].name:df["LOG_SHORTEST_WIDTH_INTER"],
+                                     df["LOG_NO_DRIVE_WAYS"].name:df["LOG_NO_DRIVE_WAYS"],
+                                     df["LOG_NUMBER_OF_LANES"].name:df["LOG_NUMBER_OF_LANES"],
+                                     df["NO_OF_LANES_CHANGED"].name:df["NO_OF_LANES_CHANGED"],
+                                     df["IS_THERE_SKEWNESS"].name:df["IS_THERE_SKEWNESS"],
+                                     df["NON_DIVIDED_SINGLE_ROADWAY"].name:df["NON_DIVIDED_SINGLE_ROADWAY"],
+                                     df["LOG_AVERAGE_WIDTH_PHYSICAL_MEDIAN"].name:df["LOG_AVERAGE_WIDTH_PHYSICAL_MEDIAN"],
+                                     df["IS_THERE_CENTRAL_STRIP"].name:df["IS_THERE_CENTRAL_STRIP"],
+                                     df["SIGNALIZED_HIGH_LEVEL_SIGNAL"].name:df["SIGNALIZED_HIGH_LEVEL_SIGNAL"],
+                                     df["FLASHING_GREEN_PED"].name:df["FLASHING_GREEN_PED"]})
+
+# You can achieve samething using
+SignificantVariablesII = df[["Crash_count",
+                             "Driver_Young",
+                             "Driver_Middle_age",
+                             "Driver_Senior",
+                             "Minor_prefectural_road",
+                             "Narrow_road",
+                             "conf1_30kmh_orless",
+                             "conf1_40kmh_orless",
+                             "conf1_50kmh_orless",
+                             "conf1_60kmh_orless",
+                             "conf1_No_regulation",
+                             "log_traffic_volume",
+                             "IS_IT_THREE_ARMS",
+                             "LOG_SHORTEST_WIDTH_INTER",
+                             "LOG_NO_DRIVE_WAYS",
+                             "LOG_NUMBER_OF_LANES",
+                             "NO_OF_LANES_CHANGED",
+                             "IS_THERE_SKEWNESS",
+                             "NON_DIVIDED_SINGLE_ROADWAY",
+                             "LOG_AVERAGE_WIDTH_PHYSICAL_MEDIAN",
+                             "IS_THERE_CENTRAL_STRIP",
+                             "SIGNALIZED_HIGH_LEVEL_SIGNAL",
+                             "FLASHING_GREEN_PED"]]
