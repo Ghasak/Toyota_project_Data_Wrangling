@@ -64,7 +64,7 @@ PedestrianSignalExisted          <- Data1$FLASHING_GREEN_PED
 #               Halton Sequence in R-Using the package randtoolbox
 # =======================================================================
 library(randtoolbox)
-dim1 = 60  # How many chains you want to draw
+dim1 = 6  # How many chains you want to draw
 # You can get Normal distribution if you make normal =TRUE
 n = 130
 ux= halton(n, dim = dim1, init = TRUE, normal = TRUE, usetime = FALSE)
@@ -173,8 +173,7 @@ Start_m2 <<- matrix(Start_m2,nrow = NROW(Start_m2),1)
 Start_m3 <<- matrix(Start_m3,nrow = NROW(Start_m3),1)
 
 Start <<- rbind(Start_m1,Start_m2,Start_m3)
-# After Estimated the multivariate turncated PosLogNorm (random-effect) model I used the initial state as;
-StartDelux <<- c(-5.651470702,0.043517913,0.427845122,0.692831364,0.307771258,0.866253883,0.172339644,0.510514235,0.121735632,-0.359771335,0.471171543,-0.087297236,1.133503976,-0.546956021,-0.0600873,-0.299306599,0.138317279,-0.048438478,0.081991308,-0.022274885,-2.157534709,0.195815308,0.477763684,0.351965455,0.820487567,0.741407141,0.338566109,0.520527701,0.089137213,-0.330571744,0.0727926,-0.03589899,0.490108976,-0.180102639,-0.009001584,-0.158536774,0.069257674,-0.199065547,0.151150308,0.17890753,-2.667631299,0.221213939,0.579855937,0.480386883,0.844944883,0.857947323,0.281722676,0.304562214,0.088077749,-0.354498852,-0.113394541,-0.037569091,0.189454934,-0.286754398,0.327719919,-0.155707279,-0.100369417,0.012159564,0.123078927,0.388434425,0.435215306,0.299880324,-0.091493006,0.354640792,0.010163597,0.001232599)
+
 # ===============================================================
 #              Maximum Simulated Likelihood For
 #             Multivariate Indpendent Count Model
@@ -266,136 +265,78 @@ LLF2 <- function(b){
     f4     <-  b[64]
     f5     <-  b[65]
     f6     <-  b[66]
-# Variance of the unobserved Heterogeneity amaong Error Terms
-sigma1  <- b[67]
-sigma2  <- b[68]
-sigma3  <- b[69]
-sigma4  <- b[70]
-sigma5  <- b[71]
-sigma6  <- b[72]
-sigma7  <- b[73]
-sigma8  <- b[74]
-sigma9  <- b[75]
-sigma10 <- b[76]
-sigma11 <- b[77]
-sigma12 <- b[78]
-sigma13 <- b[79]
-sigma14 <- b[80]
-sigma15 <- b[81]
-sigma16 <- b[82]
-sigma17 <- b[83]
-sigma18 <- b[84]
-sigma19 <- b[85]
-sigma20 <- b[86]
-sigma21 <- b[87]
-sigma22 <- b[88]
-sigma23 <- b[89]
-sigma24 <- b[90]
-sigma25 <- b[91]
-sigma26 <- b[92]
-sigma27 <- b[93]
-sigma28 <- b[94]
-sigma29 <- b[95]
-sigma30 <- b[96]
-sigma31 <- b[97]
-sigma32 <- b[98]
-sigma33 <- b[99]
-sigma34 <- b[100]
-sigma35 <- b[101]
-sigma36 <- b[102]
-sigma37 <- b[103]
-sigma38 <- b[104]
-sigma39 <- b[105]
-sigma40 <- b[106]
-sigma41 <- b[107]
-sigma42 <- b[108]
-sigma43 <- b[109]
-sigma44 <- b[110]
-sigma45 <- b[111]
-sigma46 <- b[112]
-sigma47 <- b[113]
-sigma48 <- b[114]
-sigma49 <- b[115]
-sigma50 <- b[116]
-sigma51 <- b[117]
-sigma52 <- b[118]
-sigma53 <- b[119]
-sigma54 <- b[120]
-sigma55 <- b[121]
-sigma56 <- b[122]
-sigma57 <- b[123]
 
 for (q in 1:NROW(Data1)) {
     Sumx <<- matrix(0,NROW(ux),1)
       for (r in 1:NROW(ux)){
           lmx1[r] = exp(   beta1
-                         + (beta2 +sigma1 *ux[r,4 ]) * MinorPrefecturalRoad[q]
-                         + (beta3 +sigma2 *ux[r,5 ]) * OtherRoadTypes[q]
-                         + (beta4 +sigma3 *ux[r,6 ]) * Conf30KmhorLess[q]
-                         + (beta5 +sigma4 *ux[r,7 ]) * Conf40KmhorLess[q]
-                         + (beta6 +sigma5 *ux[r,8 ]) * Conf50KmhorLess[q]
-                         + (beta7 +sigma6 *ux[r,9 ]) * Conf60KmhorLess[q]
-                         + (beta8 +sigma7 *ux[r,10]) * ConfNoRegulation[q]
-                         + (beta9 +sigma8 *ux[r,11]) * LogTrafficVolume[q]
-                         + (beta10+sigma9 *ux[r,12]) * IntersTypeThreeArms[q]
-                         + (beta11+sigma10*ux[r,13]) * LogShortestWidth[q]
-                         + (beta12+sigma11*ux[r,14]) * LogNoDriveWays[q]
-                         + (beta13+sigma12*ux[r,15]) * LogNoLanes[q]
-                         + (beta14+sigma13*ux[r,16]) * NoLanesChanged[q]
-                         + (beta15+sigma14*ux[r,17]) * IsThereSkewness[q]
-                         + (beta16+sigma15*ux[r,18]) * NonDividedSigleRoadway[q]
-                         + (beta17+sigma16*ux[r,19]) * LogAverageWidthPhysicalMedian[q]
-                         + (beta18+sigma17*ux[r,20]) * IsThereCentralStrip[q]
-                         + (beta19+sigma18*ux[r,21]) * SignalizedHighLevelSignal[q]
-                         + (beta20+sigma19*ux[r,22]) * PedestrianSignalExisted[q]
+                         + beta2 * MinorPrefecturalRoad[q]
+                         + beta3 * OtherRoadTypes[q]
+                         + beta4 * Conf30KmhorLess[q]
+                         + beta5 * Conf40KmhorLess[q]
+                         + beta6 * Conf50KmhorLess[q]
+                         + beta7 * Conf60KmhorLess[q]
+                         + beta8 * ConfNoRegulation[q]
+                         + beta9 * LogTrafficVolume[q]
+                         + beta10* IntersTypeThreeArms[q]
+                         + beta11* LogShortestWidth[q]
+                         + beta12* LogNoDriveWays[q]
+                         + beta13* LogNoLanes[q]
+                         + beta14* NoLanesChanged[q]
+                         + beta15* IsThereSkewness[q]
+                         + beta16* NonDividedSigleRoadway[q]
+                         + beta17* LogAverageWidthPhysicalMedian[q]
+                         + beta18* IsThereCentralStrip[q]
+                         + beta19* SignalizedHighLevelSignal[q]
+                         + beta20* PedestrianSignalExisted[q]
                          + f1 * ux[r,1])
 
           lmx2[r] = exp(   beta21
-                         + (beta22+sigma20*ux[r,23]) * MinorPrefecturalRoad[q]
-                         + (beta23+sigma21*ux[r,24]) * OtherRoadTypes[q]
-                         + (beta24+sigma22*ux[r,25]) * Conf30KmhorLess[q]
-                         + (beta25+sigma23*ux[r,26]) * Conf40KmhorLess[q]
-                         + (beta26+sigma24*ux[r,27]) * Conf50KmhorLess[q]
-                         + (beta27+sigma25*ux[r,28]) * Conf60KmhorLess[q]
-                         + (beta28+sigma26*ux[r,29]) * ConfNoRegulation[q]
-                         + (beta29+sigma27*ux[r,30]) * LogTrafficVolume[q]
-                         + (beta30+sigma28*ux[r,31]) * IntersTypeThreeArms[q]
-                         + (beta31+sigma29*ux[r,32]) * LogShortestWidth[q]
-                         + (beta32+sigma30*ux[r,33]) * LogNoDriveWays[q]
-                         + (beta33+sigma31*ux[r,34]) * LogNoLanes[q]
-                         + (beta34+sigma32*ux[r,35]) * NoLanesChanged[q]
-                         + (beta35+sigma33*ux[r,36]) * IsThereSkewness[q]
-                         + (beta36+sigma34*ux[r,37]) * NonDividedSigleRoadway[q]
-                         + (beta37+sigma35*ux[r,38]) * LogAverageWidthPhysicalMedian[q]
-                         + (beta38+sigma36*ux[r,39]) * IsThereCentralStrip[q]
-                         + (beta39+sigma37*ux[r,40]) * SignalizedHighLevelSignal[q]
-                         + (beta40+sigma38*ux[r,41]) * PedestrianSignalExisted[q]
-                         + f2 * ux[r,1]
-                         + f3 * ux[r,2])
+                         + beta22* MinorPrefecturalRoad[q]
+                         + beta23* OtherRoadTypes[q]
+                         + beta24* Conf30KmhorLess[q]
+                         + beta25* Conf40KmhorLess[q]
+                         + beta26* Conf50KmhorLess[q]
+                         + beta27* Conf60KmhorLess[q]
+                         + beta28* ConfNoRegulation[q]
+                         + beta29* LogTrafficVolume[q]
+                         + beta30* IntersTypeThreeArms[q]
+                         + beta31* LogShortestWidth[q]
+                         + beta32* LogNoDriveWays[q]
+                         + beta33* LogNoLanes[q]
+                         + beta34* NoLanesChanged[q]
+                         + beta35* IsThereSkewness[q]
+                         + beta36* NonDividedSigleRoadway[q]
+                         + beta37* LogAverageWidthPhysicalMedian[q]
+                         + beta38* IsThereCentralStrip[q]
+                         + beta39* SignalizedHighLevelSignal[q]
+                         + beta40* PedestrianSignalExisted[q]
+                         + f2 * ux[r,2]
+                         + f3 * ux[r,3])
 
           lmx3[r] = exp(   beta41
-                         + (beta42+sigma39*ux[r,42])* MinorPrefecturalRoad[q]
-                         + (beta43+sigma40*ux[r,43])* OtherRoadTypes[q]
-                         + (beta44+sigma41*ux[r,44])* Conf30KmhorLess[q]
-                         + (beta45+sigma42*ux[r,45])* Conf40KmhorLess[q]
-                         + (beta46+sigma43*ux[r,46])* Conf50KmhorLess[q]
-                         + (beta47+sigma44*ux[r,47])* Conf60KmhorLess[q]
-                         + (beta48+sigma45*ux[r,48])* ConfNoRegulation[q]
-                         + (beta49+sigma46*ux[r,49])* LogTrafficVolume[q]
-                         + (beta50+sigma47*ux[r,50])* IntersTypeThreeArms[q]
-                         + (beta51+sigma48*ux[r,51])* LogShortestWidth[q]
-                         + (beta52+sigma49*ux[r,52])* LogNoDriveWays[q]
-                         + (beta53+sigma50*ux[r,53])* LogNoLanes[q]
-                         + (beta54+sigma51*ux[r,54])* NoLanesChanged[q]
-                         + (beta55+sigma52*ux[r,55])* IsThereSkewness[q]
-                         + (beta56+sigma53*ux[r,56])* NonDividedSigleRoadway[q]
-                         + (beta57+sigma54*ux[r,57])* LogAverageWidthPhysicalMedian[q]
-                         + (beta58+sigma55*ux[r,58])* IsThereCentralStrip[q]
-                         + (beta59+sigma56*ux[r,59])* SignalizedHighLevelSignal[q]
-                         + (beta60+sigma57*ux[r,60])* PedestrianSignalExisted[q]
-                         + f4 * ux[r,1]
-                         + f5 * ux[r,2]
-                         + f6 * ux[r,3])
+                         + beta42* MinorPrefecturalRoad[q]
+                         + beta43* OtherRoadTypes[q]
+                         + beta44* Conf30KmhorLess[q]
+                         + beta45* Conf40KmhorLess[q]
+                         + beta46* Conf50KmhorLess[q]
+                         + beta47* Conf60KmhorLess[q]
+                         + beta48* ConfNoRegulation[q]
+                         + beta49* LogTrafficVolume[q]
+                         + beta50* IntersTypeThreeArms[q]
+                         + beta51* LogShortestWidth[q]
+                         + beta52* LogNoDriveWays[q]
+                         + beta53* LogNoLanes[q]
+                         + beta54* NoLanesChanged[q]
+                         + beta55* IsThereSkewness[q]
+                         + beta56* NonDividedSigleRoadway[q]
+                         + beta57* LogAverageWidthPhysicalMedian[q]
+                         + beta58* IsThereCentralStrip[q]
+                         + beta59* SignalizedHighLevelSignal[q]
+                         + beta60* PedestrianSignalExisted[q]
+                         + f4 * ux[r,4]
+                         + f5 * ux[r,5]
+                         + f6 * ux[r,6])
 
         # == Calculate the probability ========
 
@@ -423,11 +364,11 @@ for (q in 1:NROW(Data1)) {
 fx <<- matrix(1,6,1)    # Defind the variables of the
 #init_disp <- c((1/m1$theta),(1/m2$theta))
 #sig_vect <<-matrix(1,36,1)
-# Declare Random Parameters Estimators
-fxx <<- matrix(0,57,1)
 #=============================Call the function for test==================
-#startx1 = c(Start,fx,fxx)  #,init_disp,sig_vect
-startx1 = c(StartDelux,fxx)
+# After Estimated the multivariate turncated PosLogNorm (random-effect) model I used the initial state as;
+StartDelux <<- c(-5.651470702,0.043517913,0.427845122,0.692831364,0.307771258,0.866253883,0.172339644,0.510514235,0.121735632,-0.359771335,0.471171543,-0.087297236,1.133503976,-0.546956021,-0.0600873,-0.299306599,0.138317279,-0.048438478,0.081991308,-0.022274885,-2.157534709,0.195815308,0.477763684,0.351965455,0.820487567,0.741407141,0.338566109,0.520527701,0.089137213,-0.330571744,0.0727926,-0.03589899,0.490108976,-0.180102639,-0.009001584,-0.158536774,0.069257674,-0.199065547,0.151150308,0.17890753,-2.667631299,0.221213939,0.579855937,0.480386883,0.844944883,0.857947323,0.281722676,0.304562214,0.088077749,-0.354498852,-0.113394541,-0.037569091,0.189454934,-0.286754398,0.327719919,-0.155707279,-0.100369417,0.012159564,0.123078927,0.388434425,0.435215306,0.299880324,-0.091493006,0.354640792,0.010163597,0.001232599)
+
+startx1 = c(StartDelux)  #,init_disp,sig_vect
 library(maxLik)
 ML2 <- maxLik(LLF2, start = startx1,method = "bfgs"
               ,control=list(printLevel=4))
@@ -585,64 +526,7 @@ rownames(results) <- c(
 "f3",
 "f4",
 "f5",
-"f6",
-"sigma1 ",
-"sigma2 ",
-"sigma3 ",
-"sigma4 ",
-"sigma5 ",
-"sigma6 ",
-"sigma7 ",
-"sigma8 ",
-"sigma9 ",
-"sigma10",
-"sigma11",
-"sigma12",
-"sigma13",
-"sigma14",
-"sigma15",
-"sigma16",
-"sigma17",
-"sigma18",
-"sigma19",
-"sigma20",
-"sigma21",
-"sigma22",
-"sigma23",
-"sigma24",
-"sigma25",
-"sigma26",
-"sigma27",
-"sigma28",
-"sigma29",
-"sigma30",
-"sigma31",
-"sigma32",
-"sigma33",
-"sigma34",
-"sigma35",
-"sigma36",
-"sigma37",
-"sigma38",
-"sigma39",
-"sigma40",
-"sigma41",
-"sigma42",
-"sigma43",
-"sigma44",
-"sigma45",
-"sigma46",
-"sigma47",
-"sigma48",
-"sigma49",
-"sigma50",
-"sigma51",
-"sigma52",
-"sigma53",
-"sigma54",
-"sigma55",
-"sigma56",
-"sigma57")
+"f6")
 print(results)
 print("Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1")
 paste("Log-likelihood at convergence = ", logLik(ML2))

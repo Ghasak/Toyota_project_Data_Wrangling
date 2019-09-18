@@ -391,6 +391,7 @@ fx <<- matrix(1,6,1)    # Defind the variables of the
 #init_disp <- c((1/m1$theta),(1/m2$theta))
 sig_vect <<-matrix(1,36,1)
 #=============================Call the function for test==================================
+
 startx1 = c(Start,fx,sig_vect)  #,init_disp,sig_vect
 library(maxLik)
 ML2 <- maxLik(LLF2, start = startx1,method = "bfgs"
