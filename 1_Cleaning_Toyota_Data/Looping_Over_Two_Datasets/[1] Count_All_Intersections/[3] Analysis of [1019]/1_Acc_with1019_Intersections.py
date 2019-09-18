@@ -1,45 +1,45 @@
-    """
+"""
         Run the same algorithm again given the following:
-            - Crash record sould include zero ITARDA IDs that Usui sensei ignored before. 
+            - Crash record sould include zero ITARDA IDs that Usui sensei ignored before.
                 Sample size in that case will of all crashes is about 6947 crashes.
-            - Intersections ITARDA ID with their Longitudes and Latitudes are 1018 intersections. 
-                including the (1 node defualt) and some intersections with (2,3,4 ..6) nodes. 
+            - Intersections ITARDA ID with their Longitudes and Latitudes are 1018 intersections.
+                including the (1 node defualt) and some intersections with (2,3,4 ..6) nodes.
                 since we are including all nodes for a specific intersection later we will sort the
                 distances based on the nearest and we will not care about which node since we will assing
                 the intersection to the nearest intersection node.
             - Word Date: Tue Feb. 26th 20:05 Morikawa, Yamamoto and Miwa Lab 2019.
             - Directory:  ~/Desktop/1_Cleaning_Toyota_Data/Looping_Over_Two_Datasets/[1] Count_All_Intersections/[3] Analysis of [1019]
-    """ 
+"""
 # ==================================================#
-#           Import Libraries                
+#           Import Libraries
 # ==================================================#
-# Load the Pandas libraries with alias 'pd' 
-import pandas as pd 
-import numpy as np 
+# Load the Pandas libraries with alias 'pd'
+import pandas as pd
+import numpy as np
 
 # ==================================================#
-#           Import Toyota Data Using Panda                  
+#           Import Toyota Data Using Panda
 # ==================================================#
-# Read data from file 'filename.csv' 
+# Read data from file 'filename.csv'
 # (in the same directory that your python process is based)
-# Control delimiters, rows, column names with read_csv (see later) 
-Acc_ID_Data = pd.read_csv("2_Accident_1019_zeroITARDA_Not_Removed.csv") 
-Int_ID_Data = pd.read_csv("Intersection_ID.csv")   
+# Control delimiters, rows, column names with read_csv (see later)
+Acc_ID_Data = pd.read_csv("2_Accident_1019_zeroITARDA_Not_Removed.csv")
+Int_ID_Data = pd.read_csv("Intersection_ID.csv")
 # You need to set the directory to (/Users/ghasak/Desktop/1_Cleaning_Toyota_Data/Python_Cleaning/)
 # if you open your ipython not inside your folder where you can get the .csv file (working Direcotry)
-# Preview the first 5 lines of the loaded data 
+# Preview the first 5 lines of the loaded data
 Int_ID_Data.head()
 # ==================================================#
-#           Descriptive Statistic in Panda                  
+#           Descriptive Statistic in Panda
 # ==================================================#
 # If you want to print a specific Column
 # print (data['ITARDA_crossing_ID'])
 SampleSize_Acc = len(Acc_ID_Data)
 SampleSize_Int = len(Int_ID_Data)
-# Data Description 
+# Data Description
 Acc_ID_Data.describe()
 Int_ID_Data.describe()
-# You can use the 
+# You can use the
 Acc_ID_Data.transpose() # to change columns to rows
 # To see all columns in our Dataset
 Acc_ID_Data.columns
@@ -47,18 +47,18 @@ Acc_ID_Data.columns
 Acc_ID_Data.index
 
 # ==================================================#
-#   Distance Function (considering Curvtuer of earth)                   
+#   Distance Function (considering Curvtuer of earth)
 # ==================================================#
 
 def measure(lat1,lon1,lat2,lon2):
     """
         This function calculate the distance between to points on the Earth Surface considering
-            the curvture of the earth. 
+            the curvture of the earth.
             - the Latitude and Longitude should be measured in DD (Degree-Decimal).
             - Website :
                 https://stackoverflow.com/questions/639695/how-to-convert-latitude-or-longitude-to-meters
                 Formula :https://en.wikipedia.org/wiki/Haversine_formula
-    """ 
+    """
     R = 6378.137        # Radius of Earth in Km
     dlat = (lat2-lat1)*(np.pi/180)
     dlon = (lon2-lon1)*(np.pi/180)
@@ -67,32 +67,32 @@ def measure(lat1,lon1,lat2,lon2):
     d = R*c
 
     return (d*1000)     # distance in meter
-    # Tested with 
-    # measure(35.07121056, 137.1518367,35.07110167, 137.147385) 
+    # Tested with
+    # measure(35.07121056, 137.1518367,35.07110167, 137.147385)
     # measure(x[13][0],x[13][1],x[12][0],x[12][1]) = 12.844 meter
 # =======================================================#
-#   Distance Function (Not considering Curvtuer of earth)                   
+#   Distance Function (Not considering Curvtuer of earth)
 # =======================================================#
 def ecluidianDist(lat1,lon1,lat2,lon2):
     """
         This function calculate the distance between to points on the Earth Surface not considering
-            the curvture of the earth. 
+            the curvture of the earth.
             - the Latitude and Longitude should be measured in DD (Degree-Decimal).
             - The approximation of the Long and lat factors are obtained from :
                 https://s-giken.info/distance/distance.php
     """
     deltalat  = (np.float(lat2)-np.float(lat1))*110.9463
     deltalong = (np.float(lon2) -np.float(lon1))*90.4219
-    dist1 = np.sqrt(np.power(lon2-lon1,2)+np.power(lat2-lat1,2)) 
+    dist1 = np.sqrt(np.power(lon2-lon1,2)+np.power(lat2-lat1,2))
     dist2 = np.float(np.linalg.norm([deltalat,deltalong]))
     return np.float(dist2*1000)    # return a tuple(('Using np.qrt =',dist1,'Using np.linalg =',dist2))
 # --------------------------------------------------
 # Test of the two formula
-measure(35.07110167,137.147385,35.07231811,137.1519749) 
-ecluidianDist(35.07110167,137.147385,35.07231811,137.1519749) 
+measure(35.07110167,137.147385,35.07231811,137.1519749)
+ecluidianDist(35.07110167,137.147385,35.07231811,137.1519749)
 
 # ==================================================#
-#           Accessing Data in Panda                     
+#           Accessing Data in Panda
 # ==================================================#
 
 Acc_ID_Data_indexed = Acc_ID_Data.set_index(['Acc_ID'])
@@ -127,7 +127,7 @@ Int_ID_Data_indexed.LATITUDE[0]
 
 """
 # already named
-Acc_ID_Data_indexed.rename(columns = {'Latitude_base-10_':'Latitudex','Longitude_base-10_':'Longitudex'}, inplace =True) 
+Acc_ID_Data_indexed.rename(columns = {'Latitude_base-10_':'Latitudex','Longitude_base-10_':'Longitudex'}, inplace =True)
 # Now we can call the columns that we want
 Acc_ID_Data_indexed.Latitudex[0]
 Acc_ID_Data_indexed.Latitudex[0]
@@ -137,7 +137,7 @@ Acc_ID_Data_indexed.Latitudex[0]
     TypeError: '<' not supported between instances of 'str' and 'int'
     - This error happen for the Acc_ID_Data_indexed because there are a letter in it (A) for
         actor type and (male/female) for sex column
-    - The bulit in functions in Pandas cannot loop if one of the columns has name, this problem 
+    - The bulit in functions in Pandas cannot loop if one of the columns has name, this problem
         was not occuring in the (Int_ID_Data_indexed) where all the data are numericals.
     - [Solution <1>] You can solve this problem by changin the column with names to another datatype [Pending]
     - [Solution <2>] Other solution is to use (iloc) to index this column
@@ -160,7 +160,7 @@ Acc_ID_Data_indexed.Latitudex.iloc[0]       # This is the Latitudex of first cra
 """
 # Lets Calculate the Distance between the First intersection location and our first accident
 
-Dist1 = measure(Int_ID_Data_indexed.LATITUDE[0], 
+Dist1 = measure(Int_ID_Data_indexed.LATITUDE[0],
 Int_ID_Data_indexed.LONGITUDE[0], Acc_ID_Data_indexed.Latitudex.iloc[0], Acc_ID_Data_indexed.Longitudex.iloc[0])
 # --------------------------------------------------
 
@@ -170,11 +170,11 @@ Int_ID_Data_indexed.LONGITUDE[0], Acc_ID_Data_indexed.Latitudex.iloc[0], Acc_ID_
         [- Continue working Fri Feb 22nd 19:23:23]
         Here will add three filters to identify the distance range (35 meter, 50 meter,75 meter,100 meter)
             - There filters will be measure from the Intersection longitude and latitude to each accident
-            - 
+            -
 """
 Intersection_Dict={}
 # n = 1019 # How many Intersections n < 1019 intersection of your intersection database.
-for s in range(len(Int_ID_Data.index)): 
+for s in range(len(Int_ID_Data.index)):
      Intersection_Dict[Int_ID_Data_indexed.index[s]]=np.zeros(len(Acc_ID_Data_indexed.index))
 
 # Declare my dictionary (later it will have 1000 Intersection)
@@ -187,11 +187,11 @@ Filter75   = pd.Series(0,index=Acc_ID_Data_indexed.index)
 Filter100  = pd.Series(0,index=Acc_ID_Data_indexed.index)
 for q in range(len(Int_ID_Data_indexed.LATITUDE)):
     !clear
-    print(" Intersection No. {}".format(q))    
+    print(" Intersection No. {}".format(q))
     for i in range(len(Acc_ID_Data_indexed.Latitudex)):
-            Distance.iloc[i][q]= measure(Int_ID_Data_indexed.LATITUDE[q], 
-                                        Int_ID_Data_indexed.LONGITUDE[q], 
-                                        Acc_ID_Data_indexed.Latitudex.iloc[i], 
+            Distance.iloc[i][q]= measure(Int_ID_Data_indexed.LATITUDE[q],
+                                        Int_ID_Data_indexed.LONGITUDE[q],
+                                        Acc_ID_Data_indexed.Latitudex.iloc[i],
                                         Acc_ID_Data_indexed.Longitudex.iloc[i])
             if Distance.iloc[i][q] < int(10):
                 Filter10.iloc[i]=Int_ID_Data_indexed.index[q]
@@ -204,7 +204,7 @@ for q in range(len(Int_ID_Data_indexed.LATITUDE)):
             elif Distance.iloc[i][q] < int(75):
                 Filter75.iloc[i]=Int_ID_Data_indexed.index[q]
             elif Distance.iloc[i][q] < int(100):
-                Filter100.iloc[i]=Int_ID_Data_indexed.index[q]        
+                Filter100.iloc[i]=Int_ID_Data_indexed.index[q]
             else:
                 continue
 # --------------------------------------------------
@@ -212,7 +212,7 @@ for q in range(len(Int_ID_Data_indexed.LATITUDE)):
         [- How to Sort the rows of your distance from smaller to bigger distances]
         This algorithm is to find the closest distance to each intersection
             - There filters will be measure from the Intersection longitude and latitude to each accident
-            - 
+            -
 """
 Filtered_Data = pd.DataFrame({'Filter10':Filter10,
                 'Filter20': Filter20,
@@ -226,11 +226,11 @@ Acc_ID_Final = Acc_ID_Data_indexed.assign(**Filtered_Data)
 
 
 # Suspicious Intersections
-# Here we will use the query to do that, 
+# Here we will use the query to do that,
 Acc_ID_Final.query("Filter10 != 0 and Filter20 != 0")
 
-# Lets see how many intersections we have now in our current data Frame 
-# Assume up to Filter30, 
+# Lets see how many intersections we have now in our current data Frame
+# Assume up to Filter30,
 Filtered_Data.query("Filter30 != 0")
 # https://stackoverflow.com/questions/31306741/unmelt-pandas-dataframe
 # http://wesmckinney.com/blog/fast-and-easy-pivot-tables-in-pandas-0-5-0/
@@ -240,7 +240,7 @@ Filtered_Data.query("Filter30 != 0")
         [- How to count the intersections based on Distance not Using Filters]
         The output for both the Distances and for the Accident final Dataset.
             - I have created a DataFrame Called [TopFive], based on Pandas, this would give us
-                as many as columns you want to filter your distance based on nearest intersection. 
+                as many as columns you want to filter your distance based on nearest intersection.
             - This Algorithm takes some times, we would like to confirm later with larger dataset.
 """
 
@@ -249,8 +249,8 @@ Distance['23-K05617-000'][Distance['23-K05617-000']<30]
 # How to sort the values in maximum order using the rows up to 2 intersections.
 Distance.iloc[0][:].sort_values(ascending =True)[:2]
 # ==================================================#
-#          Filtering based on Distance                 
-# ==================================================# 
+#          Filtering based on Distance
+# ==================================================#
 
 List_Int_Name = []
 # How many Columns You want to Filter
@@ -259,17 +259,17 @@ for k in range(2*F):
     if k < F:
         List_Int_Name.append('Intersection{}'.format(k+1))
     else:
-        List_Int_Name.append('Distance{}'.format(k-F+1))    
+        List_Int_Name.append('Distance{}'.format(k-F+1))
 
 
-Distance_Dict = {}  
+Distance_Dict = {}
 for s in range(2*F):
     Distance_Dict[List_Int_Name[s]]=0*len(Acc_ID_Data_indexed.index)
 # Lets create a DataFrame with keys are Intersection[1:5] and Distances[1:5]
 # this is from Pandas Frame, which gives us a zero value of 2870 [len(TopFive)],
 # and give you: len(TopFive.columns) 10 columns.
 TopFive   = pd.DataFrame(Distance_Dict,index=(Acc_ID_Data_indexed.index))
-# populate the DataFrame with our results from the Distance measured. 
+# populate the DataFrame with our results from the Distance measured.
 for acc in range(len(TopFive)):
     !clear
     print(" Accident No. {}".format(acc))
@@ -278,18 +278,18 @@ for acc in range(len(TopFive)):
 # Lets add our results of TopFive to our Final Crash Dataset output
 Acc_ID_Final = Acc_ID_Final.assign(**TopFive)
 # ==================================================#
-#          Queries for our TopFive Dataset                 
-# ==================================================#    
+#          Queries for our TopFive Dataset
+# ==================================================#
 # Now we will perform the query to obtain the Toptwo distances with less than 30 meter
 TopFive.query("(Intersection1 == '23-K11902-000')") # Example of clustering correctly.
-TopFive.query("(Distance1 < 30) and (Distance2 <30)")    
-TopFive.query("(Intersection1 == '23-K51139-100') and (Intersection2 =='23-K52413-200')") 
+TopFive.query("(Distance1 < 30) and (Distance2 <30)")
+TopFive.query("(Intersection1 == '23-K51139-100') and (Intersection2 =='23-K52413-200')")
 TopFive.query("(Intersection1 == '23-K51139-100') or (Intersection2 =='23-K51139-100')")
 # Get a specific Crash based on Crash ID using Fancy Indexing
 TopFive.iloc[TopFive.index[:]==22]
 # ==================================================#
-#          Refine the Accidents for Matching                 
-# ==================================================# 
+#          Refine the Accidents for Matching
+# ==================================================#
 # --------------------------------------------------
 """
         We will use two criteria to allocate the intersection label to the specific accident
@@ -297,22 +297,22 @@ TopFive.iloc[TopFive.index[:]==22]
             - Select the nearest distance among the distance 1 and distance 2.
             - Select the distance of less than 35 meter
             - Select teh distance between 35 and 50 meters.
-            - We will first trying to make an example for 5 elements 
+            - We will first trying to make an example for 5 elements
 """
 # - < Example >
 # From this example you will notice that its working but gives NaN to the missing criteria rows
-X = TopFive.iloc[0:5,0:] 
-Y = X.query("Distance1 < 100") 
+X = TopFive.iloc[0:5,0:]
+Y = X.query("Distance1 < 100")
 Xnew =X.assign(**Y)
 
 # the above example cannot work if we want to add more criterias.
-# the solution is to loop over all accidents 
+# the solution is to loop over all accidents
 
 
-Acc_Dict1 = {} 
-Acc_Dict2 = {}  
+Acc_Dict1 = {}
+Acc_Dict2 = {}
 Acc_Dict1["Selected_Intersection_Less35"] = np.zeros(len(Acc_ID_Data_indexed.index))
-Acc_Dict2["Selected_Intersection_Less50"] = np.zeros(len(Acc_ID_Data_indexed.index))  
+Acc_Dict2["Selected_Intersection_Less50"] = np.zeros(len(Acc_ID_Data_indexed.index))
 # You can create pd.Series too but I prefer to make DataFrame (SpreadSheet) as it gives you the dictionary name as column.
 Desginated_Intersection_Less35 = pd.DataFrame(Acc_Dict1,index=(Acc_ID_Data_indexed.index))
 Desginated_Intersection_less50 = pd.DataFrame(Acc_Dict2,index=(Acc_ID_Data_indexed.index))
@@ -326,8 +326,8 @@ for acc in range(len(TopFive)):       # For debugging TopFive.iloc[0:5,0:]
         !clear
         count_cases = count_cases +1
         print("Accidents not meeting our Criteria {}".format(count_cases))
-        print("=================================") 
-        continue         
+        print("=================================")
+        continue
 
 FinalSelection = pd.DataFrame({'FilterLess35':Desginated_Intersection_Less35.Selected_Intersection_Less35,
                                'FilterLess50': Desginated_Intersection_less50.Selected_Intersection_Less50 })
@@ -335,7 +335,7 @@ print(" Accidents with Number of crashes located less than 35 meter is ={} out o
 print("=================================")
 print(" Accidents with Number of crashes located less than 50 meter is ={} out of {}".format(len(TopFive)-len(FinalSelection.query("FilterLess50 != 0")),len(TopFive)))
 Acc_ID_Final = Acc_ID_Final.assign(**FinalSelection)
-                                   
+
 
 #print(acc)
 # TopFive.iloc[0:5,5:].min(axis = 1)
@@ -346,15 +346,15 @@ Acc_ID_Final = Acc_ID_Final.assign(**FinalSelection)
         The output for both the Distances and for the Accident final Dataset.
             - Calling the main directory and attach it to a subfolder for transformability folders.
 """
-import os 
-Current_Path = os.getcwd() 
+import os
+Current_Path = os.getcwd()
 Distance.to_csv(Current_Path+"/Results/Distance.csv", sep='\t')
 TopFive.to_csv(Current_Path+"/Results/TopFive.csv",sep='\t')
 Acc_ID_Final.to_csv(Current_Path+"/Results/Acc_ID_Final.csv", sep='\t')
 
 
 
-# Export to Check, 
+# Export to Check,
 Table56 = TopFive.query("(Distance1 < 35) and (Distance2 <35)")
 Table56.to_csv(Current_Path+"/Results/Table56.csv", sep = '\t')
 
