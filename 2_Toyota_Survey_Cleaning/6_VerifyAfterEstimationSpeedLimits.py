@@ -48,8 +48,9 @@ import numpy as np
 import re
 import os
 import sys
+sys.path.append(os.getcwd())
 from Cleaning_tools_G import *
-sys.path.append(os.getcwd()+"/")
+
 CURRENTPATH = os.getcwd()
 CRASHDATAPATH = os.path.join(CURRENTPATH+"/2_Toyota_Survey_Cleaning/SpeedLimitVerficiationData/3_Acc_ID_Final.xlsx")
 # print(CRASHDATAPATH)
