@@ -20,7 +20,7 @@
         combined with the Survey crashes dataset (U-sensei)
         plus the one you used with the 35 meter configuration.
 
-    B- Check your current dataset (after pivoting and clearning)
+    B- Check your current dataset (after pivoting and cleaning)
         and applying the dummies.
 
     C- Then you can get only the intersections that has been
@@ -35,7 +35,7 @@
         after applying 35-rule, dummies, refined --> the Modeling Dataset
         as it called (refined.xls). This will be a dataset for both
         drawing the crash density over all places in Toyota City
-    2- Verify the speed limit using the new dataset usign pivot table.
+    2- Verify the speed limit using the new dataset using pivot table.
 
 
 """
@@ -68,3 +68,13 @@ print(Acc_ID_Final.head())
 df = pd.read_excel(INTERSECTIONDATAPATH,sheet_name='DataSet')
 print(df.head())
 
+# ==================================================#
+#        Remove the Zero-ITARDA-ID Crashes
+# ==================================================#
+
+'''
+    We will start by removing the crashes that have no
+        recorded ITARDA-ID from our Crash DataBase.
+'''
+
+Acc_ID_Final[Acc_ID_Final['ITARDA_crossing_ID'] != 0]
